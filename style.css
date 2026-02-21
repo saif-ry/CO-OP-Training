@@ -1,0 +1,503 @@
+/* style.css - التنسيقات الموحدة لمنصة التوعية - المستشفى الجامعي */
+
+:root {
+    --primary: #006C35;
+    --primary-dark: #004B2B;
+    --bg-light: #F5F7FA;
+    --border-light: #E4E7EC;
+    --warning: #F79009;
+    --danger: #D92D20;
+    --success: #027A48;
+    --text-dark: #101828;
+    --text-muted: #667085;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* الهيدر */
+header {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+header .hospital-name {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* شريط التنقل */
+nav {
+    background: white;
+    padding: 0.75rem 2rem;
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--primary-dark);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: 0.2s;
+}
+
+nav a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+/* الحاوية الرئيسية */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+/* البطاقات */
+.card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--border-light);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+}
+
+.card h2 {
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.card h3 {
+    color: var(--primary-dark);
+    margin-bottom: 0.75rem;
+    font-size: 1.2rem;
+}
+
+/* أزرار */
+.btn {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: 0.2s;
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn:hover {
+    background: var(--primary-dark);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* شبكة البطاقات (للمكتبة/الأقسام) */
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+/* بطاقة الدور الوظيفي */
+.role-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--border-light);
+    padding: 1.5rem;
+    text-align: center;
+    transition: 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.role-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,108,53,0.1);
+    border-color: var(--primary);
+}
+
+.role-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.role-card h3 {
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+}
+
+.role-card p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* تنبيه */
+.alert {
+    background: #FFF4E5;
+    border-right: 6px solid var(--warning);
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.alert strong {
+    color: var(--warning);
+}
+
+/* شريط التقدم */
+.progress-bar {
+    height: 10px;
+    background: #E9ECF0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--success);
+    width: 0%;
+    transition: width 0.3s;
+}
+
+/* القوائم */
+ul, ol {
+    padding-right: 1.5rem;
+    margin: 1rem 0;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+/* التذييل */
+footer {
+    background: white;
+    border-top: 1px solid var(--border-light);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+footer a {
+    color: var(--primary);
+    text-decoration: none;
+    margin: 0 0.5rem;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* مربع الاختيار (قائمة المهام) */
+.checklist-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    background: #F9FAFB;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.checklist-item:hover {
+    background: #EDF2F7;
+}
+
+.checklist-item input[type="checkbox"] {
+    width: 1.2rem;
+    height: 1.2rem;
+    cursor: pointer;
+    accent-color: var(--primary);
+}
+
+.checklist-item span {
+    flex: 1;
+    font-size: 1rem;
+}
+
+.checklist-item.completed span {
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+
+/* نتيجة التفاعل */
+.interaction-result {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.interaction-result.success {
+    background: #EAF9EE;
+    color: var(--success);
+    border: 1px solid #B2E0C2;
+}
+
+.interaction-result.error {
+    background: #FEF3F2;
+    color: var(--danger);
+    border: 1px solid #FECDCA;
+}
+
+/* استجابة للشاشات الصغيرة */
+@media (max-width: 768px) {
+    header, nav {
+        padding: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    nav {
+        gap: 0.75rem;
+    }
+    .container {
+        padding: 0 1rem;
+    }
+}
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+}
+.close {
+    color: #aaa;
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close:hover {
+    color: black;
+}
+.modal-header {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--primary-dark);
+}
+.modal-body {
+    margin-bottom: 20px;
+}
+.modal-footer {
+    text-align: left;
+}
+/* أدوات الصفحة */
+.tool-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--border-light);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+}
+
+.tool-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    color: var(--primary-dark);
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.tool-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    font-family: 'Cairo', sans-serif;
+    margin-bottom: 1rem;
+}
+
+.tool-output {
+    background: #F0F3F8;
+    padding: 1rem;
+    border-radius: 8px;
+    font-weight: 500;
+    margin-top: 1rem;
+}
+
+.password-strength-meter {
+    height: 10px;
+    background: #E0E5EC;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+
+.strength-bar {
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s, background 0.3s;
+}
+
+/* مربعات الاختيار التفاعلية */
+.interactive-option {
+    background: #F9FAFB;
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: 0.2s;
+    border: 1px solid transparent;
+}
+
+.interactive-option:hover {
+    background: #EDF2F7;
+    border-color: var(--primary);
+}
+
+.interactive-option.selected {
+    background: #EAF9EE;
+    border-color: var(--success);
+}
+
+/* شريط التقدم الجماعي */
+.team-progress {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--border-light);
+}
+/* تحسين النوافذ المنبثقة */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0);
+    transition: background-color 0.3s ease;
+}
+
+.modal.show {
+    display: block;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 0;
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    transform: scale(0.7);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal.show .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.modal-large .modal-content {
+    max-width: 700px;
+}
+
+.modal-header {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--primary-dark);
+    padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+}
+
+.modal-body {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    line-height: 1.7;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.modal-footer {
+    padding: 1rem 1.5rem 1.5rem 1.5rem;
+    text-align: left;
+    border-top: 1px solid var(--border-light);
+}
+
+.close {
+    color: #aaa;
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    padding: 1rem 1.5rem;
+}
+
+.close:hover {
+    color: black;
+}

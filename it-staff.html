@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إرشادات تقنية المعلومات | الأمن السيبراني - المستشفى الجامعي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>إرشادات تقنية المعلومات</h1>
+        <div class="hospital-name">المستشفى الجامعي</div>
+    </header>
+    <nav>
+        <a href="index.html">الرئيسية</a>
+        <a href="employees.html">الكادر الصحي</a>
+        <a href="oip.html">المكتبة التوعوية</a>
+        <a href="quiz.html">اختبار الوعي</a>
+        <a href="survey.html">استبيان</a>
+        <a href="report.html">الإبلاغ عن حادث</a>
+        <a href="tools.html">الأدوات</a>
+    </nav>
+    <div class="container">
+        <div class="card">
+            <h2>مسؤولياتك الأمنية كفريق تقنية المعلومات</h2>
+            <ul>
+                <li>إدارة التحديثات والإصلاحات الأمنية بشكل دوري.</li>
+                <li>مراقبة الأنظمة والشبكات لكشف الأنشطة المشبوهة.</li>
+                <li>تطبيق مبدأ "أقل الصلاحيات" للمستخدمين.</li>
+                <li>إجراء نسخ احتياطي منتظم للبيانات واختبار استعادتها.</li>
+                <li>الاستعداد للاستجابة للحوادث الأمنية وتوثيقها.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>⚠️ سيناريو تفاعلي</h3>
+            <p><strong>الموقف:</strong> لاحظت حركة شبكة غير طبيعية من أحد الأجهزة الطبية المتصلة. ماذا تفعل؟</p>
+            <button class="btn" onclick="handleScenario('correct')">أعزل الجهاز عن الشبكة فوراً وأبدأ تحقيقًا</button>
+            <button class="btn btn-outline" onclick="handleScenario('wrong')">أتجاهل لأن الأجهزة الطبية غالباً ما تسبب ضوضاء</button>
+            <div id="scenarioResult" class="interaction-result" style="display: none;"></div>
+        </div>
+
+        <div class="card">
+            <h3>📋 قائمة المهام اليومية</h3>
+            <div id="checklist">
+                <div class="checklist-item"><input type="checkbox"> <span>مراجعة سجلات الدخول (Logs) للأنظمة الحيوية.</span></div>
+                <div class="checklist-item"><input type="checkbox"> <span>التأكد من عمل النسخ الاحتياطي.</span></div>
+                <div class="checklist-item"><input type="checkbox"> <span>تحديث برامج مكافحة الفيروسات على الأجهزة.</span></div>
+                <div class="checklist-item"><input type="checkbox"> <span>مراجعة التحديثات الأمنية المطلوبة.</span></div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+            </div>
+            <p>التقدم: <span id="progressText">0</span>/4</p>
+        </div>
+
+        <a href="employees.html" class="btn">← العودة إلى قائمة الأدوار</a>
+    </div>
+
+    <footer>
+        <p>جميع الحقوق محفوظة © 2026 المستشفى الجامعي</p>
+    </footer>
+
+    <script>
+        function handleScenario(answer) {
+            const resultDiv = document.getElementById('scenarioResult');
+            resultDiv.style.display = 'block';
+            if (answer === 'correct') {
+                resultDiv.className = 'interaction-result success';
+                resultDiv.innerText = '✅ تصرف صحيح! عزل الجهاز هو الإجراء الأول لمنع انتشار التهديد.';
+            } else {
+                resultDiv.className = 'interaction-result error';
+                resultDiv.innerText = '❌ تصرف خاطئ! أي نشاط غير طبيعي يستدعي التحقيق الفوري.';
+            }
+        }
+
+        function updateProgress() {
+            const items = document.querySelectorAll('.checklist-item');
+            let checked = 0;
+            items.forEach(item => {
+                if (item.querySelector('input').checked) checked++;
+            });
+            const total = items.length;
+            const percent = (checked / total) * 100;
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('progressText').innerText = checked;
+        }
+
+        document.querySelectorAll('.checklist-item input').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const parent = this.closest('.checklist-item');
+                parent.classList.toggle('completed', this.checked);
+                updateProgress();
+            });
+        });
+    </script>
+</body>
+</html>

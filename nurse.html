@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إرشادات التمريض | الأمن السيبراني</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>إرشادات التمريض</h1>
+        <div class="hospital-name">المستشفى الجامعي</div>
+    </header>
+    <nav>
+        <a href="index.html">الرئيسية</a>
+        <a href="employees.html">الكادر الصحي</a>
+        <a href="oip.html">المكتبة التوعوية</a>
+        <a href="quiz.html">اختبار الوعي</a>
+        <a href="survey.html">استبيان</a>
+        <a href="report.html">الإبلاغ عن حادث</a> 
+        <a href="tools.html">الأدوات</a>
+    </nav>
+    <div class="container">
+        <div class="card">
+            <h2>مسؤولياتك الأمنية كفريق تمريض</h2>
+            <ul>
+                <li>عدم مشاركة كلمة المرور الخاصة بنظام إدخال البيانات.</li>
+                <li>تأكد من تسجيل الخروج من محطة التمريض بعد كل استخدام.</li>
+                <li>لا تترك الأجهزة الطبية المتصلة بالشبكة دون مراقبة.</li>
+                <li>لا تستخدم أجهزة USB شخصية على أجهزة المستشفى.</li>
+                <li>أبلغ عن أي سلوك غريب في الأنظمة فوراً.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>⚠️ سيناريو تفاعلي</h3>
+            <p><strong>الموقف:</strong> أحد الزملاء يطلب منك مشاركة كلمة المرور الخاصة بك للدخول إلى النظام لاستعجال إنقاذ مريض. ماذا تفعل؟</p>
+            <button class="btn" onclick="handleScenario('correct')">أرفض المشاركة وأبلغ المشرف، وأساعده عبر تسجيل الدخول بنفسي</button>
+            <button class="btn btn-outline" onclick="handleScenario('wrong')">أشاركه كلمة المرور لأن الحالة طارئة</button>
+            <div id="scenarioResult" class="interaction-result" style="display: none;"></div>
+        </div>
+
+        <div class="card">
+            <h3>📋 قائمة المهام اليومية</h3>
+            <div id="checklist">
+                <div class="checklist-item"><input type="checkbox"> <span>التأكد من قفل محطة التمريض قبل مغادرتها.</span></div>
+                <div class="checklist-item"><input type="checkbox"> <span>فحص أي بريد إلكتروني قبل فتح المرفقات.</span></div>
+                <div class="checklist-item"><input type="checkbox"> <span>عدم استخدام الأجهزة الشخصية أثناء العمل.</span></div>
+                <div class="checklist-item"><input type="checkbox"> <span>الإبلاغ عن أي جهاز طبي يظهر سلوكاً غير طبيعي.</span></div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+            </div>
+            <p>التقدم: <span id="progressText">0</span>/4</p>
+        </div>
+
+        <a href="employees.html" class="btn">← العودة إلى قائمة الأدوار</a>
+    </div>
+
+    <footer>...</footer>
+    <script>// نفس دوال التمريض مع اختلاف المعرفات إذا تكررت، يفضل استخدام كلاسات عامة</script>
+</body>
+</html>

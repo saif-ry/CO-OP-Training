@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إرشادات الإدارة العليا | الأمن السيبراني - المستشفى الجامعي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>إرشادات الإدارة العليا</h1>
+        <div class="hospital-name">المستشفى الجامعي</div>
+    </header>
+    <nav>
+        <a href="index.html">الرئيسية</a>
+        <a href="employees.html">الكادر الصحي</a>
+        <a href="oip.html">المكتبة التوعوية</a>
+        <a href="quiz.html">اختبار الوعي</a>
+        <a href="survey.html">استبيان</a>
+        <a href="report.html">الإبلاغ عن حادث</a>   
+        <a href="tools.html">الأدوات</a>
+    </nav>
+    <div class="container">
+        <div class="card">
+            <h2>مسؤولياتك كقائد في المستشفى</h2>
+            <ul>
+                <li>توفير الدعم المالي والمعنوي لبرامج الأمن السيبراني.</li>
+                <li>فهم المخاطر السيبرانية التي قد تؤثر على استمرارية الخدمات الصحية.</li>
+                <li>الموافقة على السياسات والإجراءات الأمنية ومتابعة الامتثال لها.</li>
+                <li>تعزيز ثقافة الأمن السيبراني في جميع الإدارات.</li>
+                <li>التأكد من وجود خطة للتعافي من الكوارث السيبرانية.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>⚠️ سيناريو تفاعلي</h3>
+            <p><strong>الموقف:</strong> تم استهداف المستشفى بهجوم فدية (Ransomware) أدى إلى تعطل الأنظمة. ما أولوياتك كإدارة عليا؟</p>
+            <button class="btn" onclick="handleScenario('correct')">تفعيل خطة الاستجابة للطوارئ، عزل الأنظمة، التواصل مع الجهات المختصة</button>
+            <button class="btn btn-outline" onclick="handleScenario('wrong')">دفع الفدية فوراً لاستعادة البيانات بأسرع وقت</button>
+            <div id="scenarioResult" class="interaction-result" style="display: none;"></div>
+        </div>
+
+        <div class="card">
+            <h3>📋 قائمة الأولويات الاستراتيجية</h3>
+            <div id="checklist">
+                <div class="checklist-item"><input type="checkbox"> <span>اعتماد سياسة الأمن السيبراني للمستشفى.</span></div>
+                <div class="checklist-item"><input type="checkbox"> <span>تخصيص ميزانية سنوية لبرامج التوعية والأمن.</span></div>
+                <div class="checklist-item"><input type="checkbox"> <span>تشكيل لجنة للإشراف على المخاطر السيبرانية.</span></div>
+                <div class="checklist-item"><input type="checkbox"> <span>مراجعة تقارير الحوادث الأمنية بشكل دوري.</span></div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+            </div>
+            <p>التقدم: <span id="progressText">0</span>/4</p>
+        </div>
+
+        <a href="employees.html" class="btn">← العودة إلى قائمة الأدوار</a>
+    </div>
+
+    <footer>
+        <p>جميع الحقوق محفوظة © 2026 المستشفى الجامعي</p>
+    </footer>
+
+    <script>
+        function handleScenario(answer) {
+            const resultDiv = document.getElementById('scenarioResult');
+            resultDiv.style.display = 'block';
+            if (answer === 'correct') {
+                resultDiv.className = 'interaction-result success';
+                resultDiv.innerText = '✅ تصرف صحيح! يجب اتباع الإجراءات الرسمية وعدم دفع الفدية.';
+            } else {
+                resultDiv.className = 'interaction-result error';
+                resultDiv.innerText = '❌ تصرف خاطئ! دفع الفدية لا يضمن استعادة البيانات ويشجع المهاجمين.';
+            }
+        }
+
+        function updateProgress() {
+            const items = document.querySelectorAll('.checklist-item');
+            let checked = 0;
+            items.forEach(item => {
+                if (item.querySelector('input').checked) checked++;
+            });
+            const total = items.length;
+            const percent = (checked / total) * 100;
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('progressText').innerText = checked;
+        }
+
+        document.querySelectorAll('.checklist-item input').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const parent = this.closest('.checklist-item');
+                parent.classList.toggle('completed', this.checked);
+                updateProgress();
+            });
+        });
+    </script>
+</body>
+</html>

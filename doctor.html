@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إرشادات الأطباء | الأمن السيبراني - المستشفى الجامعي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* تنسيقات إضافية للبطاقات التفاعلية */
+        .interactive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .info-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 4px 12px rgba(0,108,53,0.08);
+        }
+        .info-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 12px 24px rgba(0,108,53,0.15);
+        }
+        .info-card .card-icon {
+            font-size: 2.8rem;
+            margin-bottom: 0.8rem;
+        }
+        .info-card h3 {
+            color: var(--primary-dark);
+            margin: 0.5rem 0;
+            font-size: 1.2rem;
+        }
+        .info-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        .highlight {
+            background: #EAF9EE;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border-right: 4px solid var(--primary);
+            margin: 1rem 0;
+        }
+        /* تخصيص الألوان في المودال حسب نوع الرسالة */
+        .modal.success .modal-header {
+            color: #027A48;
+        }
+        .modal.error .modal-header {
+            color: #D92D20;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>إرشادات الأطباء</h1>
+        <div class="hospital-name">المستشفى الجامعي</div>
+    </header>
+    <nav>
+        <a href="index.html">الرئيسية</a>
+        <a href="employees.html">الكادر الصحي</a>
+        <a href="oip.html">المكتبة التوعوية</a>
+        <a href="quiz.html">اختبار الوعي</a>
+        <a href="survey.html">استبيان</a>
+        <a href="report.html">الإبلاغ عن حادث</a>
+        <a href="tools.html">الأدوات</a>
+    </nav>
+    <div class="container">
+        <!-- قسم الترحيب -->
+        <div class="card">
+            <h2>👨‍⚕️ دورك كطبيب في حماية المعلومات</h2>
+            <p>باعتبارك طبيباً، أنت تتعامل مع أكثر البيانات حساسية. هذه البطاقات التفاعلية تشرح لك أهم الممارسات الأمنية. اضغط على أي بطاقة لمعرفة التفاصيل.</p>
+        </div>
+
+        <!-- البطاقات التفاعلية (مثل PPT) -->
+        <div class="interactive-grid">
+            <!-- البطاقة 1: حماية بيانات المرضى -->
+            <div class="info-card" onclick="showDoctorModal('patient')">
+                <div class="card-icon">🛡️</div>
+                <h3>حماية بيانات المرضى</h3>
+                <p>كيف تحافظ على سرية المعلومات الطبية</p>
+            </div>
+            <!-- البطاقة 2: التصيد الإلكتروني -->
+            <div class="info-card" onclick="showDoctorModal('phishing')">
+                <div class="card-icon">🎣</div>
+                <h3>التصيد الإلكتروني</h3>
+                <p>كيف تكتشف رسائل الاحتيال</p>
+            </div>
+            <!-- البطاقة 3: كلمات المرور -->
+            <div class="info-card" onclick="showDoctorModal('passwords')">
+                <div class="card-icon">🔐</div>
+                <h3>كلمات المرور</h3>
+                <p>أفضل الممارسات لإنشاء كلمات مرور قوية</p>
+            </div>
+            <!-- البطاقة 4: الإبلاغ عن الحوادث -->
+            <div class="info-card" onclick="showDoctorModal('report')">
+                <div class="card-icon">🚨</div>
+                <h3>الإبلاغ عن الحوادث</h3>
+                <p>متى وكيف تبلغ عن اختراق أمني</p>
+            </div>
+            <!-- البطاقة 5: الأجهزة الطبية -->
+            <div class="info-card" onclick="showDoctorModal('devices')">
+                <div class="card-icon">💉</div>
+                <h3>الأجهزة الطبية</h3>
+                <p>تأمين الأجهزة المتصلة بالشبكة</p>
+            </div>
+            <!-- البطاقة 6: العمل عن بعد -->
+            <div class="info-card" onclick="showDoctorModal('remote')">
+                <div class="card-icon">🏠</div>
+                <h3>العمل عن بعد</h3>
+                <p>إرشادات أمنية عند العمل من المنزل</p>
+            </div>
+        </div>
+
+        <!-- السيناريو التفاعلي (كما كان) -->
+        <div class="card">
+            <h3>⚠️ سيناريو تفاعلي</h3>
+            <p><strong>الموقف:</strong> وصلتك رسالة على بريدك الجامعي تطلب منك تحديث كلمة مرور النظام الطبي بشكل عاجل، مع رابط لصفحة تشبه صفحة تسجيل الدخول. ماذا تفعل؟</p>
+            <button class="btn" onclick="showScenarioModal(true)">أبلغ قسم تقنية المعلومات ولا أضغط الرابط</button>
+            <button class="btn btn-outline" onclick="showScenarioModal(false)">أضغط الرابط وأدخل بياناتي</button>
+        </div>
+
+        <!-- قائمة المهام اليومية -->
+        <div class="card">
+            <h3>📋 قائمة المهام اليومية</h3>
+            <div id="checklist">
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <input type="checkbox"> <span>قفل الشاشة (Win+L) عند مغادرة المكتب.</span>
+                </div>
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <input type="checkbox"> <span>عدم فتح أي مرفق بريد إلكتروني مشبوه.</span>
+                </div>
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <input type="checkbox"> <span>تحديث كلمة المرور كل 90 يوم.</span>
+                </div>
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <input type="checkbox"> <span>مراجعة قائمة المرضى الذين تم الوصول إليهم.</span>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+            </div>
+            <p>التقدم: <span id="progressText">0</span>/4</p>
+        </div>
+
+        <a href="employees.html" class="btn">← العودة إلى قائمة الأدوار</a>
+    </div>
+
+    <!-- نافذة منبثقة للسيناريو -->
+    <div id="scenarioModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeScenarioModal()">&times;</span>
+            <div class="modal-header" id="scenarioModalHeader">نتيجة السيناريو</div>
+            <div class="modal-body" id="scenarioModalBody"></div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeScenarioModal()">حسناً</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة منبثقة للبطاقات التفاعلية (محتوى موسع) -->
+    <div id="doctorInfoModal" class="modal modal-large">
+        <div class="modal-content">
+            <span class="close" onclick="closeInfoModal()">&times;</span>
+            <div class="modal-header" id="infoModalHeader">عنوان الموضوع</div>
+            <div class="modal-body" id="infoModalBody">
+                <!-- المحتوى سيتم تعبئته ديناميكياً -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeInfoModal()">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>جميع الحقوق محفوظة © 2026 المستشفى الجامعي</p>
+    </footer>
+
+    <script>
+        // بيانات البطاقات التفاعلية (محتوى منبثق)
+        const doctorInfo = {
+            patient: {
+                title: '🛡️ حماية بيانات المرضى',
+                content: `
+                    <p><strong>بيانات المرضى هي أمانة في عنقك.</strong> يجب عليك:</p>
+                    <ul>
+                        <li>الوصول إلى ملفات المرضى المصرح بها فقط.</li>
+                        <li>عدم مشاركة أي معلومات طبية عبر تطبيقات غير آمنة (مثل WhatsApp).</li>
+                        <li>تأكد من تسجيل الخروج من النظام بعد كل استخدام.</li>
+                        <li>لا تترك شاشة جهازك مفتوحة على بيانات المرضى.</li>
+                    </ul>
+                    <div class="highlight">
+                        <strong>📌 تذكر:</strong> أي تسريب لبيانات المرضى يعرضك للمساءلة القانونية ويعرض المستشفى للعقوبات.
+                    </div>
+                `
+            },
+            phishing: {
+                title: '🎣 التصيد الإلكتروني',
+                content: `
+                    <p>رسائل التصيد تحاول خداعك لسرقة بيانات الدخول. كيف تكتشفها؟</p>
+                    <ul>
+                        <li>المرسل: تحقق من عنوان البريد الإلكتروني جيداً.</li>
+                        <li>الروابط: مرر مؤشر الفأرة فوق الرابط لترى العنوان الحقيقي.</li>
+                        <li>اللهجة: عادة ما تكون عاجلة أو تهديدية ("سيتم إغلاق حسابك").</li>
+                        <li>المرفقات: لا تفتح أي مرفق غير متوقع.</li>
+                    </ul>
+                    <div class="highlight">
+                        <strong>🔍 مثال:</strong> بريد من "support@hospita1.com" (لاحظ الرقم 1 بدلاً من l) يطلب تحديث كلمة المرور.
+                    </div>
+                `
+            },
+            passwords: {
+                title: '🔐 كلمات المرور',
+                content: `
+                    <p>كلمة المرور القوية هي خط الدفاع الأول.</p>
+                    <ul>
+                        <li>استخدم كلمة مرور مختلفة لكل نظام.</li>
+                        <li>يجب أن تحتوي على: 8 أحرف على الأقل، حروف كبيرة وصغيرة، أرقام، رموز.</li>
+                        <li>لا تستخدم معلومات شخصية (تاريخ ميلاد، اسم).</li>
+                        <li>فعّل المصادقة متعددة العوامل (MFA) إن أمكن.</li>
+                    </ul>
+                    <div class="highlight">
+                        <strong>💡 نصيحة:</strong> استخدم مدير كلمات مرور لتوليد وتخزين كلمات مرور قوية.
+                    </div>
+                `
+            },
+            report: {
+                title: '🚨 الإبلاغ عن الحوادث',
+                content: `
+                    <p>إذا شككت في وجود اختراق، أبلغ فوراً:</p>
+                    <ul>
+                        <li><strong>بريد الإبلاغ:</strong> security@hospital.edu.sa</li>
+                        <li><strong>هاتف داخلي:</strong> 1234 (على مدار الساعة)</li>
+                        <li>لا تحاول إصلاح المشكلة بنفسك.</li>
+                        <li>احتفظ بسجلات (لقطات شاشة) إن أمكن.</li>
+                    </ul>
+                    <div class="highlight">
+                        <strong>⏱️ السرعة مهمة:</strong> الإبلاغ المبكر يقلل الضرر.
+                    </div>
+                `
+            },
+            devices: {
+                title: '💉 الأجهزة الطبية',
+                content: `
+                    <p>الأجهزة الطبية المتصلة بالشبكة قد تكون هدفاً للهجمات.</p>
+                    <ul>
+                        <li>لا تقم بتوصيل أي أجهزة USB غير معروفة.</li>
+                        <li>أبلغ عن أي سلوك غريب للجهاز (تأخير، إعادة تشغيل متكررة).</li>
+                        <li>لا تغير إعدادات الأمان في الأجهزة الطبية.</li>
+                        <li>تأكد من أن التحديثات تتم عبر القنوات الرسمية فقط.</li>
+                    </ul>
+                `
+            },
+            remote: {
+                title: '🏠 العمل عن بعد',
+                content: `
+                    <p>عند العمل من المنزل، اتبع هذه الإرشادات:</p>
+                    <ul>
+                        <li>استخدم شبكة VPN للاتصال بأنظمة المستشفى.</li>
+                        <li>تأكد من تحديث جهازك الشخصي وبرامج الحماية.</li>
+                        <li>لا تستخدم شبكات Wi-Fi عامة غير آمنة.</li>
+                        <li>افصل الأجهزة الشخصية عن أفراد العائلة أثناء العمل.</li>
+                    </ul>
+                `
+            }
+        };
+
+        // دالة عرض النافذة المنبثقة للبطاقات
+        function showDoctorModal(topic) {
+            const data = doctorInfo[topic];
+            if (!data) return;
+            document.getElementById('infoModalHeader').innerHTML = data.title;
+            document.getElementById('infoModalBody').innerHTML = data.content;
+            
+            const modal = document.getElementById('doctorInfoModal');
+            modal.classList.add('show');
+        }
+
+        function closeInfoModal() {
+            const modal = document.getElementById('doctorInfoModal');
+            modal.classList.remove('show');
+        }
+
+        // دوال السيناريو
+        function showScenarioModal(isCorrect) {
+            const modal = document.getElementById('scenarioModal');
+            const header = document.getElementById('scenarioModalHeader');
+            const body = document.getElementById('scenarioModalBody');
+
+            if (isCorrect) {
+                header.innerHTML = '✅ إجابة صحيحة';
+                body.innerHTML = 'تصرف صحيح! يجب الإبلاغ فورًا عن أي رسالة مشبوهة إلى قسم تقنية المعلومات، وعدم الضغط على أي رابط.';
+                modal.classList.remove('error');
+                modal.classList.add('success');
+            } else {
+                header.innerHTML = '❌ إجابة خاطئة';
+                body.innerHTML = 'تصرف خاطئ! لا تضغط على الروابط المشبوهة أبداً. قد تؤدي إلى اختراق جهازك وسرقة بيانات المرضى.';
+                modal.classList.remove('success');
+                modal.classList.add('error');
+            }
+            modal.classList.add('show');
+        }
+
+        function closeScenarioModal() {
+            const modal = document.getElementById('scenarioModal');
+            modal.classList.remove('show');
+        }
+
+        // قائمة المهام التفاعلية
+        function toggleCheck(item) {
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            item.classList.toggle('completed', checkbox.checked);
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const items = document.querySelectorAll('.checklist-item');
+            let checked = 0;
+            items.forEach(item => {
+                if (item.querySelector('input').checked) checked++;
+            });
+            const total = items.length;
+            const percent = (checked / total) * 100;
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('progressText').innerText = checked;
+        }
+
+        // ربط المستمعين للـ checkboxes
+        document.querySelectorAll('.checklist-item input').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const parent = this.closest('.checklist-item');
+                parent.classList.toggle('completed', this.checked);
+                updateProgress();
+            });
+        });
+
+        // إغلاق النوافذ عند النقر خارجها
+        window.onclick = function(event) {
+            const scenarioModal = document.getElementById('scenarioModal');
+            const infoModal = document.getElementById('doctorInfoModal');
+            
+            if (event.target == scenarioModal) {
+                scenarioModal.classList.remove('show');
+            }
+            if (event.target == infoModal) {
+                infoModal.classList.remove('show');
+            }
+        };
+    </script>
+</body>
+</html>

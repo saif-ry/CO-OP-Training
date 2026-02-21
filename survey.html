@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استبيان الوعي | الأمن السيبراني - المستشفى الجامعي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>استبيان الوعي السيبراني</h1>
+        <div class="hospital-name">المستشفى الجامعي</div>
+    </header>
+    <nav>
+        <a href="index.html">الرئيسية</a>
+        <a href="employees.html">الكادر الصحي</a>
+        <a href="oip.html">المكتبة التوعوية</a>
+        <a href="quiz.html">اختبار الوعي</a>
+        <a href="survey.html">استبيان</a>
+        <a href="report.html">الإبلاغ عن حادث</a>
+        <a href="tools.html">الأدوات</a>
+    </nav>
+    <div class="container">
+        <div class="card">
+            <h2>شاركنا رأيك</h2>
+            <p>نسعى لتحسين برامج التوعية. جميع الإجابات سرية وتستخدم لأغراض التطوير فقط.</p>
+        </div>
+
+        <form id="surveyForm">
+            <div class="card">
+                <h3>١. ما هو دورك في المستشفى؟</h3>
+                <div class="checklist-item"><input type="radio" name="role" value="doctor"> <span>طبيب</span></div>
+                <div class="checklist-item"><input type="radio" name="role" value="nurse"> <span>تمريض</span></div>
+                <div class="checklist-item"><input type="radio" name="role" value="admin"> <span>إداري</span></div>
+                <div class="checklist-item"><input type="radio" name="role" value="it"> <span>تقنية معلومات</span></div>
+                <div class="checklist-item"><input type="radio" name="role" value="other"> <span>أخرى</span></div>
+            </div>
+
+            <div class="card">
+                <h3>٢. كيف تقيم مستوى وعيك الحالي بمخاطر الأمن السيبراني؟</h3>
+                <div class="checklist-item"><input type="radio" name="awareness" value="high"> <span>عالي جداً</span></div>
+                <div class="checklist-item"><input type="radio" name="awareness" value="good"> <span>جيد</span></div>
+                <div class="checklist-item"><input type="radio" name="awareness" value="medium"> <span>متوسط</span></div>
+                <div class="checklist-item"><input type="radio" name="awareness" value="low"> <span>ضعيف</span></div>
+            </div>
+
+            <div class="card">
+                <h3>٣. هل سبق أن تعرضت لمحاولة تصيد إلكتروني (رسالة احتيالية) داخل بيئة العمل؟</h3>
+                <div class="checklist-item"><input type="radio" name="phishing" value="yes"> <span>نعم</span></div>
+                <div class="checklist-item"><input type="radio" name="phishing" value="no"> <span>لا</span></div>
+                <div class="checklist-item"><input type="radio" name="phishing" value="unsure"> <span>لست متأكداً</span></div>
+            </div>
+
+            <div class="card">
+                <h3>٤. ما أكثر المواضيع التي تود معرفة المزيد عنها؟</h3>
+                <textarea rows="4" style="width:100%; padding:0.5rem; border-radius:6px; border:1px solid var(--border-light);" placeholder="اكتب هنا..."></textarea>
+            </div>
+
+            <div class="card" style="text-align: center;">
+                <button type="button" class="btn" onclick="submitSurvey()">إرسال الإجابات</button>
+                <div id="surveyResult" class="interaction-result" style="display: none; margin-top: 1rem;"></div>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <p>جميع الحقوق محفوظة © 2026 المستشفى الجامعي</p>
+    </footer>
+
+    <script>
+        function submitSurvey() {
+            // يمكن إرسال البيانات لاحقاً عبر AJAX
+            const resultDiv = document.getElementById('surveyResult');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'interaction-result success';
+            resultDiv.innerText = 'شكراً لمشاركتك! إجاباتك ساعدتنا في تحسين البرامج التوعوية.';
+            // إعادة تعيين النموذج اختيارياً
+            // document.getElementById('surveyForm').reset();
+        }
+    </script>
+</body>
+</html>

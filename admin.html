@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إرشادات الإداريين | الأمن السيبراني - المستشفى الجامعي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>إرشادات الإداريين</h1>
+        <div class="hospital-name">المستشفى الجامعي</div>
+    </header>
+    <nav>
+        <a href="index.html">الرئيسية</a>
+        <a href="employees.html">الكادر الصحي</a>
+        <a href="oip.html">المكتبة التوعوية</a>
+        <a href="quiz.html">اختبار الوعي</a>
+        <a href="survey.html">استبيان</a>
+        <a href="report.html">الإبلاغ عن حادث</a> 
+        <a href="tools.html">الأدوات</a>
+    </nav>
+    <div class="container">
+        <div class="card">
+            <h2>مسؤولياتك الأمنية كإداري</h2>
+            <ul>
+                <li>الحذر من رسائل التصيد الإلكتروني التي تستهدف الموظفين الإداريين.</li>
+                <li>عدم مشاركة بيانات المرضى عبر البريد الإلكتروني الشخصي أو تطبيقات المراسلة.</li>
+                <li>تأمين المستندات الورقية التي تحتوي على معلومات حساسة.</li>
+                <li>استخدام كلمات مرور قوية وتفعيل المصادقة متعددة العوامل.</li>
+                <li>الإبلاغ عن أي نشاط مشبوه في النظام الإداري.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>⚠️ سيناريو تفاعلي</h3>
+            <p><strong>الموقف:</strong> تستلم مكالمة من شخص يدّعي أنه من الدعم الفني، ويطلب منك تحديث بيانات الدخول الخاصة بك "لحسابك الإداري" عبر إعطائه كلمة المرور عبر الهاتف. ماذا تفعل؟</p>
+            <button class="btn" onclick="handleScenario('correct')">أرفض الطلب وأبلغ مسؤولي الأمن السيبراني فوراً</button>
+            <button class="btn btn-outline" onclick="handleScenario('wrong')">أعطيه البيانات لأن الدعم الفني معروف بالثقة</button>
+            <div id="scenarioResult" class="interaction-result" style="display: none;"></div>
+        </div>
+
+        <div class="card">
+            <h3>📋 قائمة المهام اليومية</h3>
+            <div id="checklist">
+                <div class="checklist-item"><input type="checkbox"> <span>عدم فتح أي بريد إلكتروني مشبوه (مرسل غير معروف، أخطاء إملائية).</span></div>
+                <div class="checklist-item"><input type="checkbox"> <span>تأمين الملفات الورقية الحساسة في الأدراج المغلقة.</span></div>
+                <div class="checklist-item"><input type="checkbox"> <span>تسجيل الخروج من الأنظمة الإدارية عند الانتهاء.</span></div>
+                <div class="checklist-item"><input type="checkbox"> <span>الإبلاغ عن أي محاولة اختراق أو اشتباه.</span></div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+            </div>
+            <p>التقدم: <span id="progressText">0</span>/4</p>
+        </div>
+
+        <a href="employees.html" class="btn">← العودة إلى قائمة الأدوار</a>
+    </div>
+
+    <footer>
+        <p>جميع الحقوق محفوظة © 2026 المستشفى الجامعي</p>
+    </footer>
+
+    <script>
+        function handleScenario(answer) {
+            const resultDiv = document.getElementById('scenarioResult');
+            resultDiv.style.display = 'block';
+            if (answer === 'correct') {
+                resultDiv.className = 'interaction-result success';
+                resultDiv.innerText = '✅ تصرف صحيح! لا تشارك كلمات المرور مع أي كان، حتى لو ادعوا أنهم دعم فني.';
+            } else {
+                resultDiv.className = 'interaction-result error';
+                resultDiv.innerText = '❌ تصرف خاطئ! الدعم الفني الحقيقي لا يطلب كلمة المرور أبداً.';
+            }
+        }
+
+        function updateProgress() {
+            const items = document.querySelectorAll('.checklist-item');
+            let checked = 0;
+            items.forEach(item => {
+                if (item.querySelector('input').checked) checked++;
+            });
+            const total = items.length;
+            const percent = (checked / total) * 100;
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('progressText').innerText = checked;
+        }
+
+        document.querySelectorAll('.checklist-item input').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const parent = this.closest('.checklist-item');
+                parent.classList.toggle('completed', this.checked);
+                updateProgress();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأدوات التفاعلية | الأمن السيبراني - المستشفى الجامعي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🧰 الأدوات التفاعلية</h1>
+        <div class="hospital-name">المستشفى الجامعي</div>
+    </header>
+    <nav>
+        <a href="index.html">الرئيسية</a>
+        <a href="employees.html">الكادر الصحي</a>
+        <a href="oip.html">المكتبة التوعوية</a>
+        <a href="quiz.html">اختبار الوعي</a>
+        <a href="survey.html">استبيان</a>
+        <a href="report.html">الإبلاغ عن حادث</a>
+        <a href="tools.html">الأدوات</a>
+    </nav>
+    <div class="container">
+        <h2>أدوات تفاعلية لتعزيز الأمن السيبراني</h2>
+        
+        <!-- الأداة 1: فحص الروابط المشبوهة -->
+        <div class="tool-card">
+            <div class="tool-header">
+                <span>🔗</span> فحص الروابط المشبوهة (محاكاة)
+            </div>
+            <p>أدخل الرابط للتحقق مما إذا كان آمناً (هذه محاكاة تعليمية).</p>
+            <input type="text" class="tool-input" id="linkInput" placeholder="https://example.com" dir="ltr">
+            <button class="btn" onclick="checkLink()">فحص الرابط</button>
+            <div id="linkResult" class="tool-output" style="display: none;"></div>
+        </div>
+
+        <!-- الأداة 2: فحص قوة كلمة المرور -->
+        <div class="tool-card">
+            <div class="tool-header">
+                <span>🔐</span> فحص قوة كلمة المرور
+            </div>
+            <p>أدخل كلمة مرور لمعرفة مدى قوتها (تحليل فوري).</p>
+            <input type="password" class="tool-input" id="passwordInput" placeholder="كلمة المرور" oninput="checkPasswordStrength()">
+            <div class="password-strength-meter">
+                <div class="strength-bar" id="strengthBar"></div>
+            </div>
+            <div id="passwordStrengthText" style="font-weight: 600;">ضعيفة</div>
+            <ul style="margin-top: 1rem; font-size: 0.9rem;">
+                <li>✔️ يجب أن تحتوي على 8 أحرف على الأقل</li>
+                <li>✔️ حرف كبير وصغير</li>
+                <li>✔️ أرقام ورموز خاصة</li>
+            </ul>
+        </div>
+
+        <!-- الأداة 3: كشف رسائل التصيد (اختبار سريع) -->
+        <div class="tool-card">
+            <div class="tool-header">
+                <span>🎣</span> كشف رسائل التصيد
+            </div>
+            <p>اختر الخيار الصحيح لكل سيناريو:</p>
+            <div id="phishingQuiz">
+                <div class="interactive-option" onclick="selectPhishingOption(1, true)">
+                    <strong>السيناريو 1:</strong> بريد يطلب تحديث كلمة المرور بشكل عاجل ورابط غريب.
+                </div>
+                <div class="interactive-option" onclick="selectPhishingOption(1, false)">
+                    <strong>السيناريو 1:</strong> بريد من صديق يشاركك رابط فيديو مضحك.
+                </div>
+                <div id="phishingResult" style="margin-top: 1rem; font-weight: 600;"></div>
+            </div>
+        </div>
+
+        <!-- الأداة 4: محاكاة هجوم التصيد -->
+        <div class="tool-card">
+            <div class="tool-header">
+                <span>⚠️</span> محاكاة هجوم التصيد
+            </div>
+            <p>اضغط على الزر لتبدأ محاكاة هجوم تصيد حقيقي (تعليمي).</p>
+            <button class="btn" onclick="simulatePhishing()">ابدأ المحاكاة</button>
+            <div id="phishingSimResult" style="margin-top: 1rem;"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>جميع الحقوق محفوظة © 2026 المستشفى الجامعي</p>
+    </footer>
+
+    <script>
+        // أداة فحص الروابط
+        function checkLink() {
+            const link = document.getElementById('linkInput').value;
+            const resultDiv = document.getElementById('linkResult');
+            resultDiv.style.display = 'block';
+            if (!link) {
+                resultDiv.innerText = '❌ الرجاء إدخال رابط.';
+                resultDiv.style.background = '#FEF3F2';
+                return;
+            }
+            // محاكاة بسيطة
+            if (link.includes('bit.ly') || link.includes('short') || link.includes('tinyurl') || link.includes('login') || link.includes('update')) {
+                resultDiv.innerText = '⚠️ هذا الرابط قد يكون مشبوهاً. تحقق من المصدر قبل النقر.';
+                resultDiv.style.background = '#FFF4E5';
+            } else if (link.startsWith('https://') && link.includes('.gov.sa') || link.includes('.edu.sa') || link.includes('hospital')) {
+                resultDiv.innerText = '✅ الرابط يبدو آمناً (موثوق).';
+                resultDiv.style.background = '#EAF9EE';
+            } else {
+                resultDiv.innerText = '🔍 غير معروف. تأكد من المصدر.';
+                resultDiv.style.background = '#F0F3F8';
+            }
+        }
+
+        // أداة قوة كلمة المرور
+        function checkPasswordStrength() {
+            const password = document.getElementById('passwordInput').value;
+            const bar = document.getElementById('strengthBar');
+            const text = document.getElementById('passwordStrengthText');
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+            if (/\d/.test(password)) strength++;
+            if (/[^a-zA-Z0-9]/.test(password)) strength++;
+
+            const width = (strength / 4) * 100;
+            bar.style.width = width + '%';
+            if (strength <= 1) {
+                bar.style.background = '#D92D20';
+                text.innerText = 'ضعيفة جداً';
+            } else if (strength === 2) {
+                bar.style.background = '#F79009';
+                text.innerText = 'ضعيفة';
+            } else if (strength === 3) {
+                bar.style.background = '#FDB022';
+                text.innerText = 'متوسطة';
+            } else {
+                bar.style.background = '#027A48';
+                text.innerText = 'قوية جداً';
+            }
+        }
+
+        // أداة كشف التصيد
+        let phishingAnswer = null;
+        function selectPhishingOption(scenario, isCorrect) {
+            const result = document.getElementById('phishingResult');
+            if (scenario === 1) {
+                if (isCorrect) {
+                    result.innerHTML = '✅ صحيح! الرسالة العاجلة مع رابط غريب غالباً ما تكون تصيد.';
+                    result.style.color = '#027A48';
+                } else {
+                    result.innerHTML = '❌ خطأ! قد يكون الرابط من صديق ولكنه قد يكون مخترقاً. الأفضل التحقق.';
+                    result.style.color = '#D92D20';
+                }
+            }
+        }
+
+        // محاكاة هجوم التصيد
+        function simulatePhishing() {
+            const result = document.getElementById('phishingSimResult');
+            result.innerHTML = `
+                <div style="background:#FEF3F2; padding:1rem; border-radius:8px; border-right:6px solid #D92D20;">
+                    <strong>⚠️ تنبيه محاكاة:</strong><br>
+                    لقد تلقيت بريداً إلكترونياً يدّعي أنه من قسم تقنية المعلومات يطلب منك الضغط على الرابط لتحديث كلمة المرور.<br>
+                    <span style="color:#D92D20;">لا تضغط أبداً على الروابط المشبوهة!</span>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

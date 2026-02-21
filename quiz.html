@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار الوعي | الأمن السيبراني - المستشفى الجامعي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>اختبار الوعي السيبراني</h1>
+        <div class="hospital-name">المستشفى الجامعي</div>
+    </header>
+    <nav>
+        <a href="index.html">الرئيسية</a>
+        <a href="employees.html">الكادر الصحي</a>
+        <a href="oip.html">المكتبة التوعوية</a>
+        <a href="quiz.html">اختبار الوعي</a>
+        <a href="survey.html">استبيان</a>
+        <a href="report.html">الإبلاغ عن حادث</a>
+        <a href="tools.html">الأدوات</a>
+    </nav>
+    <div class="container">
+        <div class="card">
+            <h2>🧠 اختبر معلوماتك</h2>
+            <p>أجب عن الأسئلة التالية لقياس مستوى وعيك بالأمن السيبراني. الإجابات الصحيحة تعتمد على أفضل الممارسات المذكورة في منصتنا.</p>
+        </div>
+
+        <div class="card">
+            <h3>١. ما هو التصرف الصحيح عند استلام بريد إلكتروني من "الدعم الفني" يطلب تحديث كلمة المرور عبر رابط؟</h3>
+            <div class="checklist-item" onclick="selectAnswer(1, 'a')"><input type="radio" name="q1" value="a"> <span>أضغط الرابط فوراً لتحديث كلمة المرور.</span></div>
+            <div class="checklist-item" onclick="selectAnswer(1, 'b')"><input type="radio" name="q1" value="b"> <span>أتجاهل البريد وأبلغ قسم تقنية المعلومات.</span></div>
+            <div class="checklist-item" onclick="selectAnswer(1, 'c')"><input type="radio" name="q1" value="c"> <span>أعيد توجيه البريد لزملائي للتأكد.</span></div>
+        </div>
+
+        <div class="card">
+            <h3>٢. أي من هذه العبارات صحيحة حول كلمات المرور؟</h3>
+            <div class="checklist-item" onclick="selectAnswer(2, 'a')"><input type="radio" name="q2" value="a"> <span>استخدام نفس كلمة المرور لجميع الحسابات لتسهيل التذكر.</span></div>
+            <div class="checklist-item" onclick="selectAnswer(2, 'b')"><input type="radio" name="q2" value="b"> <span>مشاركة كلمة المرور مع زميل موثوق في حالات الطوارئ.</span></div>
+            <div class="checklist-item" onclick="selectAnswer(2, 'c')"><input type="radio" name="q2" value="c"> <span>استخدام كلمة مرور قوية ومختلفة لكل حساب، مع تفعيل المصادقة متعددة العوامل.</span></div>
+        </div>
+
+        <div class="card">
+            <h3>٣. ما هو الإجراء الصحيح عند ملاحظة سلوك غريب على جهاز طبي متصل بالشبكة؟</h3>
+            <div class="checklist-item" onclick="selectAnswer(3, 'a')"><input type="radio" name="q3" value="a"> <span>أقوم بإعادة تشغيل الجهاز فوراً.</span></div>
+            <div class="checklist-item" onclick="selectAnswer(3, 'b')"><input type="radio" name="q3" value="b"> <span>أفصل الجهاز عن الشبكة وأبلغ قسم تقنية المعلومات.</span></div>
+            <div class="checklist-item" onclick="selectAnswer(3, 'c')"><input type="radio" name="q3" value="c"> <span>أتجاهل الأمر ما دام الجهاز يعمل.</span></div>
+        </div>
+
+        <div class="card" style="text-align: center;">
+            <button class="btn" onclick="checkQuiz()">عرض النتيجة</button>
+            <div id="quizResult" class="interaction-result" style="display: none; margin-top: 1rem;"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>جميع الحقوق محفوظة © 2026 المستشفى الجامعي</p>
+    </footer>
+
+    <script>
+        const answers = { q1: 'b', q2: 'c', q3: 'b' };
+        let selected = { q1: null, q2: null, q3: null };
+
+        function selectAnswer(qNum, value) {
+            const radios = document.getElementsByName('q' + qNum);
+            for (let radio of radios) {
+                if (radio.value === value) {
+                    radio.checked = true;
+                    selected['q' + qNum] = value;
+                }
+            }
+        }
+
+        function checkQuiz() {
+            let correct = 0;
+            let total = 0;
+            for (let key in answers) {
+                if (selected[key] === answers[key]) {
+                    correct++;
+                }
+                total++;
+            }
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.style.display = 'block';
+            if (correct === total) {
+                resultDiv.className = 'interaction-result success';
+                resultDiv.innerText = `✅ إجاباتك كلها صحيحة! وعيك ممتاز (${correct}/${total})`;
+            } else if (correct >= 2) {
+                resultDiv.className = 'interaction-result success';
+                resultDiv.innerText = `👍 لديك ${correct} من ${total} إجابات صحيحة. راجع المواد التوعوية لتحسين معرفتك.`;
+            } else {
+                resultDiv.className = 'interaction-result error';
+                resultDiv.innerText = `💡 لديك ${correct} من ${total} إجابات صحيحة. نوصي بزيارة المكتبة التوعوية.`;
+            }
+        }
+    </script>
+</body>
+</html>

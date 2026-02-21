@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإبلاغ عن حادث أمني | المستشفى الجامعي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>الإبلاغ عن حادث أمني</h1>
+        <div class="hospital-name">المستشفى الجامعي</div>
+    </header>
+    <nav>
+        <a href="index.html">الرئيسية</a>
+        <a href="employees.html">الكادر الصحي</a>
+        <a href="oip.html">المكتبة التوعوية</a>
+        <a href="quiz.html">اختبار الوعي</a>
+        <a href="survey.html">استبيان</a>
+        <a href="report.html">الإبلاغ عن حادث</a> 
+        <a href="tools.html">الأدوات</a>
+    </nav>
+    <div class="container">
+        <div class="card">
+            <h2>🚨 كيفية الإبلاغ</h2>
+            <p>إذا لاحظت أي نشاط مشبوه، أو تعرضت لهجوم سيبراني، أو اكتشفت ثغرة أمنية، يرجى التواصل فوراً عبر القنوات التالية:</p>
+            <ul style="font-size: 1.2rem;">
+                <li><strong>📧 البريد الإلكتروني:</strong> <a href="mailto:security@hospital.edu.sa">security@hospital.edu.sa</a></li>
+                <li><strong>📞 الهاتف الداخلي:</strong> 1234 (على مدار الساعة)</li>
+                <li><strong>📍 زيارة القسم:</strong> مبنى الإدارة، الدور الثاني، مكتب الأمن السيبراني</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>معلومات مهمة عند الإبلاغ</h3>
+            <ul>
+                <li>لا تحاول إصلاح المشكلة بنفسك إذا كانت تتعلق باختراق.</li>
+                <li>احتفظ بسجلات (لقطات شاشة، رسائل بريد) إن أمكن.</li>
+                <li>أبلغ بأسرع وقت ممكن لتقليل الضرر.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>نموذج سريع للإبلاغ (تجريبي)</h3>
+            <p>هذا النموذج يحاكي عملية الإبلاغ، وسيتم تطويره لاحقاً ليرسل تلقائياً إلى نظام التذاكر.</p>
+            <form id="quickReport">
+                <label>نوع الحادث:</label><br>
+                <select style="width:100%; padding:0.5rem; margin-bottom:1rem;">
+                    <option>رسالة تصيد (Phishing)</option>
+                    <option>اختراق حساب</option>
+                    <option>سلوك غريب على جهاز</option>
+                    <option>فقدان جهاز أو بيانات</option>
+                    <option>أخرى</option>
+                </select>
+                <label>تفاصيل مختصرة:</label><br>
+                <textarea rows="3" style="width:100%; padding:0.5rem; margin-bottom:1rem;"></textarea>
+                <button type="button" class="btn" onclick="reportSubmitted()">إرسال البلاغ (محاكاة)</button>
+            </form>
+            <div id="reportResult" class="interaction-result" style="display: none; margin-top: 1rem;"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>جميع الحقوق محفوظة © 2026 المستشفى الجامعي</p>
+    </footer>
+
+    <script>
+        function reportSubmitted() {
+            const resultDiv = document.getElementById('reportResult');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'interaction-result success';
+            resultDiv.innerText = '✅ تم استلام البلاغ. سيتواصل معك فريق الأمن السيبراني قريباً. (هذه محاكاة)';
+        }
+    </script>
+</body>
+</html>
