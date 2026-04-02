@@ -3,82 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المكتبة التوعوية | الأمن السيبراني - المستشفى الجامعي</title>
+    <title>Library | Cybersecurity - University Hospital</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <style>
-        .topic-card { background: #F9FAFB; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; border-right: 4px solid var(--primary); }
+        :root { --bg-color: #f8fafc; --header-bg: #005a32; --nca-green: #007a4d; --text-dark: #1e293b; --text-muted: #64748b; --border-color: #e2e8f0; --card-radius: 16px; }
+        body { margin: 0; font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-dark); }
+        .main-header { background-color: var(--header-bg); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #004224; }
+        .header-right { display: flex; align-items: center; gap: 15px; }
+        .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .header-titles h1 { margin: 0; font-size: 1.3rem; font-weight: 700; }
+        .header-titles p { margin: 0; font-size: 0.9rem; color: #a7f3d0; }
+        .header-left { display: flex; gap: 15px; align-items: center; }
+        .btn-lang { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-family: inherit; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-lang:hover { background: rgba(255,255,255,0.2); }
+        .nav-menu { background: white; border-bottom: 1px solid var(--border-color); padding: 0 2rem; display: flex; gap: 1rem; overflow-x: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .nav-link { padding: 1rem 0.5rem; color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 3px solid transparent; white-space: nowrap; transition: 0.2s; }
+        .nav-link:hover { color: var(--nca-green); }
+        .nav-link.active { color: var(--nca-green); border-bottom-color: var(--nca-green); }
+
+        .container { max-width: 1000px; margin: 2rem auto; padding: 0 2rem; }
+        .section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-dark); }
+
+        .lib-section { background: white; border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .lib-section h2 { margin: 0 0 1.5rem 0; font-size: 1.2rem; color: var(--nca-green); display: flex; align-items: center; gap: 0.5rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.8rem; }
+        .topic-card { background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; padding: 1.2rem; margin-bottom: 1rem; border-right: 4px solid var(--nca-green); transition: 0.2s; }
+        .topic-card:hover { background: #f0fdf4; border-right-color: #16a34a; }
+        .topic-card h3 { margin: 0 0 0.5rem 0; font-size: 1.05rem; color: var(--text-dark); }
+        .topic-card p, .topic-card ul { margin: 0; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+        .topic-card ul { padding-right: 1.2rem; }
+
+        a.resource-link { color: #0284c7; text-decoration: none; font-weight: 600; display: inline-block; margin-bottom: 0.5rem; transition: 0.2s; }
+        a.resource-link:hover { color: #0369a1; text-decoration: underline; }
     </style>
 </head>
 <body>
-    <header>
-        <h1>المكتبة التوعوية</h1>
-        <div class="hospital-name">المستشفى الجامعي</div>
+    <header class="main-header">
+        <div class="header-right">
+            <div class="logo-placeholder">🏥</div>
+            <div class="header-titles">
+                <h1 data-ar="المدينة الطبية | منصة التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">المدينة الطبية | منصة التوعية بالأمن السيبراني</h1>
+                <p data-ar="المعرفة هي خط الدفاع الأول" data-en="Knowledge is the first line of defense">المعرفة هي خط الدفاع الأول</p>
+            </div>
+        </div>
+        <div class="header-left">
+            <button class="btn-lang" onclick="toggleLanguage()">🌐 العربية / English</button>
+        </div>
     </header>
-    <nav>
-        <a href="index.html">الرئيسية</a>
-        <a href="employees.html">الكادر الصحي</a>
-        <a href="oip.html">المكتبة التوعوية</a>
-        <a href="quiz.html">اختبار الوعي</a>
-        <a href="survey.html">استبيان</a>
-        <a href="report.html">الإبلاغ عن حادث</a>
-        <a href="tools.html">الأدوات</a>
+
+    <nav class="nav-menu">
+        <a href="index.html" class="nav-link"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> 🏠</a>
+        <a href="employees.html" class="nav-link"><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> 👨‍⚕️</a>
+        <a href="oip.html" class="nav-link active"><span data-ar="المكتبة التوعوية" data-en="Library">المكتبة التوعوية</span> 📚</a>
+        <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> 🧰</a>
+        <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> 🚨</a>
+        <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> 📊</a>
+        <a href="quiz.html" class="nav-link"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> 🧠</a>
+        <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> 📈</a>
     </nav>
+
     <div class="container">
-        <div class="card">
-            <h2>📚 مفاهيم أساسية في الأمن السيبراني</h2>
+        <div class="section-title">📚 <span data-ar="المكتبة التوعوية والمراجع" data-en="Awareness Library & References">المكتبة التوعوية والمراجع</span></div>
+
+        <div class="lib-section">
+            <h2>🧠 <span data-ar="مفاهيم أساسية" data-en="Basic Concepts">مفاهيم أساسية</span></h2>
             <div class="topic-card">
-                <h3>ما هو الأمن السيبراني؟</h3>
-                <p>هو حماية الشبكات، الأجهزة، البرمجيات، والبيانات من الاختراق أو التعطيل أو الوصول غير المصرح به. في القطاع الصحي، سلامة المريض تعتمد على أمن الأنظمة.</p>
+                <h3 data-ar="ما هو الأمن السيبراني؟" data-en="What is Cybersecurity?">ما هو الأمن السيبراني؟</h3>
+                <p data-ar="هو حماية الشبكات، الأجهزة، والبيانات الحساسة للمرضى من الهجمات الرقمية. أمان المريض لم يعد يقتصر على العلاج الطبي، بل يشمل حماية هويته وسجلاته." data-en="Protecting networks, devices, and sensitive patient data from digital attacks. Patient safety includes protecting their digital records.">هو حماية الشبكات، الأجهزة، والبيانات الحساسة للمرضى من الهجمات الرقمية. أمان المريض لم يعد يقتصر على العلاج الطبي، بل يشمل حماية هويته وسجلاته.</p>
             </div>
             <div class="topic-card">
-                <h3>أركان أمن المعلومات (CIA)</h3>
+                <h3 data-ar="ثلاثية أمن المعلومات (CIA)" data-en="Information Security Triad (CIA)">ثلاثية أمن المعلومات (CIA)</h3>
                 <ul>
-                    <li><strong>السرية (Confidentiality):</strong> لا يطلع على البيانات إلا المصرح لهم.</li>
-                    <li><strong>السلامة (Integrity):</strong> عدم تعديل البيانات إلا بشكل مصرح به.</li>
-                    <li><strong>التوفر (Availability):</strong> إتاحة البيانات للمستخدمين المصرح لهم عند الحاجة.</li>
+                    <li><strong data-ar="السرية (Confidentiality):" data-en="Confidentiality:">السرية (Confidentiality):</strong> <span data-ar="لا يصل للبيانات إلا من يحق له ذلك." data-en="Only authorized personnel can access data.">لا يصل للبيانات إلا من يحق له ذلك.</span></li>
+                    <li><strong data-ar="النزاهة (Integrity):" data-en="Integrity:">النزاهة (Integrity):</strong> <span data-ar="البيانات صحيحة ولم يتم العبث بها." data-en="Data is accurate and unaltered.">البيانات صحيحة ولم يتم العبث بها.</span></li>
+                    <li><strong data-ar="التوافر (Availability):" data-en="Availability:">التوافر (Availability):</strong> <span data-ar="توفر الأنظمة (مثل النظام الطبي) متى ما احتاجها الطبيب." data-en="Systems are available when needed.">توفر الأنظمة (مثل النظام الطبي) متى ما احتاجها الطبيب.</span></li>
                 </ul>
             </div>
         </div>
 
-        <div class="card">
-            <h2>⚠️ أبرز التهديدات السيبرانية</h2>
-            <div class="topic-card">
-                <h3>🔹 التصيد الإلكتروني (Phishing)</h3>
-                <p>رسائل احتيالية تنتحل صفة جهات موثوقة لسرقة بياناتك. لا تشارك كلمات المرور أو تضغط على الروابط المشبوهة.</p>
+        <div class="lib-section">
+            <h2>⚠️ <span data-ar="أبرز التهديدات السيبرانية" data-en="Top Cyber Threats">أبرز التهديدات السيبرانية</span></h2>
+            <div class="topic-card" style="border-right-color: #ef4444;">
+                <h3 data-ar="🎣 التصيد الإلكتروني (Phishing)" data-en="🎣 Phishing">🎣 التصيد الإلكتروني (Phishing)</h3>
+                <p data-ar="رسائل خادعة عبر البريد أو SMS تبدو وكأنها من جهة رسمية (مثل الدعم الفني) لسرقة كلمات المرور." data-en="Deceptive emails/SMS appearing official to steal passwords.">رسائل خادعة عبر البريد أو SMS تبدو وكأنها من جهة رسمية (مثل الدعم الفني) لسرقة كلمات المرور.</p>
             </div>
-            <div class="topic-card">
-                <h3>🔹 برامج الفدية (Ransomware)</h3>
-                <p>برمجيات خبيثة تقفل ملفاتك وتطلب فدية. الحل: النسخ الاحتياطي المنتظم والتحديثات.</p>
+            <div class="topic-card" style="border-right-color: #ef4444;">
+                <h3 data-ar="🔒 برامج الفدية (Ransomware)" data-en="🔒 Ransomware">🔒 برامج الفدية (Ransomware)</h3>
+                <p data-ar="فيروسات تقوم بتشفير كل بيانات المستشفى وتطلب فدية مالية لفكها. يمكن تجنبها بعدم فتح المرفقات المشبوهة." data-en="Viruses that encrypt hospital data demanding a ransom. Avoided by not opening suspicious attachments.">فيروسات تقوم بتشفير كل بيانات المستشفى وتطلب فدية مالية لفكها. يمكن تجنبها بعدم فتح المرفقات المشبوهة.</p>
             </div>
-            <div class="topic-card">
-                <h3>🔹 الهندسة الاجتماعية</h3>
-                <p>التلاعب النفسي لإقناعك بإفشاء معلومات سرية. تحقق دائماً من هوية الطالب.</p>
+            <div class="topic-card" style="border-right-color: #ef4444;">
+                <h3 data-ar="🗣️ الهندسة الاجتماعية" data-en="🗣️ Social Engineering">🗣️ الهندسة الاجتماعية</h3>
+                <p data-ar="التلاعب النفسي عبر الهاتف (شخص يدعي أنه مديرك ويطلب كلمة المرور)." data-en="Psychological manipulation over the phone (someone claiming to be your manager asking for a password).">التلاعب النفسي عبر الهاتف (شخص يدعي أنه مديرك ويطلب كلمة المرور).</p>
             </div>
         </div>
 
-        <div class="card">
-            <h2>🔐 أفضل الممارسات</h2>
-            <ul>
-                <li>استخدم كلمة مرور قوية وفريدة لكل حساب.</li>
-                <li>فعّل المصادقة متعددة العوامل (MFA).</li>
-                <li>لا تترك الأجهزة مفتوحة دون قفل.</li>
-                <li>تجنب استخدام الشبكات العامة للوصول إلى الأنظمة الحساسة.</li>
-                <li>أبلغ عن أي حادث أمني فوراً.</li>
-            </ul>
-        </div>
-
-        <div class="card">
-            <h2>📌 مصادر ووثائق مهمة</h2>
-            <ul>
-                <li><a href="#" target="_blank">📄 دليل الهيئة الوطنية للأمن السيبراني للمنظمات غير الربحية</a></li>
-                <li><a href="#" target="_blank">📄 المبادئ الوطنية للبيانات (SDAIA)</a></li>
-                <li><a href="#" target="_blank">📄 سياسة الأمن السيبراني للمستشفى الجامعي</a></li>
-            </ul>
+        <div class="lib-section">
+            <h2>📌 <span data-ar="المراجع والأنظمة الوطنية" data-en="National References & Regulations">المراجع والأنظمة الوطنية</span></h2>
+            <a href="https://nca.gov.sa/" target="_blank" class="resource-link" data-ar="📄 موقع الهيئة الوطنية للأمن السيبراني (NCA)" data-en="📄 National Cybersecurity Authority (NCA)">📄 موقع الهيئة الوطنية للأمن السيبراني (NCA)</a><br>
+            <a href="https://sdaia.gov.sa/" target="_blank" class="resource-link" data-ar="📄 نظام حماية البيانات الشخصية (SDAIA)" data-en="📄 Personal Data Protection Law (SDAIA)">📄 نظام حماية البيانات الشخصية (SDAIA)</a><br>
+            <a href="#" class="resource-link" data-ar="📄 السياسات الداخلية للمستشفى (الإنترانت)" data-en="📄 Hospital Internal Policies (Intranet)">📄 السياسات الداخلية للمستشفى (الإنترانت)</a>
         </div>
     </div>
-    <footer>
-        <p>جميع الحقوق محفوظة © 2026 المستشفى الجامعي</p>
-    </footer>
+
+    <script>
+        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+        function applyLanguage() {
+            const elements = document.querySelectorAll('[data-ar][data-en]');
+            if (currentLang === 'en') {
+                elements.forEach(el => el.innerText = el.getAttribute('data-en'));
+                document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr';
+            } else {
+                elements.forEach(el => el.innerText = el.getAttribute('data-ar'));
+                document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl';
+            }
+        }
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('preferredLanguage', currentLang);
+            applyLanguage();
+        }
+        window.onload = applyLanguage;
+    </script>
 </body>
 </html>

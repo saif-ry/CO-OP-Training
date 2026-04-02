@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Cybersecurity - University Hospital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root { --bg-color: #f8fafc; --header-bg: #005a32; --nca-green: #007a4d; --text-dark: #1e293b; --text-muted: #64748b; --border-color: #e2e8f0; --card-radius: 16px; }
+        body { margin: 0; font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-dark); }
+        .main-header { background-color: var(--header-bg); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #004224; }
+        .header-right { display: flex; align-items: center; gap: 15px; }
+        .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .header-titles h1 { margin: 0; font-size: 1.3rem; font-weight: 700; }
+        .header-titles p { margin: 0; font-size: 0.9rem; color: #a7f3d0; }
+        .header-left { display: flex; gap: 15px; align-items: center; }
+        .btn-lang { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-family: inherit; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .nav-menu { background: white; border-bottom: 1px solid var(--border-color); padding: 0 2rem; display: flex; gap: 1rem; overflow-x: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .nav-link { padding: 1rem 0.5rem; color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 3px solid transparent; white-space: nowrap; transition: 0.2s; }
+        .nav-link:hover, .nav-link.active { color: var(--nca-green); border-bottom-color: var(--nca-green); }
+
+        .container { max-width: 1400px; margin: 2rem auto; padding: 0 2rem; }
+        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+        .section-title { font-size: 1.4rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; margin:0; }
+        .btn-refresh { background: var(--nca-green); color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; font-family: inherit; font-weight: 700; cursor: pointer; transition: 0.3s; }
+
+        .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .summary-card { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); text-align: center; border-bottom: 4px solid var(--nca-green); border-top: 1px solid var(--border-color); border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); }
+        .summary-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .summary-title { color: var(--text-muted); font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .summary-value { font-size: 2.2rem; font-weight: 700; color: var(--text-dark); }
+
+        .charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .chart-container { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid var(--border-color); }
+        .chart-title { text-align: center; margin-bottom: 1rem; color: var(--nca-green); font-weight: 700; }
+
+        /* تفاصيل الأقسام التي طلب إعادتها */
+        .details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+        .detail-card { background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .detail-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem; border-bottom: 1px solid #eee; padding-bottom: 0.8rem; }
+        .detail-header h3 { margin: 0; color: var(--nca-green); font-size: 1.1rem; }
+        .stat-row { display: flex; justify-content: space-between; margin-bottom: 0.8rem; font-size: 0.95rem; }
+        .stat-label { color: var(--text-muted); font-weight: 600; }
+        .stat-value { font-weight: 700; }
+        .progress-bg { background: #e2e8f0; height: 8px; border-radius: 4px; overflow: hidden; margin-bottom: 1rem; }
+        .progress-fill { height: 100%; background: var(--nca-green); transition: 0.5s; }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-right">
+            <div class="logo-placeholder">🏥</div>
+            <div class="header-titles">
+                <h1 data-ar="المدينة الطبية | منصة التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">المدينة الطبية | منصة التوعية بالأمن السيبراني</h1>
+                <p data-ar="مؤشرات تفاعل الموظفين في الوقت الفعلي" data-en="Real-time staff engagement metrics">مؤشرات تفاعل الموظفين في الوقت الفعلي</p>
+            </div>
+        </div>
+        <div class="header-left">
+            <button class="btn-lang" onclick="toggleLanguage()">🌐 العربية / English</button>
+        </div>
+    </header>
+
+    <nav class="nav-menu">
+        <a href="index.html" class="nav-link"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> 🏠</a>
+        <a href="employees.html" class="nav-link"><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> 👨‍⚕️</a>
+        <a href="oip.html" class="nav-link"><span data-ar="المكتبة التوعوية" data-en="Library">المكتبة التوعوية</span> 📚</a>
+        <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> 🧰</a>
+        <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> 🚨</a>
+        <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> 📊</a>
+        <a href="quiz.html" class="nav-link"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> 🧠</a>
+        <a href="dashboard.html" class="nav-link active"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> 📈</a>
+    </nav>
+
+    <div class="container">
+        <div class="dashboard-header">
+            <h2 class="section-title">📈 <span data-ar="لوحة القيادة والمؤشرات" data-en="Metrics Dashboard">لوحة القيادة والمؤشرات</span></h2>
+            <button class="btn-refresh" onclick="processData()"><span data-ar="🔄 تحديث" data-en="🔄 Refresh">🔄 تحديث</span></button>
+        </div>
+
+        <div class="summary-grid">
+            <div class="summary-card" style="border-bottom-color: #3b82f6;">
+                <div class="summary-icon">🎯</div>
+                <div class="summary-title" data-ar="تفاعلات السيناريو" data-en="Scenario Interactions">تفاعلات السيناريو</div>
+                <div class="summary-value" id="totalScenariosSum">0</div>
+            </div>
+            <div class="summary-card" style="border-bottom-color: #10b981;">
+                <div class="summary-icon">✅</div>
+                <div class="summary-title" data-ar="متوسط نسبة الصحة" data-en="Average Accuracy">متوسط نسبة الصحة</div>
+                <div class="summary-value" id="avgAccuracySum">0%</div>
+            </div>
+            <div class="summary-card" style="border-bottom-color: #f59e0b;">
+                <div class="summary-icon">📋</div>
+                <div class="summary-title" data-ar="المهام المنجزة" data-en="Completed Checklists">المهام المنجزة</div>
+                <div class="summary-value" id="completedTasksSum">0</div>
+            </div>
+            <div class="summary-card" style="border-bottom-color: #8b5cf6;">
+                <div class="summary-icon">🧠</div>
+                <div class="summary-title" data-ar="مشاركات الاختبار" data-en="Quiz Participants">مشاركات الاختبار</div>
+                <div class="summary-value" id="quizSurveySum">0</div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-container">
+                <div class="chart-title" data-ar="معدل الإجابات الصحيحة حسب الدور" data-en="Accuracy Rate by Role">معدل الإجابات الصحيحة حسب الدور</div>
+                <canvas id="scenarioChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <div class="chart-title" data-ar="معدل إنجاز المهام اليومية (%)" data-en="Checklist Completion Rate (%)">معدل إنجاز المهام اليومية (%)</div>
+                <canvas id="checklistChart"></canvas>
+            </div>
+        </div>
+
+        <h2 class="section-title" style="margin-top: 3rem;">🏢 <span data-ar="تفاصيل الأداء حسب القسم" data-en="Performance Details by Department">تفاصيل الأداء حسب القسم</span></h2>
+        <div class="details-grid" id="detailsGrid">
+            </div>
+
+    </div>
+
+    <script>
+        const roles = [
+            { id: 'doctor', icon: '🩺', name_ar: 'الأطباء', name_en: 'Doctors' },
+            { id: 'nurse', icon: '💉', name_ar: 'التمريض', name_en: 'Nurses' },
+            { id: 'admin', icon: '📋', name_ar: 'الإداريون', name_en: 'Administrators' },
+            { id: 'it', icon: '💻', name_ar: 'تقنية المعلومات', name_en: 'IT Staff' },
+            { id: 'management', icon: '🏛️', name_ar: 'الإدارة العليا', name_en: 'Management' },
+            { id: 'lab', icon: '🔬', name_ar: 'المختبر والأشعة', name_en: 'Lab & Radiology' }
+        ];
+
+        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+        let chart1, chart2;
+
+        function processData() {
+            let tScen=0, tCorr=0, tTasks=0;
+            let labels=[], dataAcc=[], dataChk=[];
+            let detailsHtml = '';
+
+            roles.forEach(role => {
+                let roleName = currentLang === 'ar' ? role.name_ar : role.name_en;
+                labels.push(roleName);
+
+                // بيانات السيناريو
+                let sData = JSON.parse(localStorage.getItem(`${role.id}_scenario`)) || { total: 0, correct: 0 };
+                tScen += sData.total; tCorr += sData.correct;
+                let sPercent = sData.total ? Math.round((sData.correct/sData.total)*100) : 0;
+                dataAcc.push(sPercent);
+
+                // بيانات المهام
+                let cData = JSON.parse(localStorage.getItem(`${role.id}_checklist`)) || [];
+                let cComp = cData.filter(i => i.completed).length;
+                let cTotal = cData.length || 4; // الافتراضي 4 مهام
+                tTasks += cComp;
+                let cPercent = Math.round((cComp / cTotal) * 100);
+                dataChk.push(cPercent);
+
+                // بناء بطاقة التفاصيل
+                detailsHtml += `
+                    <div class="detail-card">
+                        <div class="detail-header">
+                            <span style="font-size: 1.5rem;">${role.icon}</span>
+                            <h3>${roleName}</h3>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">${currentLang === 'ar' ? 'محاولات السيناريو:' : 'Scenario Attempts:'}</span>
+                            <span class="stat-value">${sData.total}</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">${currentLang === 'ar' ? 'نسبة الصحة:' : 'Accuracy:'}</span>
+                            <span class="stat-value" style="color: ${sPercent >= 50 ? 'var(--nca-green)' : '#ef4444'}">${sPercent}%</span>
+                        </div>
+                        <div class="progress-bg"><div class="progress-fill" style="width: ${sPercent}%; background-color: ${sPercent >= 50 ? 'var(--nca-green)' : '#ef4444'};"></div></div>
+
+                        <div class="stat-row">
+                            <span class="stat-label">${currentLang === 'ar' ? 'المهام المنجزة:' : 'Tasks Completed:'}</span>
+                            <span class="stat-value">${cComp} / ${cTotal}</span>
+                        </div>
+                        <div class="progress-bg"><div class="progress-fill" style="width: ${cPercent}%; background-color: #3b82f6;"></div></div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('totalScenariosSum').innerText = tScen;
+            document.getElementById('avgAccuracySum').innerText = (tScen ? Math.round((tCorr/tScen)*100) : 0) + '%';
+            document.getElementById('completedTasksSum').innerText = tTasks;
+            let qr = JSON.parse(localStorage.getItem('quizResults')) || { total: 0 };
+            document.getElementById('quizSurveySum').innerText = qr.total;
+
+            document.getElementById('detailsGrid').innerHTML = detailsHtml;
+
+            renderCharts(labels, dataAcc, dataChk);
+        }
+
+        function renderCharts(labels, dataAcc, dataChk) {
+            const colors = ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ef4444', '#0ea5e9'];
+            Chart.defaults.font.family = "'Cairo', sans-serif";
+
+            if(chart1) chart1.destroy();
+            chart1 = new Chart(document.getElementById('scenarioChart'), {
+                type: 'bar', data: { labels: labels, datasets: [{ label: currentLang === 'ar' ? 'نسبة الإجابات الصحيحة (%)' : 'Accuracy (%)', data: dataAcc, backgroundColor: colors, borderRadius: 6 }] },
+                options: { responsive: true, scales: { y: { max: 100 } }, plugins: { legend: { display: false } } }
+            });
+
+            if(chart2) chart2.destroy();
+            chart2 = new Chart(document.getElementById('checklistChart'), {
+                type: 'polarArea', data: { labels: labels, datasets: [{ label: currentLang === 'ar' ? 'الإنجاز (%)' : 'Completion (%)', data: dataChk, backgroundColor: colors }] },
+                options: { responsive: true, scales: { r: { max: 100 } }, plugins: { legend: { position: currentLang==='ar'?'left':'right' } } }
+            });
+        }
+
+        function applyLanguage() {
+            const elements = document.querySelectorAll('[data-ar][data-en]');
+            if (currentLang === 'en') {
+                elements.forEach(el => el.innerText = el.getAttribute('data-en'));
+                document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr';
+            } else {
+                elements.forEach(el => el.innerText = el.getAttribute('data-ar'));
+                document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl';
+            }
+            processData(); // لإعادة توليد البطاقات والمخططات باللغة الصحيحة
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('preferredLanguage', currentLang);
+            applyLanguage();
+        }
+
+        window.onload = applyLanguage;
+    </script>
+</body>
+</html>

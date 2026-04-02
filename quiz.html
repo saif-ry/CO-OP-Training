@@ -3,97 +3,311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار الوعي | الأمن السيبراني - المستشفى الجامعي</title>
+    <title>Quiz | Cybersecurity - University Hospital</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root { --bg-color: #f8fafc; --header-bg: #005a32; --nca-green: #007a4d; --text-dark: #1e293b; --text-muted: #64748b; --border-color: #e2e8f0; --card-radius: 16px; }
+        body { margin: 0; font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-dark); }
+
+        /* Header & Nav */
+        .main-header { background-color: var(--header-bg); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #004224; }
+        .header-right { display: flex; align-items: center; gap: 15px; }
+        .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .header-titles h1 { margin: 0; font-size: 1.3rem; font-weight: 700; }
+        .header-titles p { margin: 0; font-size: 0.9rem; color: #a7f3d0; }
+        .header-left { display: flex; gap: 15px; align-items: center; }
+        .btn-lang { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-family: inherit; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-lang:hover { background: rgba(255,255,255,0.2); }
+        .nav-menu { background: white; border-bottom: 1px solid var(--border-color); padding: 0 2rem; display: flex; gap: 1rem; overflow-x: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .nav-link { padding: 1rem 0.5rem; color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 3px solid transparent; white-space: nowrap; transition: 0.2s; }
+        .nav-link:hover { color: var(--nca-green); }
+        .nav-link.active { color: var(--nca-green); border-bottom-color: var(--nca-green); }
+
+        /* Main Container */
+        .container { max-width: 900px; margin: 2rem auto; padding: 0 2rem; }
+        .section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-dark); }
+        .intro-card { background: linear-gradient(135deg, #e8f5e9, #bbf7d0); border: 1px solid #86efac; border-radius: var(--card-radius); padding: 1.5rem; margin-bottom: 2rem; color: #064e3b; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .intro-card p { margin: 0; font-weight: 600; font-size: 1.05rem; }
+
+        /* Quiz Styles */
+        .question-card { background: white; border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.03); transition: 0.3s; }
+        .question-card:hover { border-color: #cbd5e1; }
+        .question-card h3 { margin: 0 0 1.2rem 0; font-size: 1.15rem; color: var(--nca-green); line-height: 1.6; }
+
+        .options-grid { display: flex; flex-direction: column; gap: 0.8rem; }
+        .option-label {
+            display: flex; align-items: center; gap: 12px; padding: 1rem 1.2rem; border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: 0.2s; background: #f8fafc; font-weight: 600; color: var(--text-dark);
+        }
+        .option-label:hover { border-color: var(--nca-green); background: #f0fdf4; }
+        .option-label input[type="radio"] { display: none; } /* إخفاء زر الراديو التقليدي */
+
+        /* Custom Radio Button Design */
+        .custom-radio { width: 20px; height: 20px; border: 2px solid #cbd5e1; border-radius: 50%; display: inline-block; position: relative; transition: 0.2s; flex-shrink: 0; }
+        .option-label input[type="radio"]:checked + .custom-radio { border-color: var(--nca-green); }
+        .option-label input[type="radio"]:checked + .custom-radio::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; background: var(--nca-green); border-radius: 50%; }
+
+        /* Selection & Feedback states */
+        .option-label.selected { border-color: var(--nca-green); background: #ecfdf5; }
+        .option-label.correct { border-color: #10b981; background: #d1fae5; color: #047857; }
+        .option-label.wrong { border-color: #ef4444; background: #fee2e2; color: #b91c1c; opacity: 0.8; }
+
+        /* Submit Button & Result */
+        .btn-submit { background: var(--nca-green); color: white; border: none; padding: 1.2rem; width: 100%; border-radius: 12px; font-size: 1.2rem; font-weight: 700; cursor: pointer; transition: 0.3s; font-family: inherit; margin-top: 1rem; box-shadow: 0 4px 6px rgba(0,122,77,0.2); }
+        .btn-submit:hover { background: #00603c; transform: translateY(-2px); }
+
+        .result-box { display: none; margin-top: 2rem; padding: 2rem; border-radius: 16px; font-weight: bold; text-align: center; font-size: 1.3rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .score-circle { display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; border-radius: 50%; font-size: 2rem; color: white; margin-bottom: 1rem; }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>اختبار الوعي السيبراني</h1>
-        <div class="hospital-name">المستشفى الجامعي</div>
+    <header class="main-header">
+        <div class="header-right">
+            <div class="logo-placeholder">🏥</div>
+            <div class="header-titles">
+                <h1 data-ar="المدينة الطبية | منصة التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">المدينة الطبية | منصة التوعية بالأمن السيبراني</h1>
+                <p data-ar="تحدي الوعي الأمني للموظفين" data-en="Staff Security Awareness Challenge">تحدي الوعي الأمني للموظفين</p>
+            </div>
+        </div>
+        <div class="header-left">
+            <button class="btn-lang" onclick="toggleLanguage()">🌐 العربية / English</button>
+        </div>
     </header>
-    <nav>
-        <a href="index.html">الرئيسية</a>
-        <a href="employees.html">الكادر الصحي</a>
-        <a href="oip.html">المكتبة التوعوية</a>
-        <a href="quiz.html">اختبار الوعي</a>
-        <a href="survey.html">استبيان</a>
-        <a href="report.html">الإبلاغ عن حادث</a>
-        <a href="tools.html">الأدوات</a>
+
+    <nav class="nav-menu">
+        <a href="index.html" class="nav-link"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> 🏠</a>
+        <a href="employees.html" class="nav-link"><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> 👨‍⚕️</a>
+        <a href="oip.html" class="nav-link"><span data-ar="المكتبة التوعوية" data-en="Library">المكتبة التوعوية</span> 📚</a>
+        <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> 🧰</a>
+        <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> 🚨</a>
+        <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> 📊</a>
+        <a href="quiz.html" class="nav-link"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> 🧠</a>
+        <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> 📈</a>
     </nav>
+
     <div class="container">
-        <div class="card">
-            <h2>🧠 اختبر معلوماتك</h2>
-            <p>أجب عن الأسئلة التالية لقياس مستوى وعيك بالأمن السيبراني. الإجابات الصحيحة تعتمد على أفضل الممارسات المذكورة في منصتنا.</p>
+        <div class="section-title">🧠 <span data-ar="اختبار الوعي السيبراني المتقدم" data-en="Advanced Cybersecurity Awareness Quiz">اختبار الوعي السيبراني المتقدم</span></div>
+
+        <div class="intro-card">
+            <p data-ar="مرحباً بك! يهدف هذا الاختبار إلى قياس مدى جاهزيتك للتعامل مع التهديدات السيبرانية اليومية في بيئة المستشفى. اختر الإجابة الأصح لكل سيناريو أدناه." data-en="Welcome! This quiz aims to measure your readiness to handle daily cyber threats in a hospital environment. Choose the best answer for each scenario.">مرحباً بك! يهدف هذا الاختبار إلى قياس مدى جاهزيتك للتعامل مع التهديدات السيبرانية اليومية في بيئة المستشفى. اختر الإجابة الأصح لكل سيناريو أدناه.</p>
         </div>
 
-        <div class="card">
-            <h3>١. ما هو التصرف الصحيح عند استلام بريد إلكتروني من "الدعم الفني" يطلب تحديث كلمة المرور عبر رابط؟</h3>
-            <div class="checklist-item" onclick="selectAnswer(1, 'a')"><input type="radio" name="q1" value="a"> <span>أضغط الرابط فوراً لتحديث كلمة المرور.</span></div>
-            <div class="checklist-item" onclick="selectAnswer(1, 'b')"><input type="radio" name="q1" value="b"> <span>أتجاهل البريد وأبلغ قسم تقنية المعلومات.</span></div>
-            <div class="checklist-item" onclick="selectAnswer(1, 'c')"><input type="radio" name="q1" value="c"> <span>أعيد توجيه البريد لزملائي للتأكد.</span></div>
-        </div>
+        <form id="quizForm">
+            <div class="question-card">
+                <h3 data-ar="١. وصلتك رسالة بريد عاجلة تبدو وكأنها من وزارة الصحة بعنوان (تحديث هام لبروتوكولات العدوى - يجب قراءته فوراً) وتحتوي على ملف مرفق. ماذا تفعل؟" data-en="1. You receive an urgent email seemingly from the Ministry of Health titled (Important Infection Protocols Update - Read Immediately) with an attachment. What do you do?">١. وصلتك رسالة بريد عاجلة تبدو وكأنها من وزارة الصحة بعنوان (تحديث هام لبروتوكولات العدوى - يجب قراءته فوراً) وتحتوي على ملف مرفق. ماذا تفعل؟</h3>
+                <div class="options-grid">
+                    <label class="option-label" onclick="selectOption('q1', this)">
+                        <input type="radio" name="q1" value="a"> <span class="custom-radio"></span>
+                        <span data-ar="أفتح الملف فوراً للبقاء على اطلاع بالتوجيهات الطبية." data-en="Open the file immediately to stay updated with medical guidelines.">أفتح الملف فوراً للبقاء على اطلاع بالتوجيهات الطبية.</span>
+                    </label>
+                    <label class="option-label" onclick="selectOption('q1', this)">
+                        <input type="radio" name="q1" value="b"> <span class="custom-radio"></span>
+                        <span data-ar="أعيد توجيه الرسالة لزملائي ليقرؤوها أيضاً." data-en="Forward the message to my colleagues so they can read it too.">أعيد توجيه الرسالة لزملائي ليقرؤوها أيضاً.</span>
+                    </label>
+                    <label class="option-label" onclick="selectOption('q1', this)">
+                        <input type="radio" name="q1" value="c"> <span class="custom-radio"></span>
+                        <span data-ar="أتحقق من عنوان البريد الفعلي للمرسل، ولا أفتح المرفق، وأبلغ قسم الأمن السيبراني." data-en="Check the actual sender email address, don't open the attachment, and report to Cybersecurity.">أتحقق من عنوان البريد الفعلي للمرسل، ولا أفتح المرفق، وأبلغ قسم الأمن السيبراني.</span>
+                    </label>
+                </div>
+            </div>
 
-        <div class="card">
-            <h3>٢. أي من هذه العبارات صحيحة حول كلمات المرور؟</h3>
-            <div class="checklist-item" onclick="selectAnswer(2, 'a')"><input type="radio" name="q2" value="a"> <span>استخدام نفس كلمة المرور لجميع الحسابات لتسهيل التذكر.</span></div>
-            <div class="checklist-item" onclick="selectAnswer(2, 'b')"><input type="radio" name="q2" value="b"> <span>مشاركة كلمة المرور مع زميل موثوق في حالات الطوارئ.</span></div>
-            <div class="checklist-item" onclick="selectAnswer(2, 'c')"><input type="radio" name="q2" value="c"> <span>استخدام كلمة مرور قوية ومختلفة لكل حساب، مع تفعيل المصادقة متعددة العوامل.</span></div>
-        </div>
+            <div class="question-card">
+                <h3 data-ar="٢. شخص يرتدي معطفاً طبياً (Lab Coat) ولا تعرفه، يطلب منك تسجيل الدخول السريع بجهازك لسحب نتيجة مختبر لمريض في حالة حرجة. ما هو التصرف الصحيح؟" data-en="2. A person in a lab coat whom you don't know asks you to quickly log into your device to pull a critical patient's lab result. What is the correct action?">٢. شخص يرتدي معطفاً طبياً (Lab Coat) ولا تعرفه، يطلب منك تسجيل الدخول السريع بجهازك لسحب نتيجة مختبر لمريض في حالة حرجة. ما هو التصرف الصحيح؟</h3>
+                <div class="options-grid">
+                    <label class="option-label" onclick="selectOption('q2', this)">
+                        <input type="radio" name="q2" value="a"> <span class="custom-radio"></span>
+                        <span data-ar="حياة المريض أهم، أسجل الدخول وأدعه يرى النتيجة." data-en="Patient life is more important, I log in and let him see the result.">حياة المريض أهم، أسجل الدخول وأدعه يرى النتيجة.</span>
+                    </label>
+                    <label class="option-label" onclick="selectOption('q2', this)">
+                        <input type="radio" name="q2" value="b"> <span class="custom-radio"></span>
+                        <span data-ar="أعتذر بلباقة، وأطلب منه التوجه لمحطة العمل الخاصة به أو إبراز هويته واتباع الإجراءات الرسمية." data-en="Apologize politely, ask him to use his own workstation or show ID and follow official procedures.">أعتذر بلباقة، وأطلب منه التوجه لمحطة العمل الخاصة به أو إبراز هويته واتباع الإجراءات الرسمية.</span>
+                    </label>
+                    <label class="option-label" onclick="selectOption('q2', this)">
+                        <input type="radio" name="q2" value="c"> <span class="custom-radio"></span>
+                        <span data-ar="أعطيه كلمة مروري ليستخدمها لمرة واحدة فقط." data-en="Give him my password to use just this once.">أعطيه كلمة مروري ليستخدمها لمرة واحدة فقط.</span>
+                    </label>
+                </div>
+            </div>
 
-        <div class="card">
-            <h3>٣. ما هو الإجراء الصحيح عند ملاحظة سلوك غريب على جهاز طبي متصل بالشبكة؟</h3>
-            <div class="checklist-item" onclick="selectAnswer(3, 'a')"><input type="radio" name="q3" value="a"> <span>أقوم بإعادة تشغيل الجهاز فوراً.</span></div>
-            <div class="checklist-item" onclick="selectAnswer(3, 'b')"><input type="radio" name="q3" value="b"> <span>أفصل الجهاز عن الشبكة وأبلغ قسم تقنية المعلومات.</span></div>
-            <div class="checklist-item" onclick="selectAnswer(3, 'c')"><input type="radio" name="q3" value="c"> <span>أتجاهل الأمر ما دام الجهاز يعمل.</span></div>
-        </div>
+            <div class="question-card">
+                <h3 data-ar="٣. احتجت لمغادرة مكتبك أو محطة التمريض لمدة قصيرة (دقيقتين) لإحضار ملف. شاشة الكمبيوتر مفتوحة على سجل طبي. ماذا يجب أن تفعل؟" data-en="3. You need to leave your desk or nursing station for a short time (2 mins) to fetch a file. The PC is open on a medical record. What should you do?">٣. احتجت لمغادرة مكتبك أو محطة التمريض لمدة قصيرة (دقيقتين) لإحضار ملف. شاشة الكمبيوتر مفتوحة على سجل طبي. ماذا يجب أن تفعل؟</h3>
+                <div class="options-grid">
+                    <label class="option-label" onclick="selectOption('q3', this)">
+                        <input type="radio" name="q3" value="a"> <span class="custom-radio"></span>
+                        <span data-ar="أغلق الشاشة أو أقفلها (Win + L) فوراً لحماية خصوصية المريض." data-en="Lock the screen (Win + L) immediately to protect patient privacy.">أغلق الشاشة أو أقفلها (Win + L) فوراً لحماية خصوصية المريض.</span>
+                    </label>
+                    <label class="option-label" onclick="selectOption('q3', this)">
+                        <input type="radio" name="q3" value="b"> <span class="custom-radio"></span>
+                        <span data-ar="أصغر النافذة (Minimize) حتى لا يقرأها أحد أثناء مروره." data-en="Minimize the window so no one passing by can read it.">أصغر النافذة (Minimize) حتى لا يقرأها أحد أثناء مروره.</span>
+                    </label>
+                    <label class="option-label" onclick="selectOption('q3', this)">
+                        <input type="radio" name="q3" value="c"> <span class="custom-radio"></span>
+                        <span data-ar="أتركها كما هي، الدقيقتان وقت غير كافٍ لحدوث أي مشكلة." data-en="Leave it as is, two minutes isn't enough time for an issue to occur.">أتركها كما هي، الدقيقتان وقت غير كافٍ لحدوث أي مشكلة.</span>
+                    </label>
+                </div>
+            </div>
 
-        <div class="card" style="text-align: center;">
-            <button class="btn" onclick="checkQuiz()">عرض النتيجة</button>
-            <div id="quizResult" class="interaction-result" style="display: none; margin-top: 1rem;"></div>
+            <div class="question-card">
+                <h3 data-ar="٤. وجدت شريحة تخزين (USB) ملقاة في الكافتيريا ومكتوب عليها 'رواتب الكادر الطبي 2026'. ما هو الإجراء الآمن؟" data-en="4. You found a USB drive in the cafeteria labeled 'Medical Staff Salaries 2026'. What is the secure action?">٤. وجدت شريحة تخزين (USB) ملقاة في الكافتيريا ومكتوب عليها 'رواتب الكادر الطبي 2026'. ما هو الإجراء الآمن؟</h3>
+                <div class="options-grid">
+                    <label class="option-label" onclick="selectOption('q4', this)">
+                        <input type="radio" name="q4" value="a"> <span class="custom-radio"></span>
+                        <span data-ar="أوصلها بجهاز الكمبيوتر الخاص بالمستشفى للبحث عن صاحبها." data-en="Plug it into the hospital PC to find the owner.">أوصلها بجهاز الكمبيوتر الخاص بالمستشفى للبحث عن صاحبها.</span>
+                    </label>
+                    <label class="option-label" onclick="selectOption('q4', this)">
+                        <input type="radio" name="q4" value="b"> <span class="custom-radio"></span>
+                        <span data-ar="أوصلها بهاتفي الشخصي لتكون معزولة عن شبكة المستشفى." data-en="Plug it into my personal phone to keep it isolated from the hospital network.">أوصلها بهاتفي الشخصي لتكون معزولة عن شبكة المستشفى.</span>
+                    </label>
+                    <label class="option-label" onclick="selectOption('q4', this)">
+                        <input type="radio" name="q4" value="c"> <span class="custom-radio"></span>
+                        <span data-ar="لا أقوم بتوصيلها بأي جهاز إطلاقاً، وأسلمها فوراً لقسم تقنية المعلومات أو الأمن." data-en="Do not plug it into any device at all, hand it immediately to IT or Security.">لا أقوم بتوصيلها بأي جهاز إطلاقاً، وأسلمها فوراً لقسم تقنية المعلومات أو الأمن.</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <h3 data-ar="٥. أي من الممارسات التالية تعتبر الأفضل في إدارة كلمات المرور لبيئة الرعاية الصحية؟" data-en="5. Which of the following practices is considered BEST for password management in a healthcare environment?">٥. أي من الممارسات التالية تعتبر الأفضل في إدارة كلمات المرور لبيئة الرعاية الصحية؟</h3>
+                <div class="options-grid">
+                    <label class="option-label" onclick="selectOption('q5', this)">
+                        <input type="radio" name="q5" value="a"> <span class="custom-radio"></span>
+                        <span data-ar="استخدام نفس كلمة مرور حساباتك الشخصية (تويتر، انستغرام) لتسهيل تذكرها." data-en="Use the same password as your personal accounts (Twitter, Instagram) to easily remember it.">استخدام نفس كلمة مرور حساباتك الشخصية (تويتر، انستغرام) لتسهيل تذكرها.</span>
+                    </label>
+                    <label class="option-label" onclick="selectOption('q5', this)">
+                        <input type="radio" name="q5" value="b"> <span class="custom-radio"></span>
+                        <span data-ar="كتابة كلمة المرور على ورقة صغيرة وإلصاقها أسفل لوحة المفاتيح لتجنب نسيانها." data-en="Write the password on a small paper and stick it under the keyboard to avoid forgetting it.">كتابة كلمة المرور على ورقة صغيرة وإلصاقها أسفل لوحة المفاتيح لتجنب نسيانها.</span>
+                    </label>
+                    <label class="option-label" onclick="selectOption('q5', this)">
+                        <input type="radio" name="q5" value="c"> <span class="custom-radio"></span>
+                        <span data-ar="استخدام عبارة مرور طويلة ومميزة (Passphrase) وعدم مشاركتها مع أي شخص كان." data-en="Use a long, unique Passphrase and never share it with anyone whatsoever.">استخدام عبارة مرور طويلة ومميزة (Passphrase) وعدم مشاركتها مع أي شخص كان.</span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="button" class="btn-submit" onclick="submitQuiz()"><span data-ar="إرسال الإجابات وإظهار النتيجة" data-en="Submit Answers & Show Result">إرسال الإجابات وإظهار النتيجة</span></button>
+        </form>
+
+        <div id="resultBox" class="result-box">
+            <div id="scoreCircle" class="score-circle"></div>
+            <div id="resultText"></div>
+            <p style="font-size: 1rem; color: var(--text-muted); font-weight: normal; margin-top: 1rem;" data-ar="تم تظليل الإجابات الصحيحة باللون الأخضر، وإجاباتك الخاطئة (إن وجدت) باللون الأحمر في الأعلى." data-en="Correct answers are highlighted in green, and your wrong answers (if any) in red above.">تم تظليل الإجابات الصحيحة باللون الأخضر، وإجاباتك الخاطئة (إن وجدت) باللون الأحمر في الأعلى.</p>
         </div>
     </div>
 
-    <footer>
-        <p>جميع الحقوق محفوظة © 2026 المستشفى الجامعي</p>
-    </footer>
-
     <script>
-        const answers = { q1: 'b', q2: 'c', q3: 'b' };
-        let selected = { q1: null, q2: null, q3: null };
+        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+        const answers = { q1: 'c', q2: 'b', q3: 'a', q4: 'c', q5: 'c' };
+        let selectedAnswers = {};
 
-        function selectAnswer(qNum, value) {
-            const radios = document.getElementsByName('q' + qNum);
-            for (let radio of radios) {
-                if (radio.value === value) {
-                    radio.checked = true;
-                    selected['q' + qNum] = value;
-                }
-            }
+        // تحديث المظهر عند اختيار إجابة
+        function selectOption(qName, labelElement) {
+            // إزالة الكلاس selected من كل الخيارات في نفس السؤال
+            const siblings = document.getElementsByName(qName);
+            siblings.forEach(radio => {
+                radio.parentElement.classList.remove('selected');
+            });
+            // إضافة الكلاس للعنصر المختار
+            labelElement.classList.add('selected');
+
+            // حفظ الإجابة
+            const radioBtn = labelElement.querySelector('input');
+            radioBtn.checked = true;
+            selectedAnswers[qName] = radioBtn.value;
         }
 
-        function checkQuiz() {
+        function submitQuiz() {
+            // التحقق من الإجابة على كل الأسئلة
+            let answeredCount = Object.keys(selectedAnswers).length;
+            if (answeredCount < 5) {
+                alert(currentLang === 'ar' ? 'الرجاء الإجابة على جميع الأسئلة الخمسة قبل الإرسال.' : 'Please answer all 5 questions before submitting.');
+                return;
+            }
+
             let correct = 0;
-            let total = 0;
-            for (let key in answers) {
-                if (selected[key] === answers[key]) {
-                    correct++;
-                }
-                total++;
+
+            // التغذية الراجعة المرئية على الأسئلة
+            for(let i=1; i<=5; i++) {
+                let q = 'q'+i;
+                let radios = document.getElementsByName(q);
+                radios.forEach(radio => {
+                    let label = radio.parentElement;
+                    label.classList.remove('selected', 'correct', 'wrong'); // تصفير الكلاسات
+
+                    // تلوين الإجابة الصحيحة دائماً
+                    if(radio.value === answers[q]) {
+                        label.classList.add('correct');
+                    }
+
+                    // تلوين إجابة المستخدم إذا كانت خاطئة
+                    if(radio.checked && radio.value !== answers[q]) {
+                        label.classList.add('wrong');
+                    }
+                });
+
+                if(selectedAnswers[q] === answers[q]) correct++;
             }
-            const resultDiv = document.getElementById('quizResult');
-            resultDiv.style.display = 'block';
-            if (correct === total) {
-                resultDiv.className = 'interaction-result success';
-                resultDiv.innerText = `✅ إجاباتك كلها صحيحة! وعيك ممتاز (${correct}/${total})`;
-            } else if (correct >= 2) {
-                resultDiv.className = 'interaction-result success';
-                resultDiv.innerText = `👍 لديك ${correct} من ${total} إجابات صحيحة. راجع المواد التوعوية لتحسين معرفتك.`;
+
+            // عرض النتيجة النهائية
+            const box = document.getElementById('resultBox');
+            const circle = document.getElementById('scoreCircle');
+            const text = document.getElementById('resultText');
+
+            box.style.display = 'block';
+            circle.innerText = `${correct}/5`;
+
+            if(correct === 5) {
+                box.style.backgroundColor = '#ecfdf5'; box.style.border = '2px solid #34d399';
+                circle.style.backgroundColor = '#10b981'; text.style.color = '#047857';
+                text.innerText = currentLang === 'ar' ? '🎉 ممتاز! مستوى وعيك السيبراني مثالي ولا تشوبه شائبة.' : '🎉 Excellent! Your cyber awareness level is flawless.';
+            } else if (correct >= 3) {
+                box.style.backgroundColor = '#fffbeb'; box.style.border = '2px solid #fbbf24';
+                circle.style.backgroundColor = '#f59e0b'; text.style.color = '#b45309';
+                text.innerText = currentLang === 'ar' ? '👍 جيد جداً! أداء طيب، لكن تأكد من مراجعة الإجابات الخاطئة لتعزيز أمان المستشفى.' : '👍 Very Good! Solid performance, but review your wrong answers to enhance hospital security.';
             } else {
-                resultDiv.className = 'interaction-result error';
-                resultDiv.innerText = `💡 لديك ${correct} من ${total} إجابات صحيحة. نوصي بزيارة المكتبة التوعوية.`;
+                box.style.backgroundColor = '#fef2f2'; box.style.border = '2px solid #f87171';
+                circle.style.backgroundColor = '#ef4444'; text.style.color = '#b91c1c';
+                text.innerText = currentLang === 'ar' ? '⚠️ تحذير: مستوى وعيك يحتاج إلى تحسين عاجل. نوصيك بشدة بزيارة المكتبة التوعوية.' : '⚠️ Warning: Your awareness level needs urgent improvement. We highly recommend visiting the library.';
+            }
+
+            // حفظ النتيجة للإحصائيات (Dashboard)
+            let quizResults = JSON.parse(localStorage.getItem('quizResults')) || { total: 0, score: 0 };
+            quizResults.total++; quizResults.score += correct;
+            localStorage.setItem('quizResults', JSON.stringify(quizResults));
+
+            // تمرير الشاشة ببطء للنتيجة
+            box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function applyLanguage() {
+            const elements = document.querySelectorAll('[data-ar][data-en]');
+            if (currentLang === 'en') {
+                elements.forEach(el => {
+                    if (el.tagName === 'INPUT' && el.type === 'text') el.placeholder = el.getAttribute('data-en');
+                    else el.innerText = el.getAttribute('data-en');
+                });
+                document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr';
+            } else {
+                elements.forEach(el => {
+                    if (el.tagName === 'INPUT' && el.type === 'text') el.placeholder = el.getAttribute('data-ar');
+                    else el.innerText = el.getAttribute('data-ar');
+                });
+                document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl';
+            }
+
+            // إذا كان المستخدم قد أنهى الاختبار، أعد عرض النتيجة باللغة الجديدة
+            if(document.getElementById('resultBox').style.display === 'block') {
+                let correctCount = parseInt(document.getElementById('scoreCircle').innerText.split('/')[0]);
+                const text = document.getElementById('resultText');
+                if(correctCount === 5) text.innerText = currentLang === 'ar' ? '🎉 ممتاز! مستوى وعيك السيبراني مثالي ولا تشوبه شائبة.' : '🎉 Excellent! Your cyber awareness level is flawless.';
+                else if (correctCount >= 3) text.innerText = currentLang === 'ar' ? '👍 جيد جداً! أداء طيب، لكن تأكد من مراجعة الإجابات الخاطئة لتعزيز أمان المستشفى.' : '👍 Very Good! Solid performance, but review your wrong answers to enhance hospital security.';
+                else text.innerText = currentLang === 'ar' ? '⚠️ تحذير: مستوى وعيك يحتاج إلى تحسين عاجل. نوصيك بشدة بزيارة المكتبة التوعوية.' : '⚠️ Warning: Your awareness level needs urgent improvement. We highly recommend visiting the library.';
             }
         }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('preferredLanguage', currentLang);
+            applyLanguage();
+        }
+        window.onload = applyLanguage;
     </script>
 </body>
 </html>

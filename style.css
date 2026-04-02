@@ -501,3 +501,18 @@ footer a:hover {
 .close:hover {
     color: black;
 }
+/* Language Switcher Button */
+.lang-switch {
+    background: white;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    padding: 0.4rem 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+.lang-switch:hover {
+    background: var(--primary);
+    color: white;
+}

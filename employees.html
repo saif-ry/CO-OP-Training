@@ -3,71 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الكادر الصحي | الأمن السيبراني - المستشفى الجامعي</title>
+    <title>Healthcare Staff | Cybersecurity - University Hospital</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root { --bg-color: #f8fafc; --header-bg: #005a32; --nca-green: #007a4d; --text-dark: #1e293b; --text-muted: #64748b; --border-color: #e2e8f0; --card-radius: 16px; }
+        body { margin: 0; font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-dark); }
+
+        /* Header & Nav */
+        .main-header { background-color: var(--header-bg); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #004224; }
+        .header-right { display: flex; align-items: center; gap: 15px; }
+        .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .header-titles h1 { margin: 0; font-size: 1.3rem; font-weight: 700; }
+        .header-titles p { margin: 0; font-size: 0.9rem; color: #a7f3d0; }
+        .header-left { display: flex; gap: 15px; align-items: center; }
+        .btn-lang { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-family: inherit; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-lang:hover { background: rgba(255,255,255,0.2); }
+        .nav-menu { background: white; border-bottom: 1px solid var(--border-color); padding: 0 2rem; display: flex; gap: 1rem; overflow-x: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .nav-link { padding: 1rem 0.5rem; color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 3px solid transparent; white-space: nowrap; transition: 0.2s; }
+        .nav-link:hover { color: var(--nca-green); }
+        .nav-link.active { color: var(--nca-green); border-bottom-color: var(--nca-green); }
+
+        /* Container & Cards */
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
+        .section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-dark); }
+
+        .roles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .role-card { background: white; border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2rem; text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; text-align: center; transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .role-card:hover { transform: translateY(-5px); border-color: var(--nca-green); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+        .role-icon { font-size: 4rem; margin-bottom: 1rem; }
+        .role-title { font-size: 1.2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem; }
+        .role-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>الكادر الصحي</h1>
-        <div class="hospital-name">المستشفى الجامعي</div>
+    <header class="main-header">
+        <div class="header-right">
+            <div class="logo-placeholder">🏥</div>
+            <div class="header-titles">
+                <h1 data-ar="المدينة الطبية | منصة التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">المدينة الطبية | منصة التوعية بالأمن السيبراني</h1>
+                <p data-ar="اختر دورك للاطلاع على الإرشادات" data-en="Choose your role to see guidelines">اختر دورك للاطلاع على الإرشادات</p>
+            </div>
+        </div>
+        <div class="header-left">
+            <button class="btn-lang" onclick="toggleLanguage()">🌐 العربية / English</button>
+        </div>
     </header>
-    <nav>
-        <a href="index.html">الرئيسية</a>
-        <a href="employees.html">الكادر الصحي</a>
-        <a href="oip.html">المكتبة التوعوية</a>
-        <a href="quiz.html">اختبار الوعي</a>
-        <a href="survey.html">استبيان</a>
-        <a href="report.html">الإبلاغ عن حادث</a>
-        <a href="tools.html">الأدوات</a>
+
+    <nav class="nav-menu">
+        <a href="index.html" class="nav-link"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> 🏠</a>
+        <a href="employees.html" class="nav-link active"><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> 👨‍⚕️</a>
+        <a href="oip.html" class="nav-link"><span data-ar="المكتبة التوعوية" data-en="Library">المكتبة التوعوية</span> 📚</a>
+        <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> 🧰</a>
+        <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> 🚨</a>
+        <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> 📊</a>
+        <a href="quiz.html" class="nav-link"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> 🧠</a>
+        <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> 📈</a>
     </nav>
+
     <div class="container">
-        <h2>اختر دورك للاطلاع على الإرشادات المخصصة</h2>
-        <div class="grid-4">
+        <div class="section-title">👨‍⚕️ <span data-ar="الكادر الصحي (تحديد المسار)" data-en="Healthcare Staff (Select Path)">الكادر الصحي (تحديد المسار)</span></div>
+
+        <div class="roles-grid">
             <a href="doctor.html" class="role-card">
                 <div class="role-icon">🩺</div>
-                <h3>الأطباء</h3>
-                <p>إرشادات خاصة بالتعامل مع السجلات الطبية، وخصوصية المريض</p>
+                <div class="role-title" data-ar="الأطباء" data-en="Doctors">الأطباء</div>
+                <div class="role-desc" data-ar="إرشادات التعامل مع السجلات الطبية، حماية خصوصية المرضى، وتأمين حسابات الأنظمة الصحية." data-en="Guidelines for medical records, patient privacy, and securing health system accounts.">إرشادات التعامل مع السجلات الطبية، حماية خصوصية المرضى، وتأمين حسابات الأنظمة الصحية.</div>
             </a>
             <a href="nurse.html" class="role-card">
                 <div class="role-icon">💉</div>
-                <h3>التمريض</h3>
-                <p>أمن الأجهزة الطبية، وحماية البيانات أثناء التمريض</p>
+                <div class="role-title" data-ar="التمريض" data-en="Nurses">التمريض</div>
+                <div class="role-desc" data-ar="أمن محطات التمريض، الأجهزة الطبية المتنقلة، وحماية البيانات أثناء الجولات." data-en="Nursing station security, mobile medical devices, and data protection during rounds.">أمن محطات التمريض، الأجهزة الطبية المتنقلة، وحماية البيانات أثناء الجولات.</div>
             </a>
             <a href="admin.html" class="role-card">
                 <div class="role-icon">📋</div>
-                <h3>الإداريين</h3>
-                <p>أمن البريد الإلكتروني، وحماية بيانات المرضى في المكاتب</p>
+                <div class="role-title" data-ar="الإداريون" data-en="Administrators">الإداريون</div>
+                <div class="role-desc" data-ar="أمن المكاتب، التصيد عبر البريد الإلكتروني، وحماية الملفات الورقية والرقمية الحساسة." data-en="Office security, email phishing, and protecting sensitive paper/digital files.">أمن المكاتب، التصيد عبر البريد الإلكتروني، وحماية الملفات الورقية والرقمية الحساسة.</div>
             </a>
             <a href="it-staff.html" class="role-card">
                 <div class="role-icon">💻</div>
-                <h3>تقنية المعلومات</h3>
-                <p>إدارة الثغرات، النسخ الاحتياطي، الاستجابة للحوادث</p>
+                <div class="role-title" data-ar="تقنية المعلومات" data-en="IT Staff">تقنية المعلومات</div>
+                <div class="role-desc" data-ar="إدارة الثغرات، النسخ الاحتياطي، الاستجابة للحوادث، وتطبيق سياسات الأمن." data-en="Vulnerability management, backups, incident response, and security policies.">إدارة الثغرات، النسخ الاحتياطي، الاستجابة للحوادث، وتطبيق سياسات الأمن.</div>
             </a>
             <a href="management.html" class="role-card">
                 <div class="role-icon">🏛️</div>
-                <h3>الإدارة العليا</h3>
-                <p>المخاطر الاستراتيجية، الامتثال، الحوكمة</p>
+                <div class="role-title" data-ar="الإدارة العليا" data-en="Senior Management">الإدارة العليا</div>
+                <div class="role-desc" data-ar="إدارة المخاطر الاستراتيجية، الامتثال للمعايير الوطنية، وتخطيط استمرارية العمل." data-en="Strategic risk management, national compliance, and business continuity planning.">إدارة المخاطر الاستراتيجية، الامتثال للمعايير الوطنية، وتخطيط استمرارية العمل.</div>
             </a>
             <a href="lab.html" class="role-card">
                 <div class="role-icon">🔬</div>
-                <h3>المختبر والأشعة</h3>
-                <p>أمن الأجهزة التشخيصية، وحماية نتائج الفحوصات</p>
+                <div class="role-title" data-ar="المختبر والأشعة" data-en="Lab & Radiology">المختبر والأشعة</div>
+                <div class="role-desc" data-ar="تأمين أجهزة التشخيص الدقيقة، منع اختراق شبكة المختبر، وحماية نتائج الفحوصات." data-en="Securing diagnostic devices, preventing lab network breaches, and protecting results.">تأمين أجهزة التشخيص الدقيقة، منع اختراق شبكة المختبر، وحماية نتائج الفحوصات.</div>
             </a>
-        </div>
-
-        <!-- شريط تقدم جماعي (محاكاة) - اختياري، يمكنك إزالته إذا لم يعجبك -->
-        <div class="team-progress">
-            <h3>📊 تقدم وعي الكادر الصحي</h3>
-            <div class="progress-bar" style="margin:1rem 0;">
-                <div class="progress-fill" style="width: 68%;"></div>
-            </div>
-            <p>68% من الموظفين أكملوا التدريب الأساسي هذا الشهر.</p>
         </div>
     </div>
 
-    <footer>
-        <p>جميع الحقوق محفوظة © 2026 المستشفى الجامعي</p>
-    </footer>
+    <script>
+        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+        function applyLanguage() {
+            const elements = document.querySelectorAll('[data-ar][data-en]');
+            if (currentLang === 'en') {
+                elements.forEach(el => el.innerText = el.getAttribute('data-en'));
+                document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr';
+            } else {
+                elements.forEach(el => el.innerText = el.getAttribute('data-ar'));
+                document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl';
+            }
+        }
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('preferredLanguage', currentLang);
+            applyLanguage();
+        }
+        window.onload = applyLanguage;
+    </script>
 </body>
 </html>
