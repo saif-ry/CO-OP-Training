@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctors | Cybersecurity - University Hospital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+    /* 1. تعريف المتغيرات للوضع الفاتح (Light Mode) */
+    :root {
+        --bg-color: #f8fafc;
+        --card-bg: #ffffff;
+        --header-bg: #005a32;
+        --nca-green: #007a4d;
+        --text-main: #1e293b; /* نص داكن */
+        --text-muted: #64748b;
+        --border-color: #e2e8f0;
+        --card-radius: 16px;
+        --danger: #ef4444;
+    }
+
+    /* 2. تفعيل الوضع الداكن التلقائي (Dark Mode) */
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --bg-color: #0f172a; /* خلفية الصفحة كحلي داكن */
+            --card-bg: #1e293b; /* خلفية البطاقات رمادي داكن */
+            --text-main: #f1f5f9; /* نص فاتح جداً ليظهر بوضوح */
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+        }
+
+        /* إصلاحات خاصة للعناصر التي تملك ألواناً ثابتة */
+        .info-card {
+            background-color: #1e293b !important;
+            border-color: #475569 !important;
+        }
+        .info-card h3 {
+            color: #f1f5f9 !important;
+        }
+        .nav-menu {
+            background-color: #1e293b !important;
+            border-bottom-color: #334155 !important;
+        }
+        .nav-link {
+            color: #94a3b8 !important;
+        }
+        .nav-link.active {
+            color: var(--nca-green) !important;
+        }
+        .checklist-item {
+            background-color: #0f172a !important;
+            border-color: #334155 !important;
+            color: #f1f5f9 !important;
+        }
+        .section-title, .card p, .card h3 {
+            color: #f1f5f9 !important;
+        }
+        .modal-content {
+            background-color: #1e293b !important;
+            color: #f1f5f9 !important;
+        }
+    }
+
+    /* 3. التنسيقات العامة التي تعتمد على المتغيرات */
+    body {
+        margin: 0;
+        font-family: 'Cairo', sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .main-header {
+        background-color: var(--header-bg);
+        color: white;
+        padding: 1rem 2rem;
+        border-bottom: 4px solid #004224;
+    }
+
+    .card {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--card-radius);
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-card {
+        background-color: #f8fafc; /* لون افتراضي للفاتح */
+        border: 1px solid var(--border-color);
+        transition: 0.3s;
+    }
+</style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-right">
+            <div class="logo-placeholder">🏥</div>
+            <div class="header-titles">
+                <h1 data-ar="المدينة الطبية | منصة التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">المدينة الطبية | منصة التوعية بالأمن السيبراني</h1>
+                <p data-ar="إرشادات الأطباء وحماية السجلات الطبية" data-en="Doctors Guidelines">إرشادات الأطباء وحماية السجلات الطبية</p>
+            </div>
+        </div>
+        <div class="header-left">
+            <button class="btn-dark-mode" id="darkModeBtn" onclick="toggleDarkMode()" title="تغيير المظهر">🌙</button>
+            <button class="btn-lang" onclick="toggleLanguage()">🌐 العربية / English</button>
+            <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login" style="background: #10b981; border: none; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-weight: 700; text-decoration: none;">تسجيل الدخول</a>
+        </div>
+    </header>
+
+    <nav class="nav-menu">
+        <a href="index.html" class="nav-link"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> 🏠</a>
+        <a href="employees.html" class="nav-link active"><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> 👨‍⚕️</a>
+        <a href="oip.html" class="nav-link"><span data-ar="المكتبة التوعوية" data-en="Library">المكتبة التوعوية</span> 📚</a>
+        <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> 🧰</a>
+        <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> 🚨</a>
+        <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> 📊</a>
+        <a href="quiz.html" class="nav-link"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> 🧠</a>
+        <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> 📈</a>
+    </nav>
+
+    <div class="container">
+        <a href="employees.html" style="color: var(--text-muted); text-decoration: none; display: inline-block; margin-bottom: 1rem;" data-ar="← العودة للوراء" data-en="← Back">← العودة للوراء</a>
+
+        <div class="section-title">🩺 <span data-ar="دورك كطبيب في حماية المعلومات" data-en="Your Role in Information Protection">دورك كطبيب في حماية المعلومات</span></div>
+
+        <div class="card">
+            <p data-ar="أنت تتعامل مع أكثر بيانات المرضى حساسية. اضغط على أي بطاقة لعرض السياسات الأمنية الخاصة بها:" data-en="You handle highly sensitive patient data. Click any card to view its security policies:">أنت تتعامل مع أكثر بيانات المرضى حساسية. اضغط على أي بطاقة لعرض السياسات الأمنية الخاصة بها:</p>
+            <div class="interactive-grid">
+                <div class="info-card" onclick="showInfoModal('patient')">
+                    <div class="card-icon">🛡️</div>
+                    <h3 data-ar="بيانات المرضى" data-en="Patient Data">بيانات المرضى</h3>
+                </div>
+                <div class="info-card" onclick="showInfoModal('phishing')">
+                    <div class="card-icon">🎣</div>
+                    <h3 data-ar="التصيد الإلكتروني" data-en="Phishing">التصيد الإلكتروني</h3>
+                </div>
+                <div class="info-card" onclick="showInfoModal('passwords')">
+                    <div class="card-icon">🔐</div>
+                    <h3 data-ar="كلمات المرور" data-en="Passwords">كلمات المرور</h3>
+                </div>
+                <div class="info-card" onclick="showInfoModal('report')">
+                    <div class="card-icon">🚨</div>
+                    <h3 data-ar="الإبلاغ عن الحوادث" data-en="Incident Reporting">الإبلاغ عن الحوادث</h3>
+                </div>
+                <div class="info-card" onclick="showInfoModal('devices')">
+                    <div class="card-icon">💻</div>
+                    <h3 data-ar="الأجهزة الطبية" data-en="Medical Devices">الأجهزة الطبية</h3>
+                </div>
+                <div class="info-card" onclick="showInfoModal('remote')">
+                    <div class="card-icon">🏠</div>
+                    <h3 data-ar="العمل عن بعد" data-en="Remote Work">العمل عن بعد</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="border-right: 4px solid var(--nca-green);">
+            <h3 style="margin-top:0;" data-ar="⚠️ سيناريو تفاعلي" data-en="⚠️ Interactive Scenario">⚠️ سيناريو تفاعلي</h3>
+            <p><strong data-ar="الموقف:" data-en="Situation:">الموقف:</strong> <span data-ar="وصلتك رسالة على بريدك الجامعي تطلب منك تحديث كلمة مرور النظام الطبي بشكل عاجل، مع رابط لصفحة تشبه تماماً صفحة تسجيل الدخول للمستشفى. ماذا تفعل؟" data-en="You receive an urgent email asking to update your medical system password with a link to a fake login page. What do you do?">وصلتك رسالة على بريدك الجامعي تطلب منك تحديث كلمة مرور النظام الطبي بشكل عاجل، مع رابط لصفحة تشبه تماماً صفحة تسجيل الدخول للمستشفى. ماذا تفعل؟</span></p>
+            <button class="btn btn-outline" onclick="handleScenario(false)"><span data-ar="أضغط الرابط وأدخل بياناتي لعدم توقف النظام" data-en="Click the link and enter credentials">أضغط الرابط وأدخل بياناتي لعدم توقف النظام</span></button>
+            <button class="btn" onclick="handleScenario(true)"><span data-ar="أبلغ قسم تقنية المعلومات ولا أضغط الرابط" data-en="Report to IT and don't click the link">أبلغ قسم تقنية المعلومات ولا أضغط الرابط</span></button>
+            <div id="scenarioResult" class="interaction-result"></div>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top:0;" data-ar="📋 قائمة المهام اليومية" data-en="📋 Daily Checklist">📋 قائمة المهام اليومية</h3>
+            <div id="checklist">
+                <label class="checklist-item"><input type="checkbox"> <span data-ar="قفل الشاشة (Win+L) عند مغادرة المكتب للقيام بجولة أو استراحة." data-en="Lock your screen (Win+L) when leaving the desk.">قفل الشاشة (Win+L) عند مغادرة المكتب للقيام بجولة أو استراحة.</span></label>
+                <label class="checklist-item"><input type="checkbox"> <span data-ar="عدم فتح أي مرفق بريد إلكتروني مشبوه أو روابط غير متوقعة." data-en="Do not open suspicious email attachments or unexpected links.">عدم فتح أي مرفق بريد إلكتروني مشبوه أو روابط غير متوقعة.</span></label>
+                <label class="checklist-item"><input type="checkbox"> <span data-ar="تسجيل الخروج من النظام الطبي (HIS) فور الانتهاء من مراجعة سجل المريض." data-en="Log out of the HIS immediately after reviewing a patient's record.">تسجيل الخروج من النظام الطبي (HIS) فور الانتهاء من مراجعة سجل المريض.</span></label>
+                <label class="checklist-item"><input type="checkbox"> <span data-ar="تحديث كلمة المرور الخاصة بك دورياً وعدم كتابتها على ورق لاصق." data-en="Update your password periodically and do not write it on sticky notes.">تحديث كلمة المرور الخاصة بك دورياً وعدم كتابتها على ورق لاصق.</span></label>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+            <p style="margin-bottom:0; font-size:0.9rem;" data-ar="التقدم: <span id='progressText'>0</span>/4" data-en="Progress: <span id='progressText'>0</span>/4">التقدم: <span id='progressText'>0</span>/4</p>
+        </div>
+    </div>
+
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('infoModal').classList.remove('show')">&times;</span>
+            <div class="modal-header" id="infoModalHeader"></div>
+            <div class="modal-body" id="infoModalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        const role = 'doctor';
+        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+
+        const infoData = {
+            patient: {
+                ar: { title: '🛡️ حماية بيانات المرضى', body: 'بيانات المرضى هي أمانة. يجب عليك الوصول إلى ملفات المرضى المصرح بها فقط. يُمنع منعاً باتاً مشاركة أي معلومات طبية أو صور للأشعة عبر تطبيقات المحادثة غير الآمنة (مثل الواتساب). لا تترك شاشة جهازك مفتوحة على بيانات المرضى عند خروجك.' },
+                en: { title: '🛡️ Patient Data Protection', body: 'Patient data is a trust. Access only authorized records. It is strictly forbidden to share medical info or X-rays via unsecured chat apps (like WhatsApp). Do not leave your screen open on patient data.' }
+            },
+            phishing: {
+                ar: { title: '🎣 التصيد الإلكتروني', body: 'رسائل التصيد تحاول خداعك لسرقة بيانات الدخول. تحقق من عنوان البريد الإلكتروني جيداً، ومرر مؤشر الماوس فوق الروابط لترى العنوان الحقيقي قبل النقر. لا تثق بالرسائل التي تطلب إجراءات عاجلة.' },
+                en: { title: '🎣 Phishing', body: 'Phishing emails try to steal your credentials. Check the email address carefully, and hover over links to see the real URL. Do not trust emails demanding urgent action.' }
+            },
+            passwords: {
+                ar: { title: '🔐 كلمات المرور', body: 'استخدم كلمة مرور قوية ومختلفة لنظام المستشفى (تحتوي على حروف كبيرة وصغيرة، أرقام، ورموز). لا تقم أبداً بمشاركة كلمة مرورك مع الزملاء أو الممرضين حتى في حالات الطوارئ.' },
+                en: { title: '🔐 Passwords', body: 'Use a strong, unique password for the hospital system. Never share your password with colleagues or nurses, even in emergencies.' }
+            },
+            report: {
+                ar: { title: '🚨 الإبلاغ عن الحوادث', body: 'إذا شككت في وجود اختراق أو لاحظت سلوكاً غريباً في حسابك، أبلغ قسم الدعم الفني فوراً. لا تحاول إصلاح المشكلة بنفسك.' },
+                en: { title: '🚨 Incident Reporting', body: 'If you suspect a breach or notice strange behavior on your account, report it to IT immediately. Do not try to fix it yourself.' }
+            },
+            devices: {
+                ar: { title: '💻 الأجهزة الطبية', body: 'لا تقم بتوصيل أجهزة USB الشخصية بأجهزة المستشفى، وأبلغ الدعم الفني عن أي سلوك غير معتاد (بطء شديد، نوافذ منبثقة غريبة) في أجهزة العيادة.' },
+                en: { title: '💻 Medical Devices', body: 'Do not connect personal USB devices to hospital computers. Report any unusual behavior (extreme slowness, weird pop-ups) to IT.' }
+            },
+            remote: {
+                ar: { title: '🏠 العمل عن بعد', body: 'عند الاطلاع على السجلات أو العمل من المنزل، استخدم شبكة الـ VPN المعتمدة من المستشفى فقط. تأكد من أن شبكة منزلك محمية بكلمة مرور قوية ولا تستخدم شبكات المقاهي العامة.' },
+                en: { title: '🏠 Remote Work', body: 'When working from home, use only the hospital-approved VPN. Ensure your home network is secure and avoid public cafe Wi-Fi.' }
+            }
+        };
+
+        function showInfoModal(topic) {
+            const data = infoData[topic][currentLang];
+            document.getElementById('infoModalHeader').innerText = data.title;
+            document.getElementById('infoModalBody').innerText = data.body;
+            document.getElementById('infoModal').classList.add('show');
+        }
+
+        // إغلاق النافذة المنبثقة عند النقر خارجها
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('infoModal');
+            if (event.target === modal) {
+                modal.classList.remove('show');
+            }
+        });
+
+        function handleScenario(isCorrect) {
+            const res = document.getElementById('scenarioResult');
+            res.style.display = 'block';
+            if (isCorrect) {
+                res.className = 'interaction-result success';
+                res.innerText = currentLang === 'ar' ? '✅ تصرف صحيح! يجب الإبلاغ فورًا عن أي رسالة مشبوهة، وعدم الضغط على أي رابط مهما بدت الرسالة رسمية.' : '✅ Correct! Immediately report suspicious emails and never click the links.';
+            } else {
+                res.className = 'interaction-result error';
+                res.innerText = currentLang === 'ar' ? '❌ خطأ كارثي! إدخال بياناتك سيعطي المهاجمين وصولاً كاملاً لسجلات المرضى.' : '❌ Catastrophic mistake! Entering your data gives attackers full access to patient records.';
+            }
+            let key = `${role}_scenario`;
+            let existing = JSON.parse(localStorage.getItem(key)) || { total: 0, correct: 0 };
+            existing.total++; if (isCorrect) existing.correct++;
+            localStorage.setItem(key, JSON.stringify(existing));
+        }
+
+        function updateChecklist() {
+            const items = document.querySelectorAll('.checklist-item');
+            let checked = 0, dataArr = [];
+            items.forEach(item => {
+                const cb = item.querySelector('input');
+                if (cb.checked) { checked++; item.classList.add('completed'); }
+                else { item.classList.remove('completed'); }
+                dataArr.push({ completed: cb.checked });
+            });
+            document.getElementById('progressFill').style.width = ((checked / items.length) * 100) + '%';
+            const pText = document.getElementById('progressText');
+            if (pText) pText.innerText = checked;
+            localStorage.setItem(`${role}_checklist`, JSON.stringify(dataArr));
+        }
+
+        window.onload = () => {
+            const saved = JSON.parse(localStorage.getItem(`${role}_checklist`));
+            const items = document.querySelectorAll('.checklist-item');
+            if (saved) {
+                saved.forEach((s, i) => { if(items[i]) items[i].querySelector('input').checked = s.completed; });
+            }
+            items.forEach(item => item.querySelector('input').addEventListener('change', updateChecklist));
+            updateChecklist();
+            applyLanguage();
+        };
+
+        function applyLanguage() {
+            const elements = document.querySelectorAll('[data-ar][data-en]');
+            if (currentLang === 'en') {
+                elements.forEach(el => {
+                    if(el.innerHTML.includes('<span')) el.innerHTML = el.getAttribute('data-en');
+                    else el.innerText = el.getAttribute('data-en');
+                });
+                document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr';
+            } else {
+                elements.forEach(el => {
+                    if(el.innerHTML.includes('<span')) el.innerHTML = el.getAttribute('data-ar');
+                    else el.innerText = el.getAttribute('data-ar');
+                });
+                document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl';
+            }
+            const res = document.getElementById('scenarioResult');
+            if(res.style.display === 'block') handleScenario(res.classList.contains('success'));
+            updateChecklist();
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('preferredLanguage', currentLang);
+            applyLanguage();
+        }
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey | Cybersecurity - University Hospital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* التنسيقات الخاصة بصفحة الاستبيان فقط */
+        .container { max-width: 800px; margin: 2rem auto; padding: 0 2rem; }
+
+        .form-card { background: white; border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: 0.3s; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; font-weight: 700; margin-bottom: 0.8rem; font-size: 1.05rem; }
+        .form-select, .form-textarea { width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 1rem; outline: none; background: #f8fafc; box-sizing: border-box; transition: 0.3s; color: var(--text-dark); }
+        .form-select:focus, .form-textarea:focus { border-color: var(--nca-green); background: white; }
+
+        .btn-submit { background: var(--nca-green); color: white; border: none; padding: 1rem; width: 100%; border-radius: 8px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: 0.3s; font-family: inherit; margin-top: 1rem; }
+        .btn-submit:hover { background: #00603c; }
+
+        .result-box { display: none; margin-top: 1.5rem; padding: 1.5rem; border-radius: 12px; font-weight: bold; text-align: center; font-size: 1.1rem; background: #ecfdf5; color: #059669; border: 2px solid #34d399; }
+
+        /* دعم الوضع المظلم لصفحة الاستبيان */
+        body.dark-mode .form-card { background: #1e293b; border-color: var(--border-color); }
+        body.dark-mode .form-select, body.dark-mode .form-textarea { background: #0f172a; border-color: var(--border-color); color: #f8fafc; }
+        body.dark-mode .form-select:focus, body.dark-mode .form-textarea:focus { border-color: var(--nca-green); background: #1e293b; }
+        body.dark-mode .result-box { background: rgba(16, 185, 129, 0.1); color: #6ee7b7; border-color: #10b981; }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-right">
+            <div class="logo-placeholder">🏥</div>
+            <div class="header-titles">
+                <h1 data-ar="المدينة الطبية | منصة التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">المدينة الطبية | منصة التوعية بالأمن السيبراني</h1>
+                <p data-ar="رأيك يهمنا لتحسين المنصة" data-en="Your feedback helps us improve">رأيك يهمنا لتحسين المنصة</p>
+            </div>
+        </div>
+
+        <div class="header-left">
+            <button class="btn-dark-mode" onclick="toggleDarkMode()" title="تغيير المظهر">🌙</button>
+            <button class="btn-lang" onclick="toggleLanguage()">🌐 العربية / English</button>
+            <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login" style="background: #10b981; border: none; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-weight: 700; text-decoration: none;">تسجيل الدخول</a>
+        </div>
+    </header>
+
+    <nav class="nav-menu">
+        <a href="index.html" class="nav-link"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> 🏠</a>
+        <a href="employees.html" class="nav-link"><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> 👨‍⚕️</a>
+        <a href="oip.html" class="nav-link"><span data-ar="المكتبة التوعوية" data-en="Library">المكتبة التوعوية</span> 📚</a>
+        <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> 🧰</a>
+        <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> 🚨</a>
+        <a href="survey.html" class="nav-link active"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> 📊</a>
+        <a href="quiz.html" class="nav-link"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> 🧠</a>
+        <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> 📈</a>
+    </nav>
+
+    <div class="container">
+        <div class="section-title">📊 <span data-ar="استبيان قياس الوعي الأمني" data-en="Security Awareness Survey">استبيان قياس الوعي الأمني</span></div>
+
+        <div class="form-card">
+            <div class="form-group">
+                <label data-ar="١. ما هو دورك الوظيفي الحالي؟" data-en="1. What is your current role?">١. ما هو دورك الوظيفي الحالي؟</label>
+                <select class="form-select">
+                    <option data-ar="طبيب" data-en="Doctor">طبيب</option>
+                    <option data-ar="تمريض" data-en="Nurse">تمريض</option>
+                    <option data-ar="إداري" data-en="Admin">إداري</option>
+                    <option data-ar="تقنية معلومات" data-en="IT">تقنية معلومات</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label data-ar="٢. هل تشعر أن المنصة ساهمت في رفع وعيك الأمني؟" data-en="2. Did the platform increase your awareness?">٢. هل تشعر أن المنصة ساهمت في رفع وعيك الأمني؟</label>
+                <select class="form-select">
+                    <option data-ar="بشكل كبير جداً" data-en="Very Much">بشكل كبير جداً</option>
+                    <option data-ar="إلى حد ما" data-en="Somewhat">إلى حد ما</option>
+                    <option data-ar="لم يتغير شيء" data-en="No Change">لم يتغير شيء</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label data-ar="٣. ما هي المواضيع التي ترغب في رؤية المزيد عنها؟" data-en="3. What topics do you want more of?">٣. ما هي المواضيع التي ترغب في رؤية المزيد عنها؟</label>
+                <textarea class="form-textarea" rows="4" placeholder="اكتب اقتراحاتك هنا..." data-ar-placeholder="اكتب اقتراحاتك هنا..." data-en-placeholder="Type your suggestions here..."></textarea>
+            </div>
+
+            <button class="btn-submit" onclick="submitSurvey()"><span data-ar="إرسال الاستبيان" data-en="Submit Survey">إرسال الاستبيان</span></button>
+            <div id="resultBox" class="result-box"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+        let isSubmitted = false; // متغير لمنع تكرار الإرسال عند تغيير اللغة
+
+        function submitSurvey() {
+            const box = document.getElementById('resultBox');
+            box.style.display = 'block';
+            box.innerText = currentLang === 'ar' ? '✨ شكراً لك! تم إرسال إجاباتك بنجاح، وهي تساعدنا في تحسين بيئة العمل.' : '✨ Thank you! Your answers have been submitted successfully.';
+
+            // حفظ النتيجة مرة واحدة فقط للوحة القيادة
+            if (!isSubmitted) {
+                let surveyResults = JSON.parse(localStorage.getItem('surveyResults')) || { total: 0 };
+                surveyResults.total++;
+                localStorage.setItem('surveyResults', JSON.stringify(surveyResults));
+                isSubmitted = true;
+            }
+        }
+
+        function applyLanguage() {
+            const elements = document.querySelectorAll('[data-ar][data-en]');
+            if (currentLang === 'en') {
+                elements.forEach(el => {
+                    if (el.tagName === 'OPTION') el.innerText = el.getAttribute('data-en');
+                    else if (el.hasAttribute('data-en-placeholder')) el.placeholder = el.getAttribute('data-en-placeholder');
+                    else el.innerText = el.getAttribute('data-en');
+                });
+                document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr';
+            } else {
+                elements.forEach(el => {
+                    if (el.tagName === 'OPTION') el.innerText = el.getAttribute('data-ar');
+                    else if (el.hasAttribute('data-ar-placeholder')) el.placeholder = el.getAttribute('data-ar-placeholder');
+                    else el.innerText = el.getAttribute('data-ar');
+                });
+                document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl';
+            }
+
+            // تحديث نص رسالة النجاح إذا كانت ظاهرة بدون إعادة الإرسال
+            if(document.getElementById('resultBox').style.display === 'block') {
+                const box = document.getElementById('resultBox');
+                box.innerText = currentLang === 'ar' ? '✨ شكراً لك! تم إرسال إجاباتك بنجاح، وهي تساعدنا في تحسين بيئة العمل.' : '✨ Thank you! Your answers have been submitted successfully.';
+            }
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('preferredLanguage', currentLang);
+            applyLanguage();
+        }
+
+        window.addEventListener('DOMContentLoaded', applyLanguage);
+    </script>
+</body>
+</html>

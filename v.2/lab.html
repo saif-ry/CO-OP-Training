@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab & Radiology | Cybersecurity - University Hospital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+    /* 1. تعريف المتغيرات للوضع الفاتح (Light Mode) */
+    :root {
+        --bg-color: #f8fafc;
+        --card-bg: #ffffff;
+        --header-bg: #005a32;
+        --nca-green: #007a4d;
+        --text-main: #1e293b; /* نص داكن */
+        --text-muted: #64748b;
+        --border-color: #e2e8f0;
+        --card-radius: 16px;
+        --danger: #ef4444;
+    }
+
+    /* 2. تفعيل الوضع الداكن التلقائي (Dark Mode) */
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --bg-color: #0f172a; /* خلفية الصفحة كحلي داكن */
+            --card-bg: #1e293b; /* خلفية البطاقات رمادي داكن */
+            --text-main: #f1f5f9; /* نص فاتح جداً ليظهر بوضوح */
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+        }
+
+        /* إصلاحات خاصة للعناصر التي تملك ألواناً ثابتة */
+        .info-card {
+            background-color: #1e293b !important;
+            border-color: #475569 !important;
+        }
+        .info-card h3 {
+            color: #f1f5f9 !important;
+        }
+        .nav-menu {
+            background-color: #1e293b !important;
+            border-bottom-color: #334155 !important;
+        }
+        .nav-link {
+            color: #94a3b8 !important;
+        }
+        .nav-link.active {
+            color: var(--nca-green) !important;
+        }
+        .checklist-item {
+            background-color: #0f172a !important;
+            border-color: #334155 !important;
+            color: #f1f5f9 !important;
+        }
+        .section-title, .card p, .card h3 {
+            color: #f1f5f9 !important;
+        }
+        .modal-content {
+            background-color: #1e293b !important;
+            color: #f1f5f9 !important;
+        }
+    }
+
+    /* 3. التنسيقات العامة التي تعتمد على المتغيرات */
+    body {
+        margin: 0;
+        font-family: 'Cairo', sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .main-header {
+        background-color: var(--header-bg);
+        color: white;
+        padding: 1rem 2rem;
+        border-bottom: 4px solid #004224;
+    }
+
+    .card {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--card-radius);
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-card {
+        background-color: #f8fafc; /* لون افتراضي للفاتح */
+        border: 1px solid var(--border-color);
+        transition: 0.3s;
+    }
+</style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-right">
+            <div class="logo-placeholder">🏥</div>
+            <div class="header-titles">
+                <h1 data-ar="المدينة الطبية | منصة التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">المدينة الطبية | منصة التوعية بالأمن السيبراني</h1>
+                <p data-ar="إرشادات المختبر والأشعة" data-en="Lab & Radiology Guidelines">إرشادات المختبر والأشعة</p>
+            </div>
+        </div>
+        <div class="header-left">
+            <button class="btn-dark-mode" onclick="toggleDarkMode()" title="تغيير المظهر">🌙</button>
+            <button class="btn-lang" onclick="toggleLanguage()">🌐 العربية / English</button>
+            <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login" style="background: #10b981; border: none; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-weight: 700; text-decoration: none;">تسجيل الدخول</a>
+        </div>
+    </header>
+
+    <nav class="nav-menu">
+        <a href="index.html" class="nav-link"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> 🏠</a>
+        <a href="employees.html" class="nav-link active"><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> 👨‍⚕️</a>
+        <a href="oip.html" class="nav-link"><span data-ar="المكتبة التوعوية" data-en="Library">المكتبة التوعوية</span> 📚</a>
+        <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> 🧰</a>
+        <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> 🚨</a>
+        <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> 📊</a>
+        <a href="quiz.html" class="nav-link"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> 🧠</a>
+        <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> 📈</a>
+    </nav>
+
+    <div class="container">
+        <a href="employees.html" style="color: var(--text-muted); text-decoration: none; display: inline-block; margin-bottom: 1rem;" data-ar="← العودة للوراء" data-en="← Back">← العودة للوراء</a>
+
+        <div class="section-title">🔬 <span data-ar="مسؤولياتك الأمنية في المختبر والأشعة" data-en="Your Security Responsibilities in Lab & Radiology">مسؤولياتك الأمنية في المختبر والأشعة</span></div>
+
+        <div class="card">
+            <p data-ar="أنت تتعامل مع أجهزة تشخيصية دقيقة وبيانات حساسة للمرضى. اضغط على البطاقات لتفاصيل الحماية:" data-en="You handle critical diagnostic devices and sensitive patient data. Click the cards for protection details:">أنت تتعامل مع أجهزة تشخيصية دقيقة وبيانات حساسة للمرضى. اضغط على البطاقات لتفاصيل الحماية:</p>
+            <div class="interactive-grid">
+                <div class="info-card" onclick="showInfoModal('devices')">
+                    <div class="card-icon">🩻</div>
+                    <h3 data-ar="أجهزة التشخيص" data-en="Diagnostic Devices">أجهزة التشخيص</h3>
+                </div>
+                <div class="info-card" onclick="showInfoModal('usb')">
+                    <div class="card-icon">🔌</div>
+                    <h3 data-ar="الوسائط الخارجية (USB)" data-en="External Media (USB)">الوسائط الخارجية (USB)</h3>
+                </div>
+                <div class="info-card" onclick="showInfoModal('results')">
+                    <div class="card-icon">📄</div>
+                    <h3 data-ar="حماية النتائج" data-en="Protecting Results">حماية النتائج</h3>
+                </div>
+                <div class="info-card" onclick="showInfoModal('anomalies')">
+                    <div class="card-icon">⚠️</div>
+                    <h3 data-ar="رصد السلوك المريب" data-en="Detecting Anomalies">رصد السلوك المريب</h3>
+                </div>
+                <div class="info-card" onclick="showInfoModal('passwords')">
+                    <div class="card-icon">🔑</div>
+                    <h3 data-ar="كلمات المرور المشتركة" data-en="Shared Passwords">كلمات المرور المشتركة</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="border-right: 4px solid var(--nca-green);">
+            <h3 style="margin-top:0;" data-ar="⚠️ سيناريو تفاعلي" data-en="⚠️ Interactive Scenario">⚠️ سيناريو تفاعلي</h3>
+            <p><strong data-ar="الموقف:" data-en="Situation:">الموقف:</strong> <span data-ar="أثناء عملك على جهاز الرنين المغناطيسي (MRI)، ظهرت نافذة تفيد بضرورة تحديث البرنامج الثابت (Firmware) فوراً عبر رابط يظهر على الشاشة. ماذا تفعل؟" data-en="While working on the MRI machine, a prompt appears stating the firmware must be updated immediately via a provided link. What do you do?">أثناء عملك على جهاز الرنين المغناطيسي (MRI)، ظهرت نافذة تفيد بضرورة تحديث البرنامج الثابت (Firmware) فوراً عبر رابط يظهر على الشاشة. ماذا تفعل؟</span></p>
+            <button class="btn btn-outline" onclick="handleScenario(false)"><span data-ar="أضغط الرابط وأحدث الجهاز بنفسي لسرعة إنجاز الفحوصات" data-en="Click the link and update the device myself for speed">أضغط الرابط وأحدث الجهاز بنفسي لسرعة إنجاز الفحوصات</span></button>
+            <button class="btn" onclick="handleScenario(true)"><span data-ar="أتوقف عن استخدام الجهاز وأبلغ قسم تقنية المعلومات فوراً" data-en="Stop using the device and notify IT immediately">أتوقف عن استخدام الجهاز وأبلغ قسم تقنية المعلومات فوراً</span></button>
+            <div id="scenarioResult" class="interaction-result"></div>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top:0;" data-ar="📋 قائمة المهام اليومية" data-en="📋 Daily Checklist">📋 قائمة المهام اليومية</h3>
+            <div id="checklist">
+                <label class="checklist-item"><input type="checkbox"> <span data-ar="التأكد من عدم وجود أجهزة USB أو هواتف متصلة بأجهزة التشخيص." data-en="Ensure no USBs or phones are connected to diagnostic devices.">التأكد من عدم وجود أجهزة USB أو هواتف متصلة بأجهزة التشخيص.</span></label>
+                <label class="checklist-item"><input type="checkbox"> <span data-ar="مراجعة صلاحية الوصول والتأكد من إرسال نتائج الفحوصات للجهات المصرح لها فقط." data-en="Review access and ensure test results are sent only to authorized parties.">مراجعة صلاحية الوصول والتأكد من إرسال نتائج الفحوصات للجهات المصرح لها فقط.</span></label>
+                <label class="checklist-item"><input type="checkbox"> <span data-ar="الإبلاغ عن أي رسائل، نوافذ منبثقة، أو بطء غير طبيعي على الأجهزة." data-en="Report any pop-ups, messages, or abnormal slowness on devices.">الإبلاغ عن أي رسائل، نوافذ منبثقة، أو بطء غير طبيعي على الأجهزة.</span></label>
+                <label class="checklist-item"><input type="checkbox"> <span data-ar="قفل جلسة العمل (Lock Screen) عند مغادرة محطة العمل لأي سبب." data-en="Lock your session when leaving the workstation for any reason.">قفل جلسة العمل (Lock Screen) عند مغادرة محطة العمل لأي سبب.</span></label>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+            <p style="margin-bottom:0; font-size:0.9rem;" data-ar="التقدم: <span id='progressText'>0</span>/4" data-en="Progress: <span id='progressText'>0</span>/4">التقدم: <span id='progressText'>0</span>/4</p>
+        </div>
+    </div>
+
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('infoModal').classList.remove('show')">&times;</span>
+            <div class="modal-header" id="infoModalHeader"></div>
+            <div class="modal-body" id="infoModalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        const role = 'lab';
+        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+
+        const infoData = {
+            devices: {
+                ar: { title: '🩻 أمن الأجهزة الطبية', body: 'الأجهزة الطبية المتصلة بالشبكة (مثل الرنين والأشعة المقطعية) قد تكون هدفاً للمهاجمين لتعطيل المستشفى. حافظ على تحديث برامجها ولكن **فقط** عبر الإجراءات الرسمية من قبل الدعم الفني.' },
+                en: { title: '🩻 Medical Device Security', body: 'Network-connected devices (MRI, CT) can be targets to disrupt the hospital. Keep them updated, but **only** through official IT support procedures.' }
+            },
+            usb: {
+                ar: { title: '🔌 الوسائط الخارجية (USB)', body: 'يُمنع منعاً باتاً توصيل أي أجهزة USB شخصية، فلاشات، أو حتى هواتف محمولة بأجهزة المختبر لغرض الشحن. قد تنقل هذه الوسائط فيروسات الفدية مباشرة للشبكة.' },
+                en: { title: '🔌 External Media (USB)', body: 'Strictly prohibited to connect personal USBs, flash drives, or phones to lab equipment. These media can transfer ransomware directly to the network.' }
+            },
+            results: {
+                ar: { title: '📄 حماية النتائج', body: 'نتائج فحوصات المرضى تحتوي على بيانات بالغة الخصوصية. احمِ بيانات الفحوصات من الوصول غير المصرح به ولا تقم بإرسالها عبر قنوات غير مشفرة كبرامج المحادثة.' },
+                en: { title: '📄 Protecting Results', body: 'Patient test results are highly private. Protect them from unauthorized access and do not send them via unencrypted channels like chat apps.' }
+            },
+            anomalies: {
+                ar: { title: '⚠️ السلوك غير الطبيعي', body: 'أبلغ قسم تقنية المعلومات (SOC) فوراً عن أي سلوك غير طبيعي للجهاز، مثل: التأخير الشديد في الاستجابة، أعطال متكررة، أو ظهور نوافذ منبثقة غير معتادة.' },
+                en: { title: '⚠️ Detecting Anomalies', body: 'Report to IT (SOC) immediately any unusual device behavior, such as severe delays, frequent crashes, or unusual pop-ups.' }
+            },
+            passwords: {
+                ar: { title: '🔑 كلمات المرور المشتركة', body: 'تجنب استخدام "حسابات مشتركة" لتسجيل الدخول إلى أجهزة المختبر. لكل موظف حساب منفصل لضمان تتبع الإجراءات (Accountability) ومنع مشاركة كلمات المرور.' },
+                en: { title: '🔑 Shared Passwords', body: 'Avoid "shared accounts" to log into lab devices. Each employee must use a separate account to ensure accountability and prevent password sharing.' }
+            }
+        };
+
+        function showInfoModal(topic) {
+            const data = infoData[topic][currentLang];
+            document.getElementById('infoModalHeader').innerText = data.title;
+            document.getElementById('infoModalBody').innerText = data.body;
+            document.getElementById('infoModal').classList.add('show');
+        }
+
+        // إغلاق النافذة المنبثقة عند النقر خارجها
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('infoModal');
+            if (event.target === modal) {
+                modal.classList.remove('show');
+            }
+        });
+
+        function handleScenario(isCorrect) {
+            const res = document.getElementById('scenarioResult');
+            res.style.display = 'block';
+            if (isCorrect) {
+                res.className = 'interaction-result success';
+                res.innerText = currentLang === 'ar' ? '✅ تصرف صحيح! تحديث الأجهزة الطبية المعقدة يجب أن يتم عبر القنوات الرسمية وتحت إشراف مباشر من تقنية المعلومات والشركة المصنعة.' : '✅ Correct! Complex medical device updates must be done via official channels under IT and vendor supervision.';
+            } else {
+                res.className = 'interaction-result error';
+                res.innerText = currentLang === 'ar' ? '❌ خطأ خطير! الرابط قد يكون أداة اختراق (Malware) تم تصميمها للسيطرة على الجهاز وإيقاف خدمات المستشفى.' : '❌ Dangerous mistake! The link could be malware designed to take over the device and stop hospital services.';
+            }
+            let key = `${role}_scenario`;
+            let existing = JSON.parse(localStorage.getItem(key)) || { total: 0, correct: 0 };
+            existing.total++; if (isCorrect) existing.correct++;
+            localStorage.setItem(key, JSON.stringify(existing));
+        }
+
+        function updateChecklist() {
+            const items = document.querySelectorAll('.checklist-item');
+            let checked = 0, dataArr = [];
+            items.forEach(item => {
+                const cb = item.querySelector('input');
+                if (cb.checked) { checked++; item.classList.add('completed'); }
+                else { item.classList.remove('completed'); }
+                dataArr.push({ completed: cb.checked });
+            });
+            document.getElementById('progressFill').style.width = ((checked / items.length) * 100) + '%';
+            const pText = document.getElementById('progressText');
+            if (pText) pText.innerText = checked;
+            localStorage.setItem(`${role}_checklist`, JSON.stringify(dataArr));
+        }
+
+        window.onload = () => {
+            const saved = JSON.parse(localStorage.getItem(`${role}_checklist`));
+            const items = document.querySelectorAll('.checklist-item');
+            if (saved) {
+                saved.forEach((s, i) => { if(items[i]) items[i].querySelector('input').checked = s.completed; });
+            }
+            items.forEach(item => item.querySelector('input').addEventListener('change', updateChecklist));
+            updateChecklist();
+            applyLanguage();
+        };
+
+        function applyLanguage() {
+            const elements = document.querySelectorAll('[data-ar][data-en]');
+            if (currentLang === 'en') {
+                elements.forEach(el => {
+                    if(el.innerHTML.includes('<span')) el.innerHTML = el.getAttribute('data-en');
+                    else el.innerText = el.getAttribute('data-en');
+                });
+                document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr';
+            } else {
+                elements.forEach(el => {
+                    if(el.innerHTML.includes('<span')) el.innerHTML = el.getAttribute('data-ar');
+                    else el.innerText = el.getAttribute('data-ar');
+                });
+                document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl';
+            }
+            const res = document.getElementById('scenarioResult');
+            if(res.style.display === 'block') handleScenario(res.classList.contains('success'));
+            updateChecklist();
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('preferredLanguage', currentLang);
+            applyLanguage();
+        }
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

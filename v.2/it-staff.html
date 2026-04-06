@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Staff | Cybersecurity - University Hospital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+    /* 1. تعريف المتغيرات للوضع الفاتح (Light Mode) */
+    :root {
+        --bg-color: #f8fafc;
+        --card-bg: #ffffff;
+        --header-bg: #005a32;
+        --nca-green: #007a4d;
+        --text-main: #1e293b; /* نص داكن */
+        --text-muted: #64748b;
+        --border-color: #e2e8f0;
+        --card-radius: 16px;
+        --danger: #ef4444;
+    }
+
+    /* 2. تفعيل الوضع الداكن التلقائي (Dark Mode) */
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --bg-color: #0f172a; /* خلفية الصفحة كحلي داكن */
+            --card-bg: #1e293b; /* خلفية البطاقات رمادي داكن */
+            --text-main: #f1f5f9; /* نص فاتح جداً ليظهر بوضوح */
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+        }
+
+        /* إصلاحات خاصة للعناصر التي تملك ألواناً ثابتة */
+        .info-card {
+            background-color: #1e293b !important;
+            border-color: #475569 !important;
+        }
+        .info-card h3 {
+            color: #f1f5f9 !important;
+        }
+        .nav-menu {
+            background-color: #1e293b !important;
+            border-bottom-color: #334155 !important;
+        }
+        .nav-link {
+            color: #94a3b8 !important;
+        }
+        .nav-link.active {
+            color: var(--nca-green) !important;
+        }
+        .checklist-item {
+            background-color: #0f172a !important;
+            border-color: #334155 !important;
+            color: #f1f5f9 !important;
+        }
+        .section-title, .card p, .card h3 {
+            color: #f1f5f9 !important;
+        }
+        .modal-content {
+            background-color: #1e293b !important;
+            color: #f1f5f9 !important;
+        }
+    }
+
+    /* 3. التنسيقات العامة التي تعتمد على المتغيرات */
+    body {
+        margin: 0;
+        font-family: 'Cairo', sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .main-header {
+        background-color: var(--header-bg);
+        color: white;
+        padding: 1rem 2rem;
+        border-bottom: 4px solid #004224;
+    }
+
+    .card {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--card-radius);
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-card {
+        background-color: #f8fafc; /* لون افتراضي للفاتح */
+        border: 1px solid var(--border-color);
+        transition: 0.3s;
+    }
+</style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-right">
+            <div class="logo-placeholder">🏥</div>
+            <div class="header-titles">
+                <h1 data-ar="المدينة الطبية | منصة التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">المدينة الطبية | منصة التوعية بالأمن السيبراني</h1>
+                <p data-ar="إرشادات فريق تقنية المعلومات" data-en="IT Team Guidelines">إرشادات فريق تقنية المعلومات</p>
+            </div>
+        </div>
+        <div class="header-left">
+            <button class="btn-dark-mode" onclick="toggleDarkMode()" title="تغيير المظهر">🌙</button>
+            <button class="btn-lang" onclick="toggleLanguage()">🌐 العربية / English</button>
+            <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login" style="background: #10b981; border: none; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-weight: 700; text-decoration: none;">تسجيل الدخول</a>
+        </div>
+    </header>
+
+    <nav class="nav-menu">
+        <a href="index.html" class="nav-link"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> 🏠</a>
+        <a href="employees.html" class="nav-link active"><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> 👨‍⚕️</a>
+        <a href="oip.html" class="nav-link"><span data-ar="المكتبة التوعوية" data-en="Library">المكتبة التوعوية</span> 📚</a>
+        <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> 🧰</a>
+        <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> 🚨</a>
+        <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> 📊</a>
+        <a href="quiz.html" class="nav-link"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> 🧠</a>
+        <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> 📈</a>
+    </nav>
+
+    <div class="container">
+        <a href="employees.html" style="color: var(--text-muted); text-decoration: none; display: inline-block; margin-bottom: 1rem;" data-ar="← العودة للوراء" data-en="← Back">← العودة للوراء</a>
+
+        <div class="section-title">💻 <span data-ar="مسؤولياتك الأمنية كفريق تقنية المعلومات" data-en="Your Security Responsibilities as IT Staff">مسؤولياتك الأمنية كفريق تقنية المعلومات</span></div>
+
+        <div class="card">
+            <p data-ar="أنت خط الدفاع الأول للمستشفى. اضغط على أي بطاقة لمعرفة التفاصيل والسياسات الكاملة لكل مهمة:" data-en="You are the hospital's first line of defense. Click any card for full details and policies on each task:">أنت خط الدفاع الأول للمستشفى. اضغط على أي بطاقة لمعرفة التفاصيل والسياسات الكاملة لكل مهمة:</p>
+            <div class="interactive-grid">
+                <div class="info-card" onclick="showInfoModal('updates')">
+                    <div class="card-icon">🔄</div>
+                    <h3 data-ar="إدارة التحديثات" data-en="Patch Management">إدارة التحديثات</h3>
+                </div>
+                <div class="info-card" onclick="showInfoModal('monitor')">
+                    <div class="card-icon">📡</div>
+                    <h3 data-ar="مراقبة الأنظمة" data-en="System Monitoring">مراقبة الأنظمة</h3>
+                </div>
+                <div class="info-card" onclick="showInfoModal('privilege')">
+                    <div class="card-icon">🔑</div>
+                    <h3 data-ar="أقل الصلاحيات" data-en="Least Privilege">أقل الصلاحيات</h3>
+                </div>
+                <div class="info-card" onclick="showInfoModal('backup')">
+                    <div class="card-icon">💾</div>
+                    <h3 data-ar="النسخ الاحتياطي" data-en="Backups">النسخ الاحتياطي</h3>
+                </div>
+                <div class="info-card" onclick="showInfoModal('incident')">
+                    <div class="card-icon">🚨</div>
+                    <h3 data-ar="الاستجابة للحوادث" data-en="Incident Response">الاستجابة للحوادث</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="border-right: 4px solid var(--nca-green);">
+            <h3 style="margin-top:0;" data-ar="⚠️ سيناريو تفاعلي" data-en="⚠️ Interactive Scenario">⚠️ سيناريو تفاعلي</h3>
+            <p><strong data-ar="الموقف:" data-en="Situation:">الموقف:</strong> <span data-ar="لاحظت حركة شبكة غير طبيعية (Traffic Spike) صادرة من أحد الأجهزة الطبية المتصلة بالإنترنت (IoMT). ماذا تفعل؟" data-en="You notice unusual network traffic (spike) coming from an internet-connected medical device (IoMT). What do you do?">لاحظت حركة شبكة غير طبيعية (Traffic Spike) صادرة من أحد الأجهزة الطبية المتصلة بالإنترنت (IoMT). ماذا تفعل؟</span></p>
+            <button class="btn btn-outline" onclick="handleScenario(false)"><span data-ar="أتجاهل الأمر لأن الأجهزة الطبية غالباً ما تسبب ضوضاء في الشبكة" data-en="Ignore it, medical devices often cause network noise">أتجاهل الأمر لأن الأجهزة الطبية غالباً ما تسبب ضوضاء في الشبكة</span></button>
+            <button class="btn" onclick="handleScenario(true)"><span data-ar="أعزل الجهاز عن الشبكة فوراً وأبدأ تحقيقًا أمنياً" data-en="Isolate the device immediately and start investigation">أعزل الجهاز عن الشبكة فوراً وأبدأ تحقيقًا أمنياً</span></button>
+            <div id="scenarioResult" class="interaction-result"></div>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top:0;" data-ar="📋 قائمة المهام اليومية" data-en="📋 Daily Checklist">📋 قائمة المهام اليومية</h3>
+            <div id="checklist">
+                <label class="checklist-item"><input type="checkbox"> <span data-ar="مراجعة سجلات الدخول (Logs) للأنظمة الحيوية والخوادم." data-en="Review access logs for critical systems and servers.">مراجعة سجلات الدخول (Logs) للأنظمة الحيوية والخوادم.</span></label>
+                <label class="checklist-item"><input type="checkbox"> <span data-ar="التأكد من اكتمال ونجاح عمليات النسخ الاحتياطي الليلة الماضية." data-en="Verify completion and success of overnight backups.">التأكد من اكتمال ونجاح عمليات النسخ الاحتياطي الليلة الماضية.</span></label>
+                <label class="checklist-item"><input type="checkbox"> <span data-ar="تحديث قواعد بيانات برامج مكافحة الفيروسات (Antivirus Signatures)." data-en="Update antivirus database signatures.">تحديث قواعد بيانات برامج مكافحة الفيروسات (Antivirus Signatures).</span></label>
+                <label class="checklist-item"><input type="checkbox"> <span data-ar="مراجعة التحديثات والتصحيحات الأمنية (Security Patches) المطلوبة." data-en="Review required security patches and updates.">مراجعة التحديثات والتصحيحات الأمنية (Security Patches) المطلوبة.</span></label>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+            <p style="margin-bottom:0; font-size:0.9rem;" data-ar="التقدم: <span id='progressText'>0</span>/4" data-en="Progress: <span id='progressText'>0</span>/4">التقدم: <span id='progressText'>0</span>/4</p>
+        </div>
+    </div>
+
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('infoModal').classList.remove('show')">&times;</span>
+            <div class="modal-header" id="infoModalHeader"></div>
+            <div class="modal-body" id="infoModalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        const role = 'it';
+        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+
+        const infoData = {
+            updates: {
+                ar: { title: '🔄 إدارة التحديثات (Patch Management)', body: 'إدارة التحديثات والإصلاحات الأمنية بشكل دوري. تأكد من سد الثغرات المكتشفة حديثاً (Zero-day) في أقرب وقت لتجنب الهجمات، مع اختبار التحديثات في بيئة معزولة قبل تطبيقها على شبكة المستشفى.' },
+                en: { title: '🔄 Patch Management', body: 'Manage updates and security patches periodically. Ensure newly discovered vulnerabilities (Zero-day) are patched ASAP to avoid attacks, testing updates in an isolated environment first.' }
+            },
+            monitor: {
+                ar: { title: '📡 مراقبة الأنظمة (System Monitoring)', body: 'مراقبة الأنظمة والشبكات لكشف الأنشطة المشبوهة. استخدام أدوات مثل SIEM لتحليل السجلات واكتشاف أي حركة مرور غير طبيعية أو محاولات دخول متكررة فاشلة.' },
+                en: { title: '📡 System Monitoring', body: 'Monitor systems and networks to detect suspicious activities. Use tools like SIEM to analyze logs and detect abnormal traffic or repeated failed login attempts.' }
+            },
+            privilege: {
+                ar: { title: '🔑 مبدأ أقل الصلاحيات (Least Privilege)', body: 'تطبيق مبدأ "أقل الصلاحيات" للمستخدمين. لا تمنح صلاحيات الإدارة (Admin Rights) إلا لمن يحتاجها فعلياً، وقم بمراجعة وسحب الصلاحيات عند تغير أدوار الموظفين أو استقالتهم.' },
+                en: { title: '🔑 Least Privilege', body: 'Apply the principle of least privilege. Do not grant Admin Rights unless absolutely necessary. Review and revoke access when employees change roles or resign.' }
+            },
+            backup: {
+                ar: { title: '💾 النسخ الاحتياطي (Backups)', body: 'إجراء نسخ احتياطي منتظم للبيانات وفق سياسة (3-2-1). الأهم من أخذ النسخ هو **اختبار استعادتها** بانتظام للتأكد من جاهزيتها في حال وقوع هجوم ببرامج الفدية (Ransomware).' },
+                en: { title: '💾 Backups', body: 'Perform regular backups according to the 3-2-1 rule. More important than backing up is **testing restoration** regularly to ensure readiness against Ransomware.' }
+            },
+            incident: {
+                ar: { title: '🚨 الاستجابة للحوادث (Incident Response)', body: 'الاستعداد الكامل لخطط الاستجابة للحوادث الأمنية وتوثيقها. يجب أن يكون الفريق مدرباً على عزل الأجهزة المخترقة فوراً والتواصل مع الإدارة العليا دون تأخير.' },
+                en: { title: '🚨 Incident Response', body: 'Be fully prepared with incident response plans and document them. The team must be trained to isolate compromised devices immediately and inform senior management without delay.' }
+            }
+        };
+
+        function showInfoModal(topic) {
+            const data = infoData[topic][currentLang];
+            document.getElementById('infoModalHeader').innerText = data.title;
+            document.getElementById('infoModalBody').innerText = data.body;
+            document.getElementById('infoModal').classList.add('show');
+        }
+
+        // الكود المضاف لإغلاق النافذة المنبثقة عند النقر خارجها
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('infoModal');
+            if (event.target === modal) {
+                modal.classList.remove('show');
+            }
+        });
+
+        function handleScenario(isCorrect) {
+            const res = document.getElementById('scenarioResult');
+            res.style.display = 'block';
+            if (isCorrect) {
+                res.className = 'interaction-result success';
+                res.innerText = currentLang === 'ar' ? '✅ تصرف صحيح! عزل الجهاز هو الإجراء الأول والأهم لمنع انتشار التهديد (Containment) في الشبكة.' : '✅ Correct! Isolating the device is the first and most important step for containment in the network.';
+            } else {
+                res.className = 'interaction-result error';
+                res.innerText = currentLang === 'ar' ? '❌ خطأ كارثي! أي نشاط غير طبيعي يستدعي التحقيق الفوري، قد يكون الجهاز مخترقاً ببرمجيات خبيثة.' : '❌ Catastrophic error! Any abnormal activity requires immediate investigation; the device might be infected.';
+            }
+            let key = `${role}_scenario`;
+            let existing = JSON.parse(localStorage.getItem(key)) || { total: 0, correct: 0 };
+            existing.total++; if (isCorrect) existing.correct++;
+            localStorage.setItem(key, JSON.stringify(existing));
+        }
+
+        function updateChecklist() {
+            const items = document.querySelectorAll('.checklist-item');
+            let checked = 0, dataArr = [];
+            items.forEach(item => {
+                const cb = item.querySelector('input');
+                if (cb.checked) { checked++; item.classList.add('completed'); }
+                else { item.classList.remove('completed'); }
+                dataArr.push({ completed: cb.checked });
+            });
+            document.getElementById('progressFill').style.width = ((checked / items.length) * 100) + '%';
+            const pText = document.getElementById('progressText');
+            if (pText) pText.innerText = checked;
+            localStorage.setItem(`${role}_checklist`, JSON.stringify(dataArr));
+        }
+
+        window.onload = () => {
+            const saved = JSON.parse(localStorage.getItem(`${role}_checklist`));
+            const items = document.querySelectorAll('.checklist-item');
+            if (saved) {
+                saved.forEach((s, i) => { if(items[i]) items[i].querySelector('input').checked = s.completed; });
+            }
+            items.forEach(item => item.querySelector('input').addEventListener('change', updateChecklist));
+            updateChecklist();
+            applyLanguage();
+        };
+
+        function applyLanguage() {
+            const elements = document.querySelectorAll('[data-ar][data-en]');
+            if (currentLang === 'en') {
+                elements.forEach(el => {
+                    if(el.innerHTML.includes('<span')) el.innerHTML = el.getAttribute('data-en');
+                    else el.innerText = el.getAttribute('data-en');
+                });
+                document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr';
+            } else {
+                elements.forEach(el => {
+                    if(el.innerHTML.includes('<span')) el.innerHTML = el.getAttribute('data-ar');
+                    else el.innerText = el.getAttribute('data-ar');
+                });
+                document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl';
+            }
+            const res = document.getElementById('scenarioResult');
+            if(res.style.display === 'block') handleScenario(res.classList.contains('success'));
+            updateChecklist();
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('preferredLanguage', currentLang);
+            applyLanguage();
+        }
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library | Cybersecurity - University Hospital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* تنسيقات خاصة بصفحة المكتبة فقط */
+        .container { max-width: 1000px; margin: 2rem auto; padding: 0 2rem; }
+        .lib-section { background: white; border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.02); transition: 0.3s; }
+        .lib-section h2 { margin: 0 0 1.5rem 0; font-size: 1.2rem; color: var(--nca-green); display: flex; align-items: center; gap: 0.5rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.8rem; }
+
+        .topic-card { background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; padding: 1.2rem; margin-bottom: 1rem; border-right: 4px solid var(--nca-green); transition: 0.2s; }
+        .topic-card:hover { background: #f0fdf4; border-right-color: #16a34a; transform: translateX(-5px); }
+        html[dir="ltr"] .topic-card:hover { transform: translateX(5px); }
+
+        .topic-card h3 { margin: 0 0 0.5rem 0; font-size: 1.05rem; color: var(--text-dark); }
+        .topic-card p, .topic-card ul { margin: 0; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+        .topic-card ul { padding-right: 1.2rem; }
+        html[dir="ltr"] .topic-card ul { padding-right: 0; padding-left: 1.2rem; }
+
+        a.resource-link { color: #0284c7; text-decoration: none; font-weight: 600; display: inline-block; margin-bottom: 0.5rem; transition: 0.2s; }
+        a.resource-link:hover { color: #0369a1; text-decoration: underline; }
+
+        /* دعم الوضع المظلم للعناصر المخصصة هنا */
+        body.dark-mode .lib-section { background: #1e293b; border-color: var(--border-color); }
+        body.dark-mode .lib-section h2 { border-bottom-color: var(--border-color); color: #34d399; }
+        body.dark-mode .topic-card { background: #0f172a; border-color: var(--border-color); }
+        body.dark-mode .topic-card:hover { background: #1e293b; }
+        body.dark-mode .topic-card h3 { color: #f8fafc; }
+        body.dark-mode a.resource-link { color: #38bdf8; }
+        body.dark-mode a.resource-link:hover { color: #7dd3fc; }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-right">
+            <div class="logo-placeholder">🏥</div>
+            <div class="header-titles">
+                <h1 data-ar="المدينة الطبية | منصة التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">المدينة الطبية | منصة التوعية بالأمن السيبراني</h1>
+                <p data-ar="المعرفة هي خط الدفاع الأول" data-en="Knowledge is the first line of defense">المعرفة هي خط الدفاع الأول</p>
+            </div>
+        </div>
+
+        <div class="header-left">
+            <button class="btn-dark-mode" onclick="toggleDarkMode()" title="تغيير المظهر">🌙</button>
+            <button class="btn-lang" onclick="toggleLanguage()">🌐 العربية / English</button>
+            <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login" style="background: #10b981; border: none; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-weight: 700; text-decoration: none;">تسجيل الدخول</a>
+        </div>
+    </header>
+
+    <nav class="nav-menu">
+        <a href="index.html" class="nav-link"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> 🏠</a>
+        <a href="employees.html" class="nav-link"><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> 👨‍⚕️</a>
+        <a href="oip.html" class="nav-link active"><span data-ar="المكتبة التوعوية" data-en="Library">المكتبة التوعوية</span> 📚</a>
+        <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> 🧰</a>
+        <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> 🚨</a>
+        <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> 📊</a>
+        <a href="quiz.html" class="nav-link"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> 🧠</a>
+        <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> 📈</a>
+    </nav>
+
+    <div class="container">
+        <div class="section-title">📚 <span data-ar="المكتبة التوعوية والمراجع" data-en="Awareness Library & References">المكتبة التوعوية والمراجع</span></div>
+
+        <div class="lib-section">
+            <h2>🧠 <span data-ar="مفاهيم أساسية" data-en="Basic Concepts">مفاهيم أساسية</span></h2>
+            <div class="topic-card">
+                <h3 data-ar="ما هو الأمن السيبراني؟" data-en="What is Cybersecurity?">ما هو الأمن السيبراني؟</h3>
+                <p data-ar="هو حماية الشبكات، الأجهزة، والبيانات الحساسة للمرضى من الهجمات الرقمية. أمان المريض لم يعد يقتصر على العلاج الطبي، بل يشمل حماية هويته وسجلاته." data-en="Protecting networks, devices, and sensitive patient data from digital attacks. Patient safety includes protecting their digital records.">هو حماية الشبكات، الأجهزة، والبيانات الحساسة للمرضى من الهجمات الرقمية. أمان المريض لم يعد يقتصر على العلاج الطبي، بل يشمل حماية هويته وسجلاته.</p>
+            </div>
+            <div class="topic-card">
+                <h3 data-ar="ثلاثية أمن المعلومات (CIA)" data-en="Information Security Triad (CIA)">ثلاثية أمن المعلومات (CIA)</h3>
+                <ul>
+                    <li><strong data-ar="السرية (Confidentiality):" data-en="Confidentiality:">السرية (Confidentiality):</strong> <span data-ar="لا يصل للبيانات إلا من يحق له ذلك." data-en="Only authorized personnel can access data.">لا يصل للبيانات إلا من يحق له ذلك.</span></li>
+                    <li><strong data-ar="النزاهة (Integrity):" data-en="Integrity:">النزاهة (Integrity):</strong> <span data-ar="البيانات صحيحة ولم يتم العبث بها." data-en="Data is accurate and unaltered.">البيانات صحيحة ولم يتم العبث بها.</span></li>
+                    <li><strong data-ar="التوافر (Availability):" data-en="Availability:">التوافر (Availability):</strong> <span data-ar="توفر الأنظمة (مثل النظام الطبي) متى ما احتاجها الطبيب." data-en="Systems are available when needed.">توفر الأنظمة (مثل النظام الطبي) متى ما احتاجها الطبيب.</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="lib-section">
+            <h2>⚠️ <span data-ar="أبرز التهديدات السيبرانية" data-en="Top Cyber Threats">أبرز التهديدات السيبرانية</span></h2>
+            <div class="topic-card" style="border-right-color: #ef4444;">
+                <h3 data-ar="🎣 التصيد الإلكتروني (Phishing)" data-en="🎣 Phishing">🎣 التصيد الإلكتروني (Phishing)</h3>
+                <p data-ar="رسائل خادعة عبر البريد أو SMS تبدو وكأنها من جهة رسمية (مثل الدعم الفني) لسرقة كلمات المرور." data-en="Deceptive emails/SMS appearing official to steal passwords.">رسائل خادعة عبر البريد أو SMS تبدو وكأنها من جهة رسمية (مثل الدعم الفني) لسرقة كلمات المرور.</p>
+            </div>
+            <div class="topic-card" style="border-right-color: #ef4444;">
+                <h3 data-ar="🔒 برامج الفدية (Ransomware)" data-en="🔒 Ransomware">🔒 برامج الفدية (Ransomware)</h3>
+                <p data-ar="فيروسات تقوم بتشفير كل بيانات المستشفى وتطلب فدية مالية لفكها. يمكن تجنبها بعدم فتح المرفقات المشبوهة." data-en="Viruses that encrypt hospital data demanding a ransom. Avoided by not opening suspicious attachments.">فيروسات تقوم بتشفير كل بيانات المستشفى وتطلب فدية مالية لفكها. يمكن تجنبها بعدم فتح المرفقات المشبوهة.</p>
+            </div>
+            <div class="topic-card" style="border-right-color: #ef4444;">
+                <h3 data-ar="🗣️ الهندسة الاجتماعية" data-en="🗣️ Social Engineering">🗣️ الهندسة الاجتماعية</h3>
+                <p data-ar="التلاعب النفسي عبر الهاتف (شخص يدعي أنه مديرك ويطلب كلمة المرور)." data-en="Psychological manipulation over the phone (someone claiming to be your manager asking for a password).">التلاعب النفسي عبر الهاتف (شخص يدعي أنه مديرك ويطلب كلمة المرور).</p>
+            </div>
+        </div>
+
+        <div class="lib-section">
+            <h2>📌 <span data-ar="المراجع والأنظمة الوطنية" data-en="National References & Regulations">المراجع والأنظمة الوطنية</span></h2>
+            <a href="https://nca.gov.sa/" target="_blank" class="resource-link" data-ar="📄 موقع الهيئة الوطنية للأمن السيبراني (NCA)" data-en="📄 National Cybersecurity Authority (NCA)">📄 موقع الهيئة الوطنية للأمن السيبراني (NCA)</a><br>
+            <a href="https://sdaia.gov.sa/" target="_blank" class="resource-link" data-ar="📄 نظام حماية البيانات الشخصية (SDAIA)" data-en="📄 Personal Data Protection Law (SDAIA)">📄 نظام حماية البيانات الشخصية (SDAIA)</a><br>
+            <a href="#" class="resource-link" data-ar="📄 السياسات الداخلية للمستشفى (الإنترانت)" data-en="📄 Hospital Internal Policies (Intranet)">📄 السياسات الداخلية للمستشفى (الإنترانت)</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+        function applyLanguage() {
+            const elements = document.querySelectorAll('[data-ar][data-en]');
+            if (currentLang === 'en') {
+                elements.forEach(el => el.innerText = el.getAttribute('data-en'));
+                document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr';
+            } else {
+                elements.forEach(el => el.innerText = el.getAttribute('data-ar'));
+                document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl';
+            }
+        }
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('preferredLanguage', currentLang);
+            applyLanguage();
+        }
+        window.addEventListener('DOMContentLoaded', applyLanguage);
+    </script>
+</body>
+</html>
