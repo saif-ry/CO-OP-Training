@@ -5,58 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz | Cybersecurity - University Hospital</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
     <style>
-        :root { --bg-color: #f8fafc; --header-bg: #005a32; --nca-green: #007a4d; --text-dark: #1e293b; --text-muted: #64748b; --border-color: #e2e8f0; --card-radius: 16px; }
-        body { margin: 0; font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-dark); }
-
-        /* Header & Nav */
-        .main-header { background-color: var(--header-bg); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #004224; }
-        .header-right { display: flex; align-items: center; gap: 15px; }
-        .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-        .header-titles h1 { margin: 0; font-size: 1.3rem; font-weight: 700; }
-        .header-titles p { margin: 0; font-size: 0.9rem; color: #a7f3d0; }
-        .header-left { display: flex; gap: 15px; align-items: center; }
-        .btn-lang { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-family: inherit; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .btn-lang:hover { background: rgba(255,255,255,0.2); }
-        .nav-menu { background: white; border-bottom: 1px solid var(--border-color); padding: 0 2rem; display: flex; gap: 1rem; overflow-x: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .nav-link { padding: 1rem 0.5rem; color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 3px solid transparent; white-space: nowrap; transition: 0.2s; }
-        .nav-link:hover { color: var(--nca-green); }
-        .nav-link.active { color: var(--nca-green); border-bottom-color: var(--nca-green); }
-
-        /* Main Container */
+        /* ==========================================
+           التنسيقات الخاصة بصفحة الاختبار فقط
+           ========================================== */
         .container { max-width: 900px; margin: 2rem auto; padding: 0 2rem; }
-        .section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-dark); }
+
         .intro-card { background: linear-gradient(135deg, #e8f5e9, #bbf7d0); border: 1px solid #86efac; border-radius: var(--card-radius); padding: 1.5rem; margin-bottom: 2rem; color: #064e3b; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .intro-card p { margin: 0; font-weight: 600; font-size: 1.05rem; }
 
-        /* Quiz Styles */
         .question-card { background: white; border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.03); transition: 0.3s; }
         .question-card:hover { border-color: #cbd5e1; }
         .question-card h3 { margin: 0 0 1.2rem 0; font-size: 1.15rem; color: var(--nca-green); line-height: 1.6; }
 
         .options-grid { display: flex; flex-direction: column; gap: 0.8rem; }
-        .option-label {
-            display: flex; align-items: center; gap: 12px; padding: 1rem 1.2rem; border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: 0.2s; background: #f8fafc; font-weight: 600; color: var(--text-dark);
-        }
+        .option-label { display: flex; align-items: center; gap: 12px; padding: 1rem 1.2rem; border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: 0.2s; background: #f8fafc; font-weight: 600; color: var(--text-dark); }
         .option-label:hover { border-color: var(--nca-green); background: #f0fdf4; }
-        .option-label input[type="radio"] { display: none; } /* إخفاء زر الراديو التقليدي */
+        .option-label input[type="radio"] { display: none; }
 
-        /* Custom Radio Button Design */
         .custom-radio { width: 20px; height: 20px; border: 2px solid #cbd5e1; border-radius: 50%; display: inline-block; position: relative; transition: 0.2s; flex-shrink: 0; }
         .option-label input[type="radio"]:checked + .custom-radio { border-color: var(--nca-green); }
         .option-label input[type="radio"]:checked + .custom-radio::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; background: var(--nca-green); border-radius: 50%; }
 
-        /* Selection & Feedback states */
         .option-label.selected { border-color: var(--nca-green); background: #ecfdf5; }
         .option-label.correct { border-color: #10b981; background: #d1fae5; color: #047857; }
         .option-label.wrong { border-color: #ef4444; background: #fee2e2; color: #b91c1c; opacity: 0.8; }
 
-        /* Submit Button & Result */
         .btn-submit { background: var(--nca-green); color: white; border: none; padding: 1.2rem; width: 100%; border-radius: 12px; font-size: 1.2rem; font-weight: 700; cursor: pointer; transition: 0.3s; font-family: inherit; margin-top: 1rem; box-shadow: 0 4px 6px rgba(0,122,77,0.2); }
         .btn-submit:hover { background: #00603c; transform: translateY(-2px); }
 
         .result-box { display: none; margin-top: 2rem; padding: 2rem; border-radius: 16px; font-weight: bold; text-align: center; font-size: 1.3rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .score-circle { display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; border-radius: 50%; font-size: 2rem; color: white; margin-bottom: 1rem; }
+
+        /* ==========================================
+           دعم الوضع المظلم لأسئلة الاختبار
+           ========================================== */
+        body.dark-mode .intro-card { background: #064e3b; border-color: #047857; color: #a7f3d0; }
+        body.dark-mode .question-card { background: #1e293b; border-color: var(--border-color); }
+        body.dark-mode .question-card h3 { color: #34d399; }
+        body.dark-mode .option-label { background: #0f172a; border-color: var(--border-color); color: #f8fafc; }
+        body.dark-mode .option-label:hover { background: #1e293b; border-color: var(--nca-green); }
+        body.dark-mode .option-label.selected { background: rgba(16, 185, 129, 0.2); border-color: var(--nca-green); }
+        body.dark-mode .option-label.correct { background: rgba(16, 185, 129, 0.3); border-color: #10b981; color: #6ee7b7; }
+        body.dark-mode .option-label.wrong { background: rgba(239, 68, 68, 0.3); border-color: #ef4444; color: #fca5a5; }
+        body.dark-mode .result-box { background: #1e293b !important; }
     </style>
 </head>
 <body>
@@ -69,7 +64,9 @@
             </div>
         </div>
         <div class="header-left">
+            <button class="btn-dark-mode" onclick="toggleDarkMode()" title="تغيير المظهر">🌙</button>
             <button class="btn-lang" onclick="toggleLanguage()">🌐 العربية / English</button>
+            <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login" style="background: #10b981; border: none; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-weight: 700; text-decoration: none;">تسجيل الدخول</a>
         </div>
     </header>
 
@@ -80,7 +77,7 @@
         <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> 🧰</a>
         <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> 🚨</a>
         <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> 📊</a>
-        <a href="quiz.html" class="nav-link"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> 🧠</a>
+        <a href="quiz.html" class="nav-link active"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> 🧠</a>
         <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> 📈</a>
     </nav>
 
@@ -192,29 +189,26 @@
         </div>
     </div>
 
+    <script src="script.js"></script>
+
     <script>
         let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
         const answers = { q1: 'c', q2: 'b', q3: 'a', q4: 'c', q5: 'c' };
         let selectedAnswers = {};
 
-        // تحديث المظهر عند اختيار إجابة
         function selectOption(qName, labelElement) {
-            // إزالة الكلاس selected من كل الخيارات في نفس السؤال
             const siblings = document.getElementsByName(qName);
             siblings.forEach(radio => {
                 radio.parentElement.classList.remove('selected');
             });
-            // إضافة الكلاس للعنصر المختار
             labelElement.classList.add('selected');
 
-            // حفظ الإجابة
             const radioBtn = labelElement.querySelector('input');
             radioBtn.checked = true;
             selectedAnswers[qName] = radioBtn.value;
         }
 
         function submitQuiz() {
-            // التحقق من الإجابة على كل الأسئلة
             let answeredCount = Object.keys(selectedAnswers).length;
             if (answeredCount < 5) {
                 alert(currentLang === 'ar' ? 'الرجاء الإجابة على جميع الأسئلة الخمسة قبل الإرسال.' : 'Please answer all 5 questions before submitting.');
@@ -223,20 +217,17 @@
 
             let correct = 0;
 
-            // التغذية الراجعة المرئية على الأسئلة
             for(let i=1; i<=5; i++) {
                 let q = 'q'+i;
                 let radios = document.getElementsByName(q);
                 radios.forEach(radio => {
                     let label = radio.parentElement;
-                    label.classList.remove('selected', 'correct', 'wrong'); // تصفير الكلاسات
+                    label.classList.remove('selected', 'correct', 'wrong');
 
-                    // تلوين الإجابة الصحيحة دائماً
                     if(radio.value === answers[q]) {
                         label.classList.add('correct');
                     }
 
-                    // تلوين إجابة المستخدم إذا كانت خاطئة
                     if(radio.checked && radio.value !== answers[q]) {
                         label.classList.add('wrong');
                     }
@@ -245,7 +236,6 @@
                 if(selectedAnswers[q] === answers[q]) correct++;
             }
 
-            // عرض النتيجة النهائية
             const box = document.getElementById('resultBox');
             const circle = document.getElementById('scoreCircle');
             const text = document.getElementById('resultText');
@@ -267,12 +257,10 @@
                 text.innerText = currentLang === 'ar' ? '⚠️ تحذير: مستوى وعيك يحتاج إلى تحسين عاجل. نوصيك بشدة بزيارة المكتبة التوعوية.' : '⚠️ Warning: Your awareness level needs urgent improvement. We highly recommend visiting the library.';
             }
 
-            // حفظ النتيجة للإحصائيات (Dashboard)
             let quizResults = JSON.parse(localStorage.getItem('quizResults')) || { total: 0, score: 0 };
             quizResults.total++; quizResults.score += correct;
             localStorage.setItem('quizResults', JSON.stringify(quizResults));
 
-            // تمرير الشاشة ببطء للنتيجة
             box.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
@@ -292,7 +280,6 @@
                 document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl';
             }
 
-            // إذا كان المستخدم قد أنهى الاختبار، أعد عرض النتيجة باللغة الجديدة
             if(document.getElementById('resultBox').style.display === 'block') {
                 let correctCount = parseInt(document.getElementById('scoreCircle').innerText.split('/')[0]);
                 const text = document.getElementById('resultText');
@@ -307,7 +294,8 @@
             localStorage.setItem('preferredLanguage', currentLang);
             applyLanguage();
         }
-        window.onload = applyLanguage;
+
+        window.addEventListener('DOMContentLoaded', applyLanguage);
     </script>
 </body>
 </html>
