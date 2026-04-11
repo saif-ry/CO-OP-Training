@@ -3,118 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Healthcare Staff | Cybersecurity - University Hospital</title>
+    <title>الكادر الصحي | الأمن السيبراني - المدينة الطبية</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
     <style>
-        :root { --bg-color: #f8fafc; --header-bg: #005a32; --nca-green: #007a4d; --text-dark: #1e293b; --text-muted: #64748b; --border-color: #e2e8f0; --card-radius: 16px; }
-        body { margin: 0; font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-dark); }
+    /* 1. تعريف المتغيرات للوضع الفاتح (Light Mode) */
+    :root, [data-theme="light"] {
+        --bg-color: #f0f4f8; /* لون خلفية الصفحة (رمادي فاتح جداً) */
+        --card-bg: #ffffff;
+        --header-bg: #005a32;
+        --nca-green: #007a4d;
+        --text-main: #1e293b;
+        --text-muted: #64748b;
+        --border-color: #e2e8f0;
+        --card-radius: 16px;
+        --danger: #ef4444;
 
-        /* Header & Nav */
-        .main-header { background-color: var(--header-bg); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #004224; }
-        .header-right { display: flex; align-items: center; gap: 15px; }
-        .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-        .header-titles h1 { margin: 0; font-size: 1.3rem; font-weight: 700; }
-        .header-titles p { margin: 0; font-size: 0.9rem; color: #a7f3d0; }
-        .header-left { display: flex; gap: 15px; align-items: center; }
-        .btn-lang { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-family: inherit; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .btn-lang:hover { background: rgba(255,255,255,0.2); }
-        .nav-menu { background: white; border-bottom: 1px solid var(--border-color); padding: 0 2rem; display: flex; gap: 1rem; overflow-x: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .nav-link { padding: 1rem 0.5rem; color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 3px solid transparent; white-space: nowrap; transition: 0.2s; }
-        .nav-link:hover { color: var(--nca-green); }
-        .nav-link.active { color: var(--nca-green); border-bottom-color: var(--nca-green); }
+        /* لون البطاقات الاحترافي في الوضع الفاتح (بدل الأبيض الساطع) */
+        --role-card-bg: linear-gradient(135deg, #fafafa 0%, #f0f4f8 100%);
+        --icon-color: #007a4d;
+    }
 
-        /* Container & Cards */
-        .container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
-        .section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-dark); }
+    /* 2. متغيرات الوضع الداكن (Dark Mode) */
+    [data-theme="dark"] {
+        --bg-color: #0f172a;
+        --card-bg: #1e293b;
+        --text-main: #f1f5f9;
+        --text-muted: #94a3b8;
+        --border-color: #334155;
 
-        .roles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .role-card { background: white; border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2rem; text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; text-align: center; transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .role-card:hover { transform: translateY(-5px); border-color: var(--nca-green); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
-        .role-icon { font-size: 4rem; margin-bottom: 1rem; }
-        .role-title { font-size: 1.2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem; }
-        .role-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
+        /* ألوان البطاقات في الوضع الداكن */
+        --role-card-bg: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        --icon-color: #34d399;
+    }
+
+    /* 3. التنسيقات العامة */
+    body {
+        margin: 0;
+        font-family: 'Cairo', sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .main-header {
+        background-color: var(--header-bg);
+        color: white;
+        padding: 1rem 2rem;
+        border-bottom: 4px solid #004224;
+        display: flex; justify-content: space-between; align-items: center;
+    }
+    .header-titles h1 { margin: 0; font-size: 1.3rem; font-weight: 700; }
+    .header-titles p { margin: 0; font-size: 0.9rem; color: #a7f3d0; }
+    .header-right { display: flex; align-items: center; gap: 15px; }
+    .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: var(--nca-green); }
+    .header-left { display: flex; gap: 10px; align-items: center; }
+
+    .nav-menu {
+        background: var(--card-bg);
+        border-bottom: 1px solid var(--border-color);
+        padding: 0 2rem;
+        display: flex; gap: 1rem; overflow-x: auto;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        transition: 0.3s;
+    }
+    .nav-link {
+        padding: 1rem 0.5rem; color: var(--text-muted); text-decoration: none; font-weight: 600;
+        font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem;
+        border-bottom: 3px solid transparent; white-space: nowrap; transition: 0.2s;
+    }
+    .nav-link.active, .nav-link:hover { color: var(--nca-green); border-bottom-color: var(--nca-green); }
+
+    .container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
+    .section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-main); }
+
+    .roles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+
+    .role-card {
+        background: var(--role-card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--card-radius);
+        padding: 2.5rem 2rem;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    }
+
+    .role-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--nca-green);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    }
+
+    .role-icon {
+        font-size: 4.5rem;
+        margin-bottom: 1.2rem;
+        color: var(--icon-color);
+    }
+
+    .role-title { font-size: 1.3rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.8rem; }
+    .role-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; }
+
+    .btn-theme { background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: white; transition: 0.3s; }
+    .btn-theme:hover { transform: scale(1.1); }
     </style>
 </head>
 <body>
     <header class="main-header">
         <div class="header-right">
-            <div class="logo-placeholder">🏥</div>
+            <div class="logo-placeholder"><i class="las la-hospital"></i></div>
             <div class="header-titles">
                 <h1 data-ar="المدينة الطبية | منصة التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">المدينة الطبية | منصة التوعية بالأمن السيبراني</h1>
                 <p data-ar="اختر دورك للاطلاع على الإرشادات" data-en="Choose your role to see guidelines">اختر دورك للاطلاع على الإرشادات</p>
             </div>
         </div>
+
         <div class="header-left">
-            <button class="btn-lang" onclick="toggleLanguage()">🌐 العربية / English</button>
+            <button class="btn-theme" id="themeIcon" onclick="toggleTheme()" title="تغيير المظهر">🌙</button>
+            <button class="btn-lang" onclick="toggleLanguage()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-weight: 600; cursor: pointer;">🌐 EN/AR</button>
+            <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login" style="background: #10b981; border: none; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-weight: 700; text-decoration: none;">تسجيل الدخول</a>
         </div>
     </header>
 
     <nav class="nav-menu">
-        <a href="index.html" class="nav-link"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> 🏠</a>
-        <a href="employees.html" class="nav-link active"><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> 👨‍⚕️</a>
-        <a href="oip.html" class="nav-link"><span data-ar="المكتبة التوعوية" data-en="Library">المكتبة التوعوية</span> 📚</a>
-        <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> 🧰</a>
-        <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> 🚨</a>
-        <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> 📊</a>
-        <a href="quiz.html" class="nav-link"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> 🧠</a>
-        <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> 📈</a>
+        <a href="index.html" class="nav-link"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> <i class="las la-home"></i></a>
+        <a href="employees.html" class="nav-link active"><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> <i class="las la-user-nurse"></i></a>
+        <a href="oip.html" class="nav-link"><span data-ar="المكتبة التوعوية" data-en="Library">المكتبة التوعوية</span> <i class="las la-book"></i></a>
+        <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> <i class="las la-tools"></i></a>
+        <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> <i class="las la-exclamation-circle"></i></a>
+        <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> <i class="las la-poll"></i></a>
+        <a href="quiz.html" class="nav-link"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> <i class="las la-brain"></i></a>
+        <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> <i class="las la-chart-pie"></i></a>
     </nav>
 
     <div class="container">
-        <div class="section-title">👨‍⚕️ <span data-ar="الكادر الصحي (تحديد المسار)" data-en="Healthcare Staff (Select Path)">الكادر الصحي (تحديد المسار)</span></div>
+        <div class="section-title">
+            <i class="las la-user-nurse" style="color: var(--nca-green);"></i>
+            <span data-ar="الكادر الصحي (تحديد المسار)" data-en="Healthcare Staff (Select Path)">الكادر الصحي (تحديد المسار)</span>
+        </div>
 
         <div class="roles-grid">
             <a href="doctor.html" class="role-card">
-                <div class="role-icon">🩺</div>
+                <div class="role-icon"><i class="las la-stethoscope"></i></div>
                 <div class="role-title" data-ar="الأطباء" data-en="Doctors">الأطباء</div>
                 <div class="role-desc" data-ar="إرشادات التعامل مع السجلات الطبية، حماية خصوصية المرضى، وتأمين حسابات الأنظمة الصحية." data-en="Guidelines for medical records, patient privacy, and securing health system accounts.">إرشادات التعامل مع السجلات الطبية، حماية خصوصية المرضى، وتأمين حسابات الأنظمة الصحية.</div>
             </a>
             <a href="nurse.html" class="role-card">
-                <div class="role-icon">💉</div>
+                <div class="role-icon"><i class="las la-syringe"></i></div>
                 <div class="role-title" data-ar="التمريض" data-en="Nurses">التمريض</div>
                 <div class="role-desc" data-ar="أمن محطات التمريض، الأجهزة الطبية المتنقلة، وحماية البيانات أثناء الجولات." data-en="Nursing station security, mobile medical devices, and data protection during rounds.">أمن محطات التمريض، الأجهزة الطبية المتنقلة، وحماية البيانات أثناء الجولات.</div>
             </a>
             <a href="admin.html" class="role-card">
-                <div class="role-icon">📋</div>
+                <div class="role-icon"><i class="las la-clipboard-list"></i></div>
                 <div class="role-title" data-ar="الإداريون" data-en="Administrators">الإداريون</div>
                 <div class="role-desc" data-ar="أمن المكاتب، التصيد عبر البريد الإلكتروني، وحماية الملفات الورقية والرقمية الحساسة." data-en="Office security, email phishing, and protecting sensitive paper/digital files.">أمن المكاتب، التصيد عبر البريد الإلكتروني، وحماية الملفات الورقية والرقمية الحساسة.</div>
             </a>
             <a href="it-staff.html" class="role-card">
-                <div class="role-icon">💻</div>
+                <div class="role-icon"><i class="las la-laptop-code"></i></div>
                 <div class="role-title" data-ar="تقنية المعلومات" data-en="IT Staff">تقنية المعلومات</div>
                 <div class="role-desc" data-ar="إدارة الثغرات، النسخ الاحتياطي، الاستجابة للحوادث، وتطبيق سياسات الأمن." data-en="Vulnerability management, backups, incident response, and security policies.">إدارة الثغرات، النسخ الاحتياطي، الاستجابة للحوادث، وتطبيق سياسات الأمن.</div>
             </a>
             <a href="management.html" class="role-card">
-                <div class="role-icon">🏛️</div>
+                <div class="role-icon"><i class="las la-user-tie"></i></div>
                 <div class="role-title" data-ar="الإدارة العليا" data-en="Senior Management">الإدارة العليا</div>
                 <div class="role-desc" data-ar="إدارة المخاطر الاستراتيجية، الامتثال للمعايير الوطنية، وتخطيط استمرارية العمل." data-en="Strategic risk management, national compliance, and business continuity planning.">إدارة المخاطر الاستراتيجية، الامتثال للمعايير الوطنية، وتخطيط استمرارية العمل.</div>
             </a>
             <a href="lab.html" class="role-card">
-                <div class="role-icon">🔬</div>
+                <div class="role-icon"><i class="las la-microscope"></i></div>
                 <div class="role-title" data-ar="المختبر والأشعة" data-en="Lab & Radiology">المختبر والأشعة</div>
                 <div class="role-desc" data-ar="تأمين أجهزة التشخيص الدقيقة، منع اختراق شبكة المختبر، وحماية نتائج الفحوصات." data-en="Securing diagnostic devices, preventing lab network breaches, and protecting results.">تأمين أجهزة التشخيص الدقيقة، منع اختراق شبكة المختبر، وحماية نتائج الفحوصات.</div>
             </a>
         </div>
     </div>
 
+    <script src="script.js"></script>
+
     <script>
+        // --- دوال الثيم (الوضع الداكن والفاتح) ---
+        function toggleTheme() {
+            const html = document.documentElement;
+            // التحقق من الوضع الحالي
+            let currentTheme = html.getAttribute('data-theme');
+            if (!currentTheme) {
+                currentTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            // التبديل
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+
+            // تغيير أيقونة الزر
+            const themeBtn = document.getElementById('themeIcon');
+            if(themeBtn) themeBtn.innerText = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        function applyThemeOnLoad() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeBtn = document.getElementById('themeIcon');
+
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                if(themeBtn) themeBtn.innerText = savedTheme === 'dark' ? '☀️' : '🌙';
+            } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                if(themeBtn) themeBtn.innerText = '☀️';
+            }
+        }
+
+        // --- دوال اللغة ---
         let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
         function applyLanguage() {
             const elements = document.querySelectorAll('[data-ar][data-en]');
-            if (currentLang === 'en') {
-                elements.forEach(el => el.innerText = el.getAttribute('data-en'));
-                document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr';
-            } else {
-                elements.forEach(el => el.innerText = el.getAttribute('data-ar'));
-                document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl';
-            }
+            elements.forEach(el => {
+                if (el.innerHTML.includes('<i')) {
+                    // يحافظ على الأيقونة إذا كانت موجودة داخل العنصر
+                    el.innerHTML = (currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar')) + ' ' + el.querySelector('i').outerHTML;
+                } else {
+                    el.innerText = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
+                }
+            });
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'en' ? 'ltr' : 'rtl';
         }
+
         function toggleLanguage() {
             currentLang = currentLang === 'ar' ? 'en' : 'ar';
             localStorage.setItem('preferredLanguage', currentLang);
             applyLanguage();
         }
-        window.onload = applyLanguage;
+
+        // تشغيل الدوال عند تحميل الصفحة
+        window.addEventListener('DOMContentLoaded', () => {
+            applyThemeOnLoad();
+            applyLanguage();
+        });
     </script>
 </body>
 </html>
