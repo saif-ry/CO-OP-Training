@@ -3,88 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تقنية المعلومات | الأمن السيبراني - المدينة الطبية</title>
-
+    <title>التمريض | الأمن السيبراني - المدينة الطبية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-    <link rel="stylesheet" href="style.css">
-
     <style>
-        /* --- 1. نظام المتغيرات الموحد --- */
         :root {
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --header-bg: #005a32;
-            --nca-green: #007a4d;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            --card-radius: 16px;
+            --bg-color: #f8fafc; --card-bg: #ffffff; --header-bg: #005a32;
+            --nca-green: #007a4d; --text-dark: #1e293b; --text-muted: #64748b;
+            --border-color: #e2e8f0; --card-radius: 16px; --danger: #ef4444; --success: #10b981;
         }
-
         [data-theme="dark"] {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-main: #f1f5f9;
-            --text-muted: #94a3b8;
-            --border-color: #334155;
+            --bg-color: #0f172a; --card-bg: #1e293b; --text-dark: #f8fafc;
+            --text-muted: #94a3b8; --border-color: #334155;
         }
-
-        body {
-            margin: 0; font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-color); color: var(--text-main);
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        /* --- 2. الهيدر والقوائم --- */
-        .main-header {
-            background-color: var(--header-bg); color: white; padding: 1rem 2rem;
-            display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #004224;
-        }
+        body { margin: 0; font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-dark); transition: 0.3s; }
+        .main-header { background-color: var(--header-bg); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .header-right, .header-left { display: flex; align-items: center; gap: 15px; }
+        .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: var(--nca-green); }
         .header-titles h1 { margin: 0; font-size: 1.3rem; font-weight: 700; }
         .header-titles p { margin: 0; font-size: 0.9rem; color: #a7f3d0; }
-        .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: var(--nca-green); }
-
-        .nav-menu {
-            background: var(--card-bg); border-bottom: 1px solid var(--border-color); padding: 0 2rem;
-            display: flex; gap: 1rem; overflow-x: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-        .nav-link { padding: 1rem 0.5rem; color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 3px solid transparent; white-space: nowrap; transition: 0.2s; }
+        .btn-theme, .btn-lang { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-family: inherit; font-weight: 600; cursor: pointer; }
+        .btn-login-nafath { background: #10b981; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-weight: 700; }
+        .nav-menu { background: var(--card-bg); border-bottom: 1px solid var(--border-color); padding: 0 2rem; display: flex; gap: 1rem; overflow-x: auto; }
+        .nav-link { padding: 1rem 0.5rem; color: var(--text-muted); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; border-bottom: 3px solid transparent; }
         .nav-link.active, .nav-link:hover { color: var(--nca-green); border-bottom-color: var(--nca-green); }
-
         .container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
-        .section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-main); }
-
-        /* --- 3. البطاقات التفاعلية --- */
-        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
-
+        .section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-dark); }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2rem; margin-bottom: 1.5rem; }
         .interactive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
-        .info-card {
-            background: var(--bg-color); border-radius: 12px; padding: 1.5rem; text-align: center; cursor: pointer;
-            transition: 0.3s; border: 1px solid var(--border-color);
-        }
-        .info-card:hover { transform: translateY(-5px); border-color: var(--nca-green); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .info-card i { font-size: 2.8rem; color: var(--nca-green); margin-bottom: 0.8rem; }
-        .info-card h3 { color: var(--text-main); margin: 0; font-size: 0.95rem; font-weight: 700; }
-
-        /* --- 4. الأزرار والمهام --- */
-        .btn { background: var(--nca-green); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-family: inherit; font-weight: 700; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; }
+        .info-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; text-align: center; cursor: pointer; transition: 0.3s; }
+        .info-card:hover { transform: translateY(-5px); border-color: var(--nca-green); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .info-card i { font-size: 2.5rem; color: var(--nca-green); margin-bottom: 0.5rem; }
+        .info-card h3 { margin: 0.5rem 0; font-size: 1.1rem; }
+        .btn { background: var(--nca-green); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: inherit; }
         .btn-outline { background: transparent; border: 1px solid var(--nca-green); color: var(--nca-green); }
-
-        .checklist-item { display: flex; align-items: center; gap: 10px; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 0.5rem; background: var(--bg-color); }
-        .checklist-item.completed { background: #ecfdf5; border-color: #34d399; color: #065f46; text-decoration: line-through; }
-        [data-theme="dark"] .checklist-item.completed { background: #064e3b; color: #a7f3d0; }
-
-        .progress-bar { background: var(--border-color); height: 10px; border-radius: 5px; overflow: hidden; margin-top: 1rem; }
+        .btn-outline:hover { background: var(--nca-green); color: white; }
+        .checklist-item { display: flex; align-items: center; gap: 10px; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 0.5rem; background: var(--card-bg); }
+        .checklist-item.completed { background: rgba(52,211,153,0.1); border-color: #34d399; text-decoration: line-through; }
+        .progress-bar { background: var(--border-color); height: 10px; border-radius: 5px; overflow: hidden; margin: 1rem 0; }
         .progress-fill { height: 100%; background: var(--nca-green); width: 0; transition: 0.5s; }
-
-        .btn-theme { background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: white; }
-
-        /* النافذة المنبثقة */
-        .modal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
-        .modal.show { display: flex; align-items: center; justify-content: center; }
-        .modal-content { background: var(--card-bg); padding: 2.5rem; border-radius: var(--card-radius); width: 90%; max-width: 600px; position: relative; line-height: 1.8; }
-        .modal-header { font-size: 1.4rem; font-weight: 700; color: var(--nca-green); margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
+        .modal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(2px); align-items: center; justify-content: center; }
+        .modal.show { display: flex; }
+        .modal-content { background: var(--card-bg); padding: 2rem; border-radius: 16px; width: 90%; max-width: 500px; position: relative; }
+        .close { position: absolute; top: 1rem; right: 1.5rem; font-size: 2rem; cursor: pointer; color: var(--text-muted); }
+        .modal-header { font-size: 1.3rem; font-weight: 700; color: var(--nca-green); margin-bottom: 1rem; }
+        .interaction-result { padding: 1rem; border-radius: 8px; margin-top: 1rem; font-weight: bold; }
+        .interaction-result.success { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+        .interaction-result.error { background: #fef2f2; color: #dc2626; border: 1px solid #f87171; }
+        .gov-footer { background-color: #004224; color: #f1f5f9; border-top: 5px solid var(--nca-green); margin-top: 4rem; padding: 2rem 0 1rem; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-col h3 { color: #a7f3d0; font-size: 1.2rem; margin-bottom: 1rem; position: relative; padding-bottom: 0.5rem; }
+        .footer-col h3::after { content: ''; position: absolute; inset-inline-start: 0; bottom: 0; width: 40px; height: 3px; background-color: #34d399; }
+        .footer-logos { display: flex; gap: 15px; margin-bottom: 1rem; flex-wrap: wrap; }
+        .hospital-logo, .vision-logo { font-weight: 700; background: rgba(255,255,255,0.08); padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); }
+        .footer-col.links ul { list-style: none; padding: 0; }
+        .footer-col.links li { margin-bottom: 0.8rem; }
+        .footer-col.links a { color: #cbd5e1; text-decoration: none; transition: 0.3s; }
+        .footer-col.links a:hover { color: white; transform: translateX(-5px); display: inline-block; }
+        .footer-bottom { background-color: #002917; text-align: center; padding: 1rem; margin-top: 2rem; font-size: 0.9rem; color: #94a3b8; }
+        @media (max-width: 768px) {
+            .main-header { flex-direction: column; text-align: center; }
+            .nav-menu { padding: 0 1rem; }
+            .container { padding: 0 1rem; }
+            .footer-container { text-align: center; }
+            .footer-col h3::after { left: 50%; transform: translateX(-50%); }
+        }
     </style>
 </head>
 <body>
@@ -93,178 +77,93 @@
             <div class="logo-placeholder"><i class="las la-hospital"></i></div>
             <div class="header-titles">
                 <h1 data-ar="المدينة الطبية | منصة التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">المدينة الطبية | منصة التوعية بالأمن السيبراني</h1>
-                <p data-ar="إرشادات فريق تقنية المعلومات" data-en="IT Team Guidelines">إرشادات فريق تقنية المعلومات</p>
+                <p data-ar="إرشادات التمريض وحماية البيانات السريرية" data-en="Nursing Guidelines - Protecting Clinical Data">إرشادات التمريض وحماية البيانات السريرية</p>
             </div>
         </div>
         <div class="header-left">
-            <button class="btn-theme" id="themeIcon" onclick="toggleTheme()" title="تغيير المظهر">🌙</button>
-            <button class="btn-lang" onclick="toggleLanguage()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: 600; cursor: pointer;">🌐 EN/AR</button>
-            <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login" style="background: #10b981; border: none; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-weight: 700; text-decoration: none;">تسجيل الدخول</a>
+            <button class="btn-theme" id="themeToggle">🌙</button>
+            <button class="btn-lang" id="langToggle" data-ar="🌐 EN/AR" data-en="🌐 AR/EN">🌐 EN/AR</button>
+            <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</a>
         </div>
     </header>
 
     <nav class="nav-menu">
-        <a href="index.html" class="nav-link"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> <i class="las la-home"></i></a>
-        <a href="employees.html" class="nav-link active"><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> <i class="las la-user-nurse"></i></a>
-        <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> <i class="las la-tools"></i></a>
-        <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> <i class="las la-exclamation-circle"></i></a>
-        <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> <i class="las la-chart-pie"></i></a>
+        <a href="index.html" class="nav-link"><i class="las la-home"></i> <span data-ar="الرئيسية" data-en="Home">الرئيسية</span></a>
+        <a href="employees.html" class="nav-link active"><i class="las la-user-nurse"></i> <span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span></a>
+        <a href="tools.html" class="nav-link"><i class="las la-tools"></i> <span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span></a>
+        <a href="report.html" class="nav-link"><i class="las la-exclamation-circle"></i> <span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span></a>
+        <a href="dashboard.html" class="nav-link"><i class="las la-chart-pie"></i> <span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span></a>
     </nav>
 
     <div class="container">
-        <a href="employees.html" style="color: var(--nca-green); text-decoration: none; display: inline-flex; align-items: center; gap: 5px; margin-bottom: 1.5rem; font-weight: 700;" data-ar="← العودة للكادر الصحي" data-en="← Back to Staff List">
-            <i class="las la-arrow-right"></i> <span data-ar="العودة للكادر الصحي" data-en="Back to Staff List">العودة للكادر الصحي</span>
-        </a>
+        <a href="employees.html" class="btn btn-outline" style="margin-bottom: 1rem; display: inline-flex; align-items: center; gap: 5px;"><i class="las la-arrow-right"></i> <span data-ar="العودة للكادر الصحي" data-en="Back to Staff">العودة للكادر الصحي</span></a>
 
-        <div class="section-title">
-            <i class="las la-laptop-code" style="color: var(--nca-green);"></i>
-            <span data-ar="مسؤولياتك الأمنية كفريق تقنية المعلومات" data-en="Your Security Responsibilities as IT Staff">مسؤولياتك الأمنية كفريق تقنية المعلومات</span>
-        </div>
+        <div class="section-title"><i class="las la-syringe"></i> <span data-ar="مسؤولياتك الأمنية كفريق تمريض" data-en="Your Security Responsibilities as Nursing Staff">مسؤولياتك الأمنية كفريق تمريض</span></div>
 
         <div class="card">
-            <p data-ar="أنت خط الدفاع الأول للمستشفى. اضغط لعرض التفاصيل والسياسات لكل مهمة:" data-en="You are the first line of defense. Click to view details and policies:">أنت خط الدفاع الأول للمستشفى. اضغط لعرض التفاصيل والسياسات لكل مهمة:</p>
+            <p data-ar="أنت خط الدفاع الأول في رعاية المريض. اضغط على أي بطاقة لعرض الإرشادات:" data-en="You are the first line of patient care. Click any card to view guidelines:">أنت خط الدفاع الأول في رعاية المريض. اضغط على أي بطاقة لعرض الإرشادات:</p>
             <div class="interactive-grid">
-                <div class="info-card" onclick="showInfoModal('updates')">
-                    <i class="las la-tools"></i>
-                    <h3 data-ar="إدارة التحديثات" data-en="Patch Management">إدارة التحديثات</h3>
-                </div>
-                <div class="info-card" onclick="showInfoModal('monitor')">
-                    <i class="las la-network-wired"></i>
-                    <h3 data-ar="مراقبة الأنظمة" data-en="System Monitoring">مراقبة الأنظمة</h3>
-                </div>
-                <div class="info-card" onclick="showInfoModal('privilege')">
-                    <i class="las la-id-badge"></i>
-                    <h3 data-ar="أقل الصلاحيات" data-en="Least Privilege">أقل الصلاحيات</h3>
-                </div>
-                <div class="info-card" onclick="showInfoModal('backup')">
-                    <i class="las la-hdd"></i>
-                    <h3 data-ar="النسخ الاحتياطي" data-en="Backups">النسخ الاحتياطي</h3>
-                </div>
-                <div class="info-card" onclick="showInfoModal('incident')">
-                    <i class="las la-shield-alt"></i>
-                    <h3 data-ar="الاستجابة للحوادث" data-en="Incident Response">الاستجابة للحوادث</h3>
-                </div>
+                <div class="info-card" data-topic="privacy"><i class="las la-user-secret"></i><h3 data-ar="خصوصية المريض" data-en="Patient Privacy">خصوصية المريض</h3></div>
+                <div class="info-card" data-topic="devices"><i class="las la-heartbeat"></i><h3 data-ar="الأجهزة الطبية" data-en="Medical Devices">الأجهزة الطبية</h3></div>
+                <div class="info-card" data-topic="workstation"><i class="las la-desktop"></i><h3 data-ar="محطات التمريض" data-en="Nursing Stations">محطات التمريض</h3></div>
+                <div class="info-card" data-topic="phishing"><i class="las la-envelope"></i><h3 data-ar="التصيد" data-en="Phishing">التصيد</h3></div>
             </div>
-        </div>
-
-        <div class="card" style="border-right: 5px solid var(--nca-green);">
-            <h3 style="margin-top:0;" data-ar="⚠️ سيناريو تفاعلي" data-en="⚠️ Interactive Scenario">⚠️ سيناريو تفاعلي</h3>
-            <p><strong data-ar="الموقف:" data-en="Situation:">الموقف:</strong> <span data-ar="لاحظت حركة شبكة غير طبيعية (Traffic Spike) صادرة من أحد الأجهزة الطبية المتصلة بالإنترنت (IoMT). ماذا تفعل؟" data-en="You notice unusual network traffic coming from an internet-connected medical device (IoMT). What do you do?">لاحظت حركة شبكة غير طبيعية (Traffic Spike) صادرة من أحد الأجهزة الطبية المتصلة بالإنترنت (IoMT). ماذا تفعل؟</span></p>
-            <div style="display: flex; gap: 10px; margin-top: 1rem;">
-                <button class="btn btn-outline" onclick="handleScenario(false)"><span data-ar="أتجاهل الأمر (ضوضاء)" data-en="Ignore (Noise)">أتجاهل الأمر (ضوضاء)</span></button>
-                <button class="btn" onclick="handleScenario(true)"><span data-ar="أعزل الجهاز فوراً" data-en="Isolate Immediately">أعزل الجهاز فوراً</span></button>
-            </div>
-            <div id="scenarioResult" class="interaction-result" style="margin-top: 1rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 700;"></div>
         </div>
 
         <div class="card">
-            <h3 style="margin-top:0;" data-ar="📋 قائمة المهام اليومية" data-en="📋 Daily Checklist">📋 قائمة المهام اليومية</h3>
+            <h3><i class="las la-exclamation-triangle"></i> <span data-ar="سيناريو تفاعلي" data-en="Interactive Scenario">سيناريو تفاعلي</span></h3>
+            <p><strong data-ar="الموقف:" data-en="Situation:">الموقف:</strong> <span data-ar="زميل يطلب منك مشاركة كلمة المرور الخاصة بك للدخول إلى النظام الطبي لاستعجال إنقاذ مريض. ماذا تفعل؟" data-en="A colleague asks to share your password to quickly access the medical system for a patient emergency. What do you do?">زميل يطلب منك مشاركة كلمة المرور الخاصة بك للدخول إلى النظام الطبي لاستعجال إنقاذ مريض. ماذا تفعل؟</span></p>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-outline" id="scenarioWrong"><span data-ar="أشاركه كلمة المرور" data-en="Share password">أشاركه كلمة المرور</span></button>
+                <button class="btn" id="scenarioCorrect"><span data-ar="أرفض وأساعده بتسجيل الدخول بنفسي" data-en="Refuse and log in myself">أرفض وأساعده بتسجيل الدخول بنفسي</span></button>
+            </div>
+            <div id="scenarioResult" class="interaction-result" style="display: none;"></div>
+        </div>
+
+        <div class="card">
+            <h3><i class="las la-tasks"></i> <span data-ar="قائمة المهام اليومية" data-en="Daily Checklist">قائمة المهام اليومية</span></h3>
             <div id="checklist">
-                <label class="checklist-item"><input type="checkbox"> <span data-ar="مراجعة سجلات الدخول (Logs) للأنظمة الحيوية." data-en="Review access logs for critical systems.">مراجعة سجلات الدخول (Logs) للأنظمة الحيوية.</span></label>
-                <label class="checklist-item"><input type="checkbox"> <span data-ar="التأكد من نجاح عمليات النسخ الاحتياطي." data-en="Verify success of overnight backups.">التأكد من نجاح عمليات النسخ الاحتياطي.</span></label>
-                <label class="checklist-item"><input type="checkbox"> <span data-ar="تحديث قواعد بيانات مكافحة الفيروسات." data-en="Update antivirus signatures.">تحديث قواعد بيانات مكافحة الفيروسات.</span></label>
-                <label class="checklist-item"><input type="checkbox"> <span data-ar="مراجعة التحديثات الأمنية المطلوبة." data-en="Review required security patches.">مراجعة التحديثات الأمنية المطلوبة.</span></label>
+                <label class="checklist-item"><input type="checkbox"> <span data-ar="تسجيل الخروج من محطة التمريض بعد كل استخدام." data-en="Log out of nursing station after each use.">تسجيل الخروج من محطة التمريض بعد كل استخدام.</span></label>
+                <label class="checklist-item"><input type="checkbox"> <span data-ar="عدم ترك الأجهزة الطبية دون مراقبة." data-en="Do not leave medical devices unattended.">عدم ترك الأجهزة الطبية دون مراقبة.</span></label>
+                <label class="checklist-item"><input type="checkbox"> <span data-ar="عدم استخدام أجهزة USB شخصية على أجهزة المستشفى." data-en="Do not use personal USB drives on hospital devices.">عدم استخدام أجهزة USB شخصية على أجهزة المستشفى.</span></label>
+                <label class="checklist-item"><input type="checkbox"> <span data-ar="الإبلاغ عن أي سلوك غريب في الأنظمة فوراً." data-en="Report any strange system behavior immediately.">الإبلاغ عن أي سلوك غريب في الأنظمة فوراً.</span></label>
             </div>
             <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-            <p style="margin-top: 10px; font-size:0.9rem;" data-ar="التقدم: <span id='progressText'>0</span>/4" data-en="Progress: <span id='progressText'>0</span>/4">التقدم: <span id='progressText'>0</span>/4</p>
+            <p><span data-ar="التقدم:" data-en="Progress:">التقدم:</span> <span id="progressText">0</span>/4</p>
         </div>
     </div>
 
-    <div id="infoModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="document.getElementById('infoModal').classList.remove('show')" style="position: absolute; top: 1rem; right: 1.5rem; font-size: 2rem; cursor: pointer;">&times;</span>
-            <div class="modal-header" id="infoModalHeader"></div>
-            <div class="modal-body" id="infoModalBody" style="color: var(--text-main);"></div>
+    <div id="infoModal" class="modal"><div class="modal-content"><span class="close">&times;</span><div class="modal-header" id="modalHeader"></div><div class="modal-body" id="modalBody"></div></div></div>
+
+    <footer class="gov-footer">
+        <div class="footer-container">
+            <div class="footer-col"><div class="footer-logos"><div class="hospital-logo">🏥 <span data-ar="المدينة الطبية" data-en="Medical City">المدينة الطبية</span></div><div class="vision-logo">🇸🇦 <span data-ar="رؤية 2030" data-en="Vision 2030">رؤية 2030</span></div></div><p data-ar="منصة التوعية بالأمن السيبراني، نهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى وتضمن استمرارية الأعمال." data-en="Cybersecurity Awareness Portal, aiming to build a secure digital environment that protects patient data and ensures business continuity.">منصة التوعية بالأمن السيبراني، نهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى وتضمن استمرارية الأعمال.</p></div>
+            <div class="footer-col links"><h3 data-ar="روابط وطنية هامة" data-en="Important National Links">روابط وطنية هامة</h3><ul><li><a href="https://nca.gov.sa" target="_blank" data-ar="الهيئة الوطنية للأمن السيبراني" data-en="National Cybersecurity Authority (NCA)">الهيئة الوطنية للأمن السيبراني</a></li><li><a href="https://sdaia.gov.sa" target="_blank" data-ar="الهيئة السعودية للبيانات (سدايا)" data-en="Saudi Data Authority (SDAIA)">الهيئة السعودية للبيانات (سدايا)</a></li><li><a href="https://moh.gov.sa" target="_blank" data-ar="وزارة الصحة" data-en="Ministry of Health (MOH)">وزارة الصحة</a></li></ul></div>
+            <div class="footer-col links"><h3 data-ar="السياسات والدعم" data-en="Policies & Support">السياسات والدعم</h3><ul><li><a href="#" data-ar="سياسة الخصوصية (PDPL)" data-en="Privacy Policy (PDPL)">سياسة الخصوصية (PDPL)</a></li><li><a href="faq.html" data-ar="الأسئلة الشائعة (FAQ)" data-en="Frequently Asked Questions (FAQ)">الأسئلة الشائعة (FAQ)</a></li><li><a href="report.html" data-ar="رفع تذكرة أمنية (SOC)" data-en="Raise Security Ticket (SOC)">رفع تذكرة أمنية (SOC)</a></li></ul></div>
+            <div class="footer-col contact"><h3 data-ar="تواصل مع فريق الأمن" data-en="Contact Security Team">تواصل مع فريق الأمن</h3><p>📧 SOC@hospital.edu.sa</p><p>📞 <span data-ar="تحويلة طوارئ:" data-en="Emergency Ext:">تحويلة طوارئ:</span> 9111</p></div>
         </div>
-    </div>
+        <div class="footer-bottom"><p data-ar="جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً" data-en="All Rights Reserved © 2026 University Hospital | Developed Internally">جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً</p></div>
+    </footer>
 
     <script>
-        const role = 'it';
-        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
-
         const infoData = {
-            updates: { ar: { title: 'إدارة التحديثات', body: 'تأكد من سد الثغرات المكتشفة حديثاً (Zero-day) في أقرب وقت لتجنب الهجمات، مع اختبار التحديثات في بيئة معزولة.' }, en: { title: 'Patch Management', body: 'Ensure Zero-day vulnerabilities are patched ASAP, testing updates in an isolated environment first.' } },
-            monitor: { ar: { title: 'مراقبة الأنظمة', body: 'استخدام أدوات تحليل السجلات لاكتشاف أي حركة مرور غير طبيعية أو محاولات دخول فاشلة متكررة.' }, en: { title: 'System Monitoring', body: 'Use log analysis tools to detect abnormal traffic or repeated failed login attempts.' } },
-            privilege: { ar: { title: 'أقل الصلاحيات', body: 'لا تمنح صلاحيات الإدارة (Admin Rights) إلا لمن يحتاجها فعلياً، وقم بمراجعتها دورياً.' }, en: { title: 'Least Privilege', body: 'Do not grant Admin Rights unless necessary. Review privileges periodically.' } },
-            backup: { ar: { title: 'النسخ الاحتياطي', body: 'الأهم من أخذ النسخ هو اختبار استعادتها بانتظام للتأكد من جاهزيتها ضد برامج الفدية.' }, en: { title: 'Backups', body: 'Testing restoration regularly is more important than the backup itself to ensure readiness against Ransomware.' } },
-            incident: { ar: { title: 'الاستجابة للحوادث', body: 'يجب أن يكون الفريق مدرباً على عزل الأجهزة المخترقة فوراً وتوثيق كافة الإجراءات المتخذة.' }, en: { title: 'Incident Response', body: 'The team must be trained to isolate compromised devices immediately and document all actions.' } }
+            privacy: { ar: { title: 'خصوصية المريض', body: 'لا تشارك بيانات المرضى مع غير المخولين. استخدم القنوات الرسمية فقط.' }, en: { title: 'Patient Privacy', body: 'Do not share patient data with unauthorized persons. Use only official channels.' } },
+            devices: { ar: { title: 'الأجهزة الطبية', body: 'أبلغ عن أي جهاز طبي يظهر سلوكاً غريباً (تأخير، إعادة تشغيل مفاجئة).' }, en: { title: 'Medical Devices', body: 'Report any medical device showing strange behavior (delay, sudden reboot).' } },
+            workstation: { ar: { title: 'محطات التمريض', body: 'لا تترك الشاشة مفتوحة على بيانات المرضى. استخدم Win+L لقفل الشاشة.' }, en: { title: 'Nursing Stations', body: 'Do not leave screens open on patient data. Use Win+L to lock.' } },
+            phishing: { ar: { title: 'التصيد', body: 'لا تفتح روابط أو مرفقات من مرسلين غير معروفين.' }, en: { title: 'Phishing', body: 'Do not open links or attachments from unknown senders.' } }
         };
-
-        function showInfoModal(topic) {
-            const data = infoData[topic][currentLang];
-            document.getElementById('infoModalHeader').innerText = data.title;
-            document.getElementById('infoModalBody').innerText = data.body;
-            document.getElementById('infoModal').classList.add('show');
-        }
-
-        function handleScenario(isCorrect) {
-            const res = document.getElementById('scenarioResult');
-            res.style.display = 'block';
-            if (isCorrect) {
-                res.style.background = '#ecfdf5'; res.style.color = '#059669';
-                res.innerText = currentLang === 'ar' ? '✅ تصرف صحيح! عزل الجهاز (Containment) هو الأولوية القصوى لمنع انتشار التهديد.' : '✅ Correct! Isolation (Containment) is the top priority to prevent threat spread.';
-            } else {
-                res.style.background = '#fef2f2'; res.style.color = '#dc2626';
-                res.innerText = currentLang === 'ar' ? '❌ خطأ! أي نشاط غير طبيعي يستدعي التحقيق الفوري، قد يكون الجهاز مخترقاً ببرمجيات خبيثة.' : '❌ Wrong! Abnormal activity requires immediate investigation; it could be malware.';
-            }
-            let key = `${role}_scenario`;
-            let existing = JSON.parse(localStorage.getItem(key)) || { total: 0, correct: 0 };
-            existing.total++; if (isCorrect) existing.correct++;
-            localStorage.setItem(key, JSON.stringify(existing));
-        }
-
-        function updateChecklist() {
-            const items = document.querySelectorAll('.checklist-item');
-            let checked = 0;
-            items.forEach(item => {
-                const cb = item.querySelector('input');
-                if (cb.checked) { checked++; item.classList.add('completed'); }
-                else { item.classList.remove('completed'); }
-            });
-            document.getElementById('progressFill').style.width = ((checked / items.length) * 100) + '%';
-            document.getElementById('progressText').innerText = checked;
-            localStorage.setItem(`${role}_checklist`, JSON.stringify(Array.from(items).map(i => ({ completed: i.querySelector('input').checked }))));
-        }
-
-        function toggleTheme() {
-            const body = document.documentElement;
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            body.setAttribute('data-theme', newTheme);
-            document.getElementById('themeIcon').innerText = newTheme === 'dark' ? '☀️' : '🌙';
-            localStorage.setItem('theme', newTheme);
-        }
-
-        function applyLanguage() {
-            const elements = document.querySelectorAll('[data-ar][data-en]');
-            elements.forEach(el => {
-                if (el.innerHTML.includes('<i')) {
-                    const icon = el.querySelector('i').outerHTML;
-                    el.innerHTML = (currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar')) + ' ' + icon;
-                } else {
-                    el.innerText = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
-                }
-            });
-            document.documentElement.lang = currentLang;
-            document.documentElement.dir = currentLang === 'en' ? 'ltr' : 'rtl';
-            updateChecklist();
-        }
-
-        function toggleLanguage() {
-            currentLang = currentLang === 'ar' ? 'en' : 'ar';
-            localStorage.setItem('preferredLanguage', currentLang);
-            applyLanguage();
-        }
-
-        window.onload = () => {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) { document.documentElement.setAttribute('data-theme', savedTheme); document.getElementById('themeIcon').innerText = savedTheme === 'dark' ? '☀️' : '🌙'; }
-            const savedCheck = JSON.parse(localStorage.getItem(`${role}_checklist`));
-            if (savedCheck) { const checks = document.querySelectorAll('.checklist-item input'); savedCheck.forEach((s, i) => { if(checks[i]) checks[i].checked = s.completed; }); }
-            document.querySelectorAll('.checklist-item input').forEach(i => i.addEventListener('change', updateChecklist));
-            applyLanguage();
-        };
+        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+        const role = 'nurse';
+        function showInfoModal(topic) { const data = infoData[topic][currentLang]; document.getElementById('modalHeader').innerHTML = data.title; document.getElementById('modalBody').innerHTML = `<p>${data.body}</p>`; document.getElementById('infoModal').classList.add('show'); }
+        function closeModal() { document.getElementById('infoModal').classList.remove('show'); }
+        function handleScenario(isCorrect) { const res = document.getElementById('scenarioResult'); res.style.display = 'block'; if(isCorrect) { res.className = 'interaction-result success'; res.innerHTML = currentLang === 'ar' ? '✅ تصرف صحيح! لا تشارك كلمة المرور أبداً، حتى في حالات الطوارئ.' : '✅ Correct! Never share your password, even in emergencies.'; } else { res.className = 'interaction-result error'; res.innerHTML = currentLang === 'ar' ? '❌ خطأ! مشاركة كلمة المرور تخالف سياسة المستشفى وتعرّض بيانات المرضى للخطر.' : '❌ Wrong! Sharing passwords violates hospital policy and risks patient data.'; } let key = `${role}_scenario`; let ex = JSON.parse(localStorage.getItem(key)) || { total: 0, correct: 0 }; ex.total++; if(isCorrect) ex.correct++; localStorage.setItem(key, JSON.stringify(ex)); }
+        function updateChecklist() { const items = document.querySelectorAll('.checklist-item'); let c=0; items.forEach(i=>{ const cb=i.querySelector('input'); if(cb.checked){ c++; i.classList.add('completed'); } else i.classList.remove('completed'); }); document.getElementById('progressFill').style.width = ((c/items.length)*100)+'%'; document.getElementById('progressText').innerText = c; localStorage.setItem(`${role}_checklist`, JSON.stringify(Array.from(items).map(i=>({completed:i.querySelector('input').checked})))); }
+        function loadSavedData() { const saved = JSON.parse(localStorage.getItem(`${role}_checklist`)); if(saved) { const items = document.querySelectorAll('.checklist-item'); items.forEach((item,i)=>{ if(saved[i]?.completed){ item.querySelector('input').checked=true; item.classList.add('completed'); } }); updateChecklist(); } }
+        function initTheme() { const saved = localStorage.getItem('theme'); if(saved==='dark'){ document.documentElement.setAttribute('data-theme','dark'); document.getElementById('themeToggle').innerHTML='☀️'; } else { document.documentElement.setAttribute('data-theme','light'); document.getElementById('themeToggle').innerHTML='🌙'; } }
+        function toggleTheme() { const cur = document.documentElement.getAttribute('data-theme'); const neu = cur==='dark'?'light':'dark'; document.documentElement.setAttribute('data-theme',neu); localStorage.setItem('theme',neu); document.getElementById('themeToggle').innerHTML = neu==='dark'?'☀️':'🌙'; }
+        function applyLanguage() { document.querySelectorAll('[data-ar][data-en]').forEach(el=>{ const txt = currentLang==='en'?el.getAttribute('data-en'):el.getAttribute('data-ar'); const ic = el.querySelector('i'); if(ic) el.innerHTML = ic.outerHTML + ' ' + txt; else el.innerText = txt; }); document.querySelectorAll('#scenarioCorrect span, #scenarioWrong span').forEach(span=>{ const isCor = span.parentElement.id==='scenarioCorrect'; span.innerText = currentLang==='en'?(isCor?'Refuse and log in myself':'Share password'):(isCor?'أرفض وأساعده بتسجيل الدخول بنفسي':'أشاركه كلمة المرور'); }); const sr = document.getElementById('scenarioResult'); if(sr.style.display==='block'){ const isSucc = sr.classList.contains('success'); sr.innerHTML = currentLang==='ar'?(isSucc?'✅ تصرف صحيح! لا تشارك كلمة المرور أبداً، حتى في حالات الطوارئ.':'❌ خطأ! مشاركة كلمة المرور تخالف سياسة المستشفى وتعرّض بيانات المرضى للخطر.'):(isSucc?'✅ Correct! Never share your password, even in emergencies.':'❌ Wrong! Sharing passwords violates hospital policy and risks patient data.'); } document.documentElement.lang = currentLang; document.documentElement.dir = currentLang==='en'?'ltr':'rtl'; }
+        function toggleLanguage() { currentLang = currentLang==='ar'?'en':'ar'; localStorage.setItem('preferredLanguage',currentLang); applyLanguage(); }
+        document.addEventListener('DOMContentLoaded',()=>{ document.querySelectorAll('.info-card').forEach(c=>c.addEventListener('click',()=>showInfoModal(c.getAttribute('data-topic')))); document.querySelector('.close')?.addEventListener('click',closeModal); window.addEventListener('click',e=>{if(e.target===document.getElementById('infoModal')) closeModal();}); document.getElementById('scenarioCorrect').addEventListener('click',()=>handleScenario(true)); document.getElementById('scenarioWrong').addEventListener('click',()=>handleScenario(false)); document.querySelectorAll('.checklist-item input').forEach(cb=>cb.addEventListener('change',updateChecklist)); loadSavedData(); initTheme(); document.getElementById('themeToggle').addEventListener('click',toggleTheme); document.getElementById('langToggle').addEventListener('click',toggleLanguage); applyLanguage(); });
     </script>
-    <script src="script.js"></script>
 </body>
 </html>
