@@ -4,222 +4,212 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة التوعية بالأمن السيبراني | المدينة الطبية</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
     <style>
+        /* --- 1. المتغيرات والأساسيات --- */
         :root {
-            --bg-color: #f8fafc;
-            --header-bg: #005a32;
-            --nca-green: #007a4d;
-            --text-dark: #1e293b;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            --card-radius: 16px;
+            --bg-color: #f8fafc; --card-bg: #ffffff; --header-bg: #005a32;
+            --nca-green: #007a4d; --text-main: #1e293b; --text-muted: #64748b;
+            --border-color: #e2e8f0; --card-radius: 16px; --input-bg: #f8fafc;
+            --badge-bg: #f1f5f9; --badge-text: #475569; --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        [data-theme="dark"] {
+            --bg-color: #0f172a; --card-bg: #1e293b; --text-main: #f1f5f9; --text-muted: #94a3b8;
+            --border-color: #334155; --input-bg: #0f172a; --badge-bg: #334155; --badge-text: #cbd5e1;
+            --shadow-sm: 0 4px 6px rgba(0,0,0,0.3);
         }
 
-        body {
-            margin: 0;
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-        }
+        body { margin: 0; font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-main); transition: 0.3s; }
 
-        /* --- Header --- */
-        .main-header {
-            background-color: var(--header-bg);
-            color: white;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 4px solid #004224;
-        }
-        .header-right { display: flex; align-items: center; gap: 15px; }
-        .logo-placeholder {
-            width: 48px; height: 48px; background: white; border-radius: 12px;
-            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
-        }
+        /* --- 2. الهيدر والقوائم --- */
+        .main-header { background-color: var(--header-bg); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #004224; }
         .header-titles h1 { margin: 0; font-size: 1.3rem; font-weight: 700; }
         .header-titles p { margin: 0; font-size: 0.9rem; color: #a7f3d0; }
+        .header-right { display: flex; align-items: center; gap: 15px; }
+        .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--nca-green); }
+        .header-left { display: flex; gap: 10px; align-items: center; }
 
-        .header-left { display: flex; gap: 15px; align-items: center; }
-        .btn-lang {
-            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white;
-            padding: 0.5rem 1.2rem; border-radius: 20px; font-family: inherit; font-weight: 600; cursor: pointer; transition: 0.3s;
-        }
-        .btn-lang:hover { background: rgba(255,255,255,0.2); }
-        .btn-test-top {
-            background: #10b981; border: none; color: white;
-            padding: 0.5rem 1.2rem; border-radius: 20px; font-family: inherit; font-weight: 700; cursor: pointer; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .btn-test-top:hover { background: #059669; }
+        .nav-menu { background: var(--card-bg); border-bottom: 1px solid var(--border-color); padding: 0 2rem; display: flex; gap: 1rem; overflow-x: auto; box-shadow: var(--shadow-sm); }
+        .nav-link { padding: 1rem 0.5rem; color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 3px solid transparent; white-space: nowrap; transition: 0.2s; }
+        .nav-link.active, .nav-link:hover { color: var(--nca-green); border-bottom-color: var(--nca-green); }
 
-        /* --- Navigation Menu --- */
-        .nav-menu {
-            background: white;
-            border-bottom: 1px solid var(--border-color);
+        /* --- 3. تخطيط الصفحة الرئيسي --- */
+        .layout-container {
+            max-width: 1400px;
+            margin: 2rem auto;
             padding: 0 2rem;
             display: flex;
-            gap: 1rem;
-            overflow-x: auto;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-        .nav-link {
-            padding: 1rem 0.5rem; color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem;
-            display: flex; align-items: center; gap: 0.5rem; border-bottom: 3px solid transparent; white-space: nowrap; transition: 0.2s;
-        }
-        .nav-link:hover { color: var(--nca-green); }
-        .nav-link.active { color: var(--nca-green); border-bottom-color: var(--nca-green); }
-
-        /* --- Layout --- */
-        .container {
-            max-width: 1400px; margin: 2rem auto; padding: 0 2rem;
-            display: grid; grid-template-columns: 1fr 340px; gap: 2.5rem; align-items: start;
-        }
-        @media (max-width: 1024px) { .container { grid-template-columns: 1fr; } }
-
-        /* --- Main Content --- */
-        .section-title {
-            font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem;
-            display: flex; align-items: center; gap: 0.5rem; color: var(--text-dark);
+            flex-direction: column;
+            gap: 3rem;
         }
 
-        /* MOTD */
-        .motd {
-            background: linear-gradient(135deg, #e8f5e9, #bbf7d0); border: 1px solid #86efac; border-radius: var(--card-radius);
-            padding: 1.5rem; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
+        /* --- 4. شريط التنبيهات المتحرك --- */
+        .awareness-ticker { display: flex; align-items: center; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--card-radius); overflow: hidden; white-space: nowrap; box-shadow: var(--shadow-sm); }
+        .ticker-label { background: var(--nca-green); color: white; padding: 12px 20px; font-weight: 700; z-index: 2; display: flex; align-items: center; gap: 8px; font-size: 1rem; }
+        .ticker-content { flex: 1; overflow: hidden; padding: 10px 0; }
+        .ticker-text { display: inline-block; animation: ticker-animation-rtl 45s linear infinite; }
+        .ticker-text span { margin-right: 60px; font-weight: 600; font-size: 0.95rem; color: var(--text-main); display: inline-flex; align-items: center; gap: 8px; }
+        .ticker-text i { color: var(--nca-green); font-size: 1.2rem; }
+        @keyframes ticker-animation-rtl { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        html[dir="ltr"] .ticker-text { animation: ticker-animation-ltr 45s linear infinite; }
+        @keyframes ticker-animation-ltr { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+        .awareness-ticker:hover .ticker-text { animation-play-state: paused; }
+
+        /* --- 5. المحتوى والبطاقات --- */
+        .section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-main); }
+
+        .motd { background: linear-gradient(135deg, #e8f5e9, #bbf7d0); border: 1px solid #86efac; border-radius: var(--card-radius); padding: 1.5rem; box-shadow: var(--shadow-sm); }
+        [data-theme="dark"] .motd { background: linear-gradient(135deg, #14532d, #064e3b); border-color: #059669; }
         .motd h3 { margin: 0 0 0.5rem 0; color: #065f46; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem; }
+        [data-theme="dark"] .motd h3 { color: #a7f3d0; }
         .motd p { margin: 0; font-size: 0.95rem; color: #064e3b; font-weight: 600; }
+        [data-theme="dark"] .motd p { color: #d1fae5; }
 
-        /* Filters */
-        .filters {
-            display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: flex-end; flex-wrap: wrap;
-            background: white; padding: 1.5rem; border-radius: var(--card-radius); border: 1px solid var(--border-color);
-        }
+        .filters { display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap; background: var(--card-bg); padding: 1.5rem; border-radius: var(--card-radius); border: 1px solid var(--border-color); }
         .filter-group { flex: 1; min-width: 150px; }
-        .filter-group label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 600; }
-        .filter-group select, .filter-group input {
-            width: 100%; padding: 0.7rem; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 0.95rem; outline: none; background: #f8fafc;
-        }
-        .filter-group select:focus, .filter-group input:focus { border-color: var(--nca-green); background: white; }
+        .filter-group label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 600; display: flex; align-items: center; gap: 5px; }
+        .filter-group select, .filter-group input { width: 100%; padding: 0.7rem; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 0.95rem; outline: none; background: var(--input-bg); color: var(--text-main); }
+        .filter-group select:focus, .filter-group input:focus { border-color: var(--nca-green); }
 
-        /* Cards Grid */
-        .cards-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;
-        }
-        .card {
-            background: white; border: 1px solid var(--border-color); border-radius: var(--card-radius); overflow: hidden; display: flex; flex-direction: column; transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--card-radius); overflow: hidden; display: flex; flex-direction: column; transition: 0.3s; box-shadow: var(--shadow-sm); }
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); border-color: var(--nca-green); }
-        .card-top {
-            height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            font-weight: 700; font-size: 1.2rem;
-        }
-        .card-emoji { font-size: 3rem; margin-bottom: 0.2rem; }
+        .card-top { height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; }
+        .card-icon { font-size: 3.5rem; margin-bottom: 0.5rem; }
         .card-body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
         .badges { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem; }
-        .badge {
-            background: #f1f5f9; border: 1px solid #e2e8f0; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; color: #475569;
-        }
-        .card-title { font-size: 1.1rem; font-weight: 700; margin: 0 0 0.5rem 0; color: var(--text-dark); }
+        .badge { background: var(--badge-bg); border: 1px solid var(--border-color); padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; color: var(--badge-text); }
+        .card-title { font-size: 1.1rem; font-weight: 700; margin: 0 0 0.5rem 0; color: var(--text-main); }
         .card-desc { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 1.5rem 0; line-height: 1.6; flex: 1; }
-        .btn-more {
-            align-self: flex-start; background: #f0fdf4; border: 1px solid #86efac; color: #166534; font-weight: 700;
-            padding: 0.5rem 1.5rem; border-radius: 20px; font-size: 0.9rem; cursor: pointer; text-decoration: none; transition: 0.2s;
-        }
-        .btn-more:hover { background: var(--nca-green); color: white; border-color: var(--nca-green); }
+        .btn-more { align-self: flex-start; background: transparent; border: 1px solid var(--nca-green); color: var(--nca-green); font-weight: 700; padding: 0.5rem 1.5rem; border-radius: 20px; font-size: 0.9rem; cursor: pointer; text-decoration: none; transition: 0.2s; }
+        .btn-more:hover { background: var(--nca-green); color: white; }
 
-        /* --- Sidebar --- */
-        .sidebar { display: flex; flex-direction: column; gap: 1.2rem; }
-        .sidebar-card {
-            background: white; border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 1.5rem; text-decoration: none; color: inherit; display: block; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
+        .theme-purple { background: linear-gradient(135deg, #e0e7ff, #c7d2fe); color: #3730a3; }
+        [data-theme="dark"] .theme-purple { background: linear-gradient(135deg, #312e81, #3730a3); color: #e0e7ff; }
+        .theme-red { background: linear-gradient(135deg, #fee2e2, #fca5a5); color: #991b1b; }
+        [data-theme="dark"] .theme-red { background: linear-gradient(135deg, #7f1d1d, #991b1b); color: #fee2e2; }
+        .theme-green { background: linear-gradient(135deg, #dcfce7, #86efac); color: #166534; }
+        [data-theme="dark"] .theme-green { background: linear-gradient(135deg, #14532d, #166534); color: #dcfce7; }
+        .theme-yellow { background: linear-gradient(135deg, #fef3c7, #fde047); color: #854d0e; }
+        [data-theme="dark"] .theme-yellow { background: linear-gradient(135deg, #713f12, #854d0e); color: #fef3c7; }
+        .theme-blue { background: linear-gradient(135deg, #e0f2fe, #7dd3fc); color: #075985; }
+        [data-theme="dark"] .theme-blue { background: linear-gradient(135deg, #0c4a6e, #075985); color: #e0f2fe; }
+
+        /* --- 6. القائمة السفلية للأدوات والموارد --- */
+        .sidebar { display: flex; flex-direction: column; gap: 1.5rem; border-top: 2px dashed var(--border-color); padding-top: 2rem; }
+        .sidebar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; align-items: start; }
+        .sidebar-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 1.5rem; text-decoration: none; color: inherit; display: block; transition: 0.2s; box-shadow: var(--shadow-sm); }
         .sidebar-card:hover { border-color: var(--nca-green); transform: translateY(-3px); }
-        .sidebar-card h4 { margin: 0 0 0.5rem 0; font-size: 1rem; color: var(--text-dark); display: flex; align-items: center; gap: 0.5rem; }
+        .sidebar-card h4 { margin: 0 0 0.5rem 0; font-size: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 0.5rem; }
         .sidebar-card p { margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
 
-        .alert-yellow {
-            background: #fffbeb; border: 1px solid #fcd34d; border-radius: var(--card-radius); padding: 1.2rem; font-size: 0.85rem; color: #92400e; font-weight: 600; line-height: 1.5;
-        }
+        .alert-yellow { background: #fffbeb; border: 1px solid #fcd34d; border-radius: var(--card-radius); padding: 1.5rem; font-size: 0.95rem; color: #92400e; font-weight: 600; line-height: 1.5; display: flex; gap: 10px; align-items: flex-start; }
+        [data-theme="dark"] .alert-yellow { background: #451a03; border-color: #b45309; color: #fde68a; }
 
-        .instructions-card {
-            background: white; border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 1.5rem;
-        }
+        .instructions-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 1.5rem; }
         .instructions-card h4 { margin: 0 0 1rem 0; font-size: 1rem; color: var(--nca-green); display: flex; align-items: center; gap: 0.5rem; }
-        .instructions-card ul { margin: 0; padding-right: 1.2rem; font-size: 0.9rem; color: var(--text-dark); line-height: 1.8; }
+        .instructions-card ul { margin: 0; padding-right: 1.2rem; font-size: 0.9rem; color: var(--text-main); line-height: 1.8; }
 
+        /* --- 7. الفوتر --- */
+        .gov-footer { background-color: #004224; color: #f1f5f9; padding-top: 3rem; margin-top: 3rem; border-top: 5px solid var(--nca-green); }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .btn-theme { background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: white; }
     </style>
 </head>
 <body>
 
     <header class="main-header">
         <div class="header-right">
-            <div class="logo-placeholder">🏥</div>
+            <div class="logo-placeholder"><i class="las la-hospital"></i></div>
             <div class="header-titles">
                 <h1 data-ar="المدينة الطبية | منصة التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">المدينة الطبية | منصة التوعية بالأمن السيبراني</h1>
                 <p data-ar="حملات تفاعلية، نصائح، واختبارات لرفع الوعي" data-en="Interactive campaigns, tips, and tests to raise awareness">حملات تفاعلية، نصائح، واختبارات لرفع الوعي</p>
             </div>
         </div>
         <div class="header-left">
-            <button class="btn-lang" onclick="toggleLanguage()">🌐 العربية / English</button>
+            <button class="btn-theme" id="themeIcon" onclick="toggleTheme()" title="تغيير المظهر">🌙</button>
+            <button class="btn-lang" onclick="toggleLanguage()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: 600; cursor: pointer;">🌐 EN/AR</button>
+            <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login" style="background: #10b981; border: none; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-weight: 700; text-decoration: none;">تسجيل الدخول</a>
         </div>
     </header>
 
     <nav class="nav-menu">
-        <a href="index.html" class="nav-link active"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> 🏠</a>
-        <a href="employees.html" class="nav-link"><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> 👨‍⚕️</a>
-        <a href="oip.html" class="nav-link"><span data-ar="المكتبة التوعوية" data-en="Library">المكتبة التوعوية</span> 📚</a>
-        <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> 🧰</a>
-        <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> 🚨</a>
-        <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> 📊</a>
-        <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> 📈</a>
+        <a href="index.html" class="nav-link active"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> <i class="las la-home"></i></a>
+        <a href="employees.html" class="nav-link"><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> <i class="las la-user-nurse"></i></a>
+        <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> <i class="las la-tools"></i></a>
+        <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> <i class="las la-exclamation-circle"></i></a>
+        <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> <i class="las la-poll"></i></a>
+        <a href="quiz.html" class="nav-link"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> <i class="las la-brain"></i></a>
+        <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> <i class="las la-chart-pie"></i></a>
     </nav>
 
-    <div class="container">
+    <div class="layout-container">
 
-        <main>
-            <div class="section-title">
-                📢 <span data-ar="الحملات التوعوية" data-en="Awareness Campaigns">الحملات التوعوية</span>
+        <main style="display: flex; flex-direction: column; gap: 2rem;">
+
+            <div class="awareness-ticker">
+                <div class="ticker-label">
+                    <i class="las la-bullhorn"></i> <span data-ar="تنبيهات ومفاهيم:" data-en="Alerts & Concepts:">تنبيهات ومفاهيم:</span>
+                </div>
+                <div class="ticker-content">
+                    <div class="ticker-text">
+                        <span data-ar="<i class='las la-shield-alt'></i> الأمن السيبراني: هو حماية الشبكات والأجهزة والبيانات الحساسة للمرضى من الهجمات الرقمية." data-en="<i class='las la-shield-alt'></i> Cybersecurity: Protecting networks, devices, and sensitive patient data from attacks."><i class="las la-shield-alt"></i> الأمن السيبراني: هو حماية الشبكات والأجهزة والبيانات الحساسة للمرضى من الهجمات الرقمية.</span>
+                        <span data-ar="<i class='las la-key'></i> ثلاثية الأمن (CIA): السرية (للمصرح لهم فقط)، النزاهة (بيانات صحيحة)، والتوافر (الأنظمة تعمل وقت الحاجة)." data-en="<i class='las la-key'></i> CIA Triad: Confidentiality (authorized only), Integrity (accurate data), Availability (systems ready)."><i class="las la-key"></i> ثلاثية الأمن (CIA): السرية (للمصرح لهم فقط)، النزاهة (بيانات صحيحة)، والتوافر (الأنظمة تعمل وقت الحاجة).</span>
+                        <span data-ar="<i class='las la-envelope-open-text'></i> احذر التصيد (Phishing): رسائل خادعة تبدو رسمية لسرقة كلمات المرور.. لا تضغط على الروابط المجهولة." data-en="<i class='las la-envelope-open-text'></i> Phishing: Deceptive messages to steal passwords. Don't click unknown links."><i class="las la-envelope-open-text"></i> احذر التصيد (Phishing): رسائل خادعة تبدو رسمية لسرقة كلمات المرور.. لا تضغط على الروابط المجهولة.</span>
+                        <span data-ar="<i class='las la-lock'></i> برامج الفدية (Ransomware): فيروسات تشفر بيانات المستشفى وتطلب فدية.. الحذر هو خط الدفاع الأول." data-en="<i class='las la-lock'></i> Ransomware: Viruses that encrypt hospital data. Caution is the first defense."><i class="las la-lock"></i> برامج الفدية (Ransomware): فيروسات تشفر بيانات المستشفى وتطلب فدية.. الحذر هو خط الدفاع الأول.</span>
+                        <span data-ar="<i class='las la-phone-volume'></i> الهندسة الاجتماعية: التلاعب النفسي.. لا تشارك كلمة مرورك عبر الهاتف حتى لو ادعى المتصل أنه مديرك." data-en="<i class='las la-phone-volume'></i> Social Engineering: Never share passwords over the phone, even if they claim to be management."><i class="las la-phone-volume"></i> الهندسة الاجتماعية: التلاعب النفسي.. لا تشارك كلمة مرورك عبر الهاتف حتى لو ادعى المتصل أنه مديرك.</span>
+                    </div>
+                </div>
             </div>
 
-            <div class="motd">
-                <div>
-                    <h3 data-ar="💡 رسالة اليوم" data-en="💡 Message of the Day">💡 رسالة اليوم</h3>
+            <div>
+                <div class="section-title">
+                    <i class="las la-bullhorn" style="color: var(--nca-green); font-size: 1.8rem;"></i>
+                    <span data-ar="الحملات التوعوية" data-en="Awareness Campaigns">الحملات التوعوية</span>
+                </div>
+
+                <div class="motd">
+                    <h3 data-ar="رسالة اليوم" data-en="Message of the Day"><i class="las la-lightbulb" style="font-size: 1.4rem;"></i> رسالة اليوم</h3>
                     <p data-ar="لا تتسرع... الحذر يقلل مخاطر التصيد. استخدم أداة (تحقق) لفحص الروابط." data-en="Caution reduces phishing risks. Use (Tahqaq) to check links before clicking.">لا تتسرع... الحذر يقلل مخاطر التصيد. استخدم أداة (تحقق) لفحص الروابط.</p>
                 </div>
-            </div>
 
-            <div class="filters">
-                <div class="filter-group">
-                    <label data-ar="👥 الفئة المستهدفة" data-en="👥 Target Audience">👥 الفئة المستهدفة</label>
-                    <select id="audienceFilter" onchange="filterCampaigns()">
-                        <option value="all" data-ar="الكل" data-en="All">الكل</option>
-                        <option value="doctors" data-ar="الكوادر الطبية" data-en="Medical Staff">الكوادر الطبية</option>
-                        <option value="admin" data-ar="الإداريون" data-en="Admins">الإداريون</option>
-                        <option value="it" data-ar="تقنية المعلومات" data-en="IT Staff">تقنية المعلومات</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label data-ar="📑 الموضوع" data-en="📑 Topic">📑 الموضوع</label>
-                    <select id="topicFilter" onchange="filterCampaigns()">
-                        <option value="all" data-ar="الكل" data-en="All">الكل</option>
-                        <option value="phishing" data-ar="التصيد" data-en="Phishing">التصيد</option>
-                        <option value="devices" data-ar="الأجهزة" data-en="Devices">الأجهزة</option>
-                        <option value="data" data-ar="البيانات" data-en="Data">البيانات</option>
-                        <option value="remote" data-ar="العمل عن بعد" data-en="Remote Work">العمل عن بعد</option>
-                    </select>
-                </div>
-                <div class="filter-group" style="flex: 2;">
-                    <label data-ar="🔍 بحث" data-en="🔍 Search">🔍 بحث</label>
-                    <input type="text" id="searchInput" onkeyup="filterCampaigns()" placeholder="ابحث في الحملات..." data-ar-placeholder="ابحث في الحملات..." data-en-placeholder="Search campaigns...">
+                <div class="filters">
+                    <div class="filter-group">
+                        <label data-ar="الفئة المستهدفة" data-en="Target Audience"><i class="las la-users"></i> الفئة المستهدفة</label>
+                        <select id="audienceFilter" onchange="filterCampaigns()">
+                            <option value="all" data-ar="الكل" data-en="All">الكل</option>
+                            <option value="doctors" data-ar="الكوادر الطبية" data-en="Medical Staff">الكوادر الطبية</option>
+                            <option value="admin" data-ar="الإداريون" data-en="Admins">الإداريون</option>
+                            <option value="it" data-ar="تقنية المعلومات" data-en="IT Staff">تقنية المعلومات</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label data-ar="الموضوع" data-en="Topic"><i class="las la-list-alt"></i> الموضوع</label>
+                        <select id="topicFilter" onchange="filterCampaigns()">
+                            <option value="all" data-ar="الكل" data-en="All">الكل</option>
+                            <option value="phishing" data-ar="التصيد" data-en="Phishing">التصيد</option>
+                            <option value="devices" data-ar="الأجهزة" data-en="Devices">الأجهزة</option>
+                            <option value="data" data-ar="البيانات" data-en="Data">البيانات</option>
+                            <option value="remote" data-ar="العمل عن بعد" data-en="Remote Work">العمل عن بعد</option>
+                        </select>
+                    </div>
+                    <div class="filter-group" style="flex: 2;">
+                        <label data-ar="بحث" data-en="Search"><i class="las la-search"></i> بحث</label>
+                        <input type="text" id="searchInput" onkeyup="filterCampaigns()" placeholder="ابحث في الحملات..." data-ar-placeholder="ابحث في الحملات..." data-en-placeholder="Search campaigns...">
+                    </div>
                 </div>
             </div>
 
             <div class="cards-grid" id="campaignsContainer">
-
                 <div class="card campaign-item" data-audience="all doctors admin it" data-topic="phishing">
-                    <div class="card-top" style="background: linear-gradient(135deg, #e0e7ff, #c7d2fe); color: #3730a3;">
-                        <div class="card-emoji">🔐</div>
+                    <div class="card-top theme-purple">
+                        <i class="las la-fingerprint card-icon"></i>
                         <div data-ar="MFA وكلمات المرور" data-en="MFA & Passwords">MFA وكلمات المرور</div>
                     </div>
                     <div class="card-body">
@@ -234,8 +224,8 @@
                 </div>
 
                 <div class="card campaign-item" data-audience="all doctors admin it" data-topic="phishing">
-                    <div class="card-top" style="background: linear-gradient(135deg, #fee2e2, #fca5a5); color: #991b1b;">
-                        <div class="card-emoji">🎣</div>
+                    <div class="card-top theme-red">
+                        <i class="las la-envelope-open-text card-icon"></i>
                         <div data-ar="التصيد الإلكتروني" data-en="Phishing">التصيد الإلكتروني</div>
                     </div>
                     <div class="card-body">
@@ -250,8 +240,8 @@
                 </div>
 
                 <div class="card campaign-item" data-audience="doctors" data-topic="data">
-                    <div class="card-top" style="background: linear-gradient(135deg, #dcfce7, #86efac); color: #166534;">
-                        <div class="card-emoji">📁</div>
+                    <div class="card-top theme-green">
+                        <i class="fas fa-user-shield card-icon"></i>
                         <div data-ar="حماية البيانات" data-en="Data Protection">حماية البيانات</div>
                     </div>
                     <div class="card-body">
@@ -266,8 +256,8 @@
                 </div>
 
                 <div class="card campaign-item" data-audience="all doctors it" data-topic="devices">
-                    <div class="card-top" style="background: linear-gradient(135deg, #fef3c7, #fde047); color: #854d0e;">
-                        <div class="card-emoji">🔌</div>
+                    <div class="card-top theme-yellow">
+                        <i class="lab la-usb card-icon"></i>
                         <div data-ar="وسائط التخزين (USB)" data-en="USB Drives">وسائط التخزين (USB)</div>
                     </div>
                     <div class="card-body">
@@ -282,8 +272,8 @@
                 </div>
 
                 <div class="card campaign-item" data-audience="doctors it" data-topic="devices">
-                    <div class="card-top" style="background: linear-gradient(135deg, #e0f2fe, #7dd3fc); color: #075985;">
-                        <div class="card-emoji">💉</div>
+                    <div class="card-top theme-blue">
+                        <i class="las la-heartbeat card-icon"></i>
                         <div data-ar="الأجهزة الطبية المتصلة" data-en="Medical Devices (IoMT)">الأجهزة الطبية المتصلة</div>
                     </div>
                     <div class="card-body">
@@ -298,8 +288,8 @@
                 </div>
 
                 <div class="card campaign-item" data-audience="all admin" data-topic="remote">
-                    <div class="card-top" style="background: linear-gradient(135deg, #f3e8ff, #d8b4fe); color: #581c87;">
-                        <div class="card-emoji">🏠</div>
+                    <div class="card-top theme-purple">
+                        <i class="fas fa-laptop-house card-icon"></i>
                         <div data-ar="العمل عن بعد" data-en="Remote Work">العمل عن بعد</div>
                     </div>
                     <div class="card-body">
@@ -312,45 +302,77 @@
                         <a href="management.html" class="btn-more" data-ar="اقرأ المزيد ←" data-en="Read More →">اقرأ المزيد ←</a>
                     </div>
                 </div>
-
             </div>
         </main>
 
         <aside class="sidebar">
             <div class="section-title">
-                🛠️ <span data-ar="أدوات وموارد رسمية" data-en="Official Tools & Resources">أدوات وموارد رسمية</span>
+                <i class="las la-toolbox" style="color: var(--nca-green); font-size: 1.8rem;"></i>
+                <span data-ar="أدوات وموارد رسمية" data-en="Official Tools & Resources">أدوات وموارد رسمية</span>
             </div>
 
-            <a href="https://nca.gov.sa/ar/cyber-awareness/awareness-campaigns/" target="_blank" class="sidebar-card">
-                <h4 data-ar="📢 حملات التوعية - NCA" data-en="📢 Awareness Campaigns - NCA">📢 حملات التوعية - NCA</h4>
-                <p data-ar="مواد وحملات وطنية رسمية." data-en="Official national campaigns and materials.">مواد وحملات وطنية رسمية.</p>
-            </a>
+            <div class="sidebar-grid">
+                <div class="alert-yellow" style="grid-column: 1 / -1;">
+                    <i class="las la-exclamation-triangle" style="font-size: 1.8rem;"></i>
+                    <span data-ar="تذكر: لا تضغط على أي رابط يصلك عبر البريد أو الرسائل النصية قبل فحصه عبر أداة (تحقق)." data-en="Remember: Never click a link in an email or SMS before checking it via (Tahqaq) tool.">تذكر: لا تضغط على أي رابط يصلك عبر البريد أو الرسائل النصية قبل فحصه عبر أداة (تحقق).</span>
+                </div>
 
-            <a href="https://nca.gov.sa/ar/" target="_blank" class="sidebar-card">
-                <h4 data-ar="🛡️ الهيئة الوطنية للأمن السيبراني" data-en="🛡️ National Cybersecurity Authority">🛡️ الهيئة الوطنية للأمن السيبراني</h4>
-                <p data-ar="إرشادات ومراجع مهمة للقطاع الصحي." data-en="Important guidelines and references for healthcare.">إرشادات ومراجع مهمة للقطاع الصحي.</p>
-            </a>
+                <a href="https://tahqaq.nca.gov.sa" target="_blank" class="sidebar-card" style="border: 2px solid #38bdf8;">
+                    <h4 data-ar="منصة تحقق (Tahqaq)" data-en="Tahqaq Platform"><i class="las la-search-shield" style="color: #38bdf8;"></i> منصة تحقق (Tahqaq)</h4>
+                    <p data-ar="لفحص الروابط والمواقع المشبوهة وتأكيد سلامتها." data-en="To check suspicious links and verify their safety.">لفحص الروابط والمواقع المشبوهة وتأكيد سلامتها.</p>
+                </a>
 
-            <a href="tools.html" class="sidebar-card" style="border: 2px solid #38bdf8;">
-                <h4 data-ar="" data-en="🔍 Link Checker ">🔍  ()</h4>
-                <p data-ar="لفحص الروابط والمواقع المشبوهة وتأكيد سلامتها." data-en="To check suspicious links and verify their safety.">لفحص الروابط والمواقع المشبوهة وتأكيد سلامتها.</p>
-            </a>
+                <div class="instructions-card">
+                    <h4 data-ar="الإبلاغ السريع" data-en="Quick Reporting"><i class="las la-headset"></i> الإبلاغ السريع</h4>
+                    <ul>
+                        <li data-ar="في حال نقرت رابطاً خبيثاً، افصل الإنترنت فوراً." data-en="Disconnect internet immediately if you click a malicious link.">في حال نقرت رابطاً خبيثاً، افصل الإنترنت فوراً.</li>
+                        <li data-ar="اتصل بالدعم الفني (تحويلة 1234)." data-en="Call IT support (Ext. 1234).">اتصل بالدعم الفني (تحويلة 1234).</li>
+                    </ul>
+                </div>
 
-            <div class="alert-yellow">
-                ⚠️ <span data-ar="تذكر: لا تضغط على أي رابط يصلك عبر البريد أو الرسائل النصية قبل فحصه عبر أداة (تحقق)." data-en="Remember: Never click a link in an email or SMS before checking it via (Tahqaq) tool.">تذكر: لا تضغط على أي رابط يصلك عبر البريد أو الرسائل النصية قبل فحصه عبر أداة (تحقق).</span>
-            </div>
-
-            <div class="instructions-card">
-                <h4 data-ar="🚨 الإبلاغ السريع" data-en="🚨 Quick Reporting">🚨 الإبلاغ السريع</h4>
-                <ul>
-                    <li data-ar="في حال نقرت رابطاً خبيثاً، افصل الإنترنت فوراً عن الجهاز." data-en="If you clicked a malicious link, disconnect the internet immediately.">في حال نقرت رابطاً خبيثاً، افصل الإنترنت فوراً عن الجهاز.</li>
-                    <li data-ar="اتصل بالدعم الفني (تحويلة 1234)." data-en="Call IT support (Ext. 1234).">اتصل بالدعم الفني (تحويلة 1234).</li>
-                    <li data-ar="لا تحذف الرسالة المشبوهة كدليل." data-en="Do not delete the suspicious message (keep as evidence).">لا تحذف الرسالة المشبوهة كدليل.</li>
-                </ul>
+                <a href="#" class="sidebar-card">
+                    <h4 data-ar="حملات التوعية - NCA" data-en="Awareness Campaigns - NCA"><i class="las la-broadcast-tower" style="color: var(--nca-green);"></i> حملات التوعية - NCA</h4>
+                    <p data-ar="مواد وحملات وطنية رسمية." data-en="Official national campaigns and materials.">مواد وحملات وطنية رسمية.</p>
+                </a>
             </div>
         </aside>
-
     </div>
+
+    <footer class="gov-footer">
+        <div class="footer-container">
+            <div class="footer-col contact">
+                <h3 data-ar="تواصل مع فريق الأمن" data-en="Contact Security Team">تواصل مع فريق الأمن</h3>
+                <p><i class="las la-envelope"></i> SOC@hospital.edu.sa</p>
+                <p><i class="las la-phone"></i> <span data-ar="تحويلة طوارئ: 9111" data-en="Emergency Ext: 9111">تحويلة طوارئ: 9111</span></p>
+            </div>
+            <div class="footer-col links">
+                <h3 data-ar="السياسات والدعم" data-en="Policies & Support">السياسات والدعم</h3>
+                <ul>
+                    <li><a href="#" data-ar="سياسة الخصوصية (PDPL)" data-en="Privacy Policy (PDPL)">سياسة الخصوصية (PDPL)</a></li>
+                    <li><a href="#" data-ar="الأسئلة الشائعة (FAQ)" data-en="FAQs">الأسئلة الشائعة (FAQ)</a></li>
+                    <li><a href="#" data-ar="رفع تذكرة أمنية (SOC)" data-en="Open Security Ticket (SOC)">رفع تذكرة أمنية (SOC)</a></li>
+                </ul>
+            </div>
+            <div class="footer-col links">
+                <h3 data-ar="روابط وطنية هامة" data-en="Important National Links">روابط وطنية هامة</h3>
+                <ul>
+                    <li><a href="https://nca.gov.sa" target="_blank" data-ar="الهيئة الوطنية للأمن السيبراني" data-en="National Cybersecurity Authority">الهيئة الوطنية للأمن السيبراني</a></li>
+                    <li><a href="https://sdaia.gov.sa" target="_blank" data-ar="الهيئة السعودية للبيانات (سدايا)" data-en="Saudi Data Authority (SDAIA)">الهيئة السعودية للبيانات (سدايا)</a></li>
+                    <li><a href="https://moh.gov.sa" target="_blank" data-ar="وزارة الصحة" data-en="Ministry of Health">وزارة الصحة</a></li>
+                </ul>
+            </div>
+            <div class="footer-col" style="text-align: center;">
+                <div class="footer-logos" style="justify-content: center;">
+                    <div class="hospital-logo">🏥 <span data-ar="المدينة الطبية" data-en="Medical City">المدينة الطبية</span></div>
+                    <div class="vision-logo" data-ar="SA رؤية 2030" data-en="SA Vision 2030">SA رؤية 2030</div>
+                </div>
+                <p style="font-size: 0.85rem; color: #cbd5e1;" data-ar="منصة التوعية بالأمن السيبراني، تهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى وتضمن استمرارية الأعمال." data-en="Cybersecurity awareness portal aiming to build a secure digital environment protecting patient data and ensuring business continuity.">منصة التوعية بالأمن السيبراني، تهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى وتضمن استمرارية الأعمال.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span data-ar="جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً" data-en="All Rights Reserved © 2026 University Hospital | Developed Internally">جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً</span>
+        </div>
+    </footer>
 
     <script>
         let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
@@ -382,31 +404,19 @@
         function applyLanguage() {
             const elements = document.querySelectorAll('[data-ar][data-en]');
 
-            if (currentLang === 'en') {
-                elements.forEach(el => {
-                    if (el.tagName === 'OPTION') {
-                        el.innerText = el.getAttribute('data-en');
-                    } else if (el.hasAttribute('data-en-placeholder')) {
-                        el.placeholder = el.getAttribute('data-en-placeholder');
-                    } else {
-                        el.innerText = el.getAttribute('data-en');
-                    }
-                });
-                document.documentElement.lang = 'en';
-                document.documentElement.dir = 'ltr';
-            } else {
-                elements.forEach(el => {
-                    if (el.tagName === 'OPTION') {
-                        el.innerText = el.getAttribute('data-ar');
-                    } else if (el.hasAttribute('data-ar-placeholder')) {
-                        el.placeholder = el.getAttribute('data-ar-placeholder');
-                    } else {
-                        el.innerText = el.getAttribute('data-ar');
-                    }
-                });
-                document.documentElement.lang = 'ar';
-                document.documentElement.dir = 'rtl';
-            }
+            elements.forEach(el => {
+                if (el.tagName === 'OPTION') {
+                    el.innerText = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
+                } else if (el.hasAttribute('data-en-placeholder')) {
+                    el.placeholder = currentLang === 'en' ? el.getAttribute('data-en-placeholder') : el.getAttribute('data-ar-placeholder');
+                } else if (el.innerHTML.includes('<i')) {
+                     el.innerHTML = (currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar')) + ' ' + el.querySelector('i').outerHTML;
+                } else {
+                    el.innerText = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
+                }
+            });
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'en' ? 'ltr' : 'rtl';
             filterCampaigns();
         }
 
@@ -414,12 +424,32 @@
             currentLang = currentLang === 'ar' ? 'en' : 'ar';
             localStorage.setItem('preferredLanguage', currentLang);
             applyLanguage();
+            location.reload();
         }
 
-        window.onload = () => {
+        function toggleTheme() {
+            const body = document.documentElement;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            body.setAttribute('data-theme', newTheme);
+            document.getElementById('themeIcon').innerText = newTheme === 'dark' ? '☀️' : '🌙';
+            localStorage.setItem('theme', newTheme);
+        }
+
+        function applyThemeOnLoad() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                document.getElementById('themeIcon').innerText = savedTheme === 'dark' ? '☀️' : '🌙';
+            }
+        }
+
+        window.addEventListener('load', () => {
+            applyThemeOnLoad();
             applyLanguage();
             filterCampaigns();
-        };
+        });
     </script>
 </body>
 </html>
