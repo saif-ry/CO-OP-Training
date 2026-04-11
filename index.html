@@ -26,8 +26,12 @@
 
         /* --- 2. الهيدر والقائمة --- */
         .main-header { background-color: var(--header-bg); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #004224; }
+
+        /* التعديل هنا لتقسيم العنوان لسطرين */
+        .header-titles { display: flex; flex-direction: column; justify-content: center; }
         .header-titles h1 { margin: 0; font-size: 1.4rem; font-weight: 700; }
         .header-titles .sub-title { margin-top: 0.2rem; font-size: 0.95rem; color: #a7f3d0; font-weight: 600; }
+
         .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--nca-green); margin-left: 15px; }
         html[dir="ltr"] .logo-placeholder { margin-left: 0; margin-right: 15px; }
 
@@ -47,6 +51,7 @@
         @keyframes ticker-animation-rtl { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
         html[dir="ltr"] .ticker-text { animation: ticker-animation-ltr 50s linear infinite; }
         @keyframes ticker-animation-ltr { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+        .awareness-ticker:hover .ticker-text { animation-play-state: paused; }
 
         /* --- 4. البطاقات النظيفة --- */
         .section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.2rem; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
@@ -87,23 +92,25 @@
         .btn-modal-link { background: var(--nca-green); color: white; padding: 0.8rem 2.5rem; border-radius: 12px; text-decoration: none; font-weight: 700; transition: 0.3s; display: inline-block; margin-top: 1rem; }
         .btn-modal-link:hover { background: #059669; transform: translateY(-3px); }
 
-        /* --- 7. الفوتر الحكومي (مطابق للدكتور) --- */
-        .gov-footer { background-color: #004224; color: #f1f5f9; padding-top: 3rem; margin-top: 4rem; border-top: 5px solid var(--nca-green); }
-        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2.5rem; }
-        .footer-col h3 { color: #a7f3d0; font-size: 1.2rem; margin-bottom: 1.2rem; position: relative; padding-bottom: 0.5rem; }
-        .footer-col h3::after { content: ''; position: absolute; right: 0; bottom: 0; width: 40px; height: 3px; background-color: #34d399; }
-        html[dir="ltr"] .footer-col h3::after { right: auto; left: 0; }
-        .footer-col.links ul { list-style: none; padding: 0; margin: 0; }
+        /* الفوتر الحكومي */
+        .gov-footer { background-color: #004224; color: #f1f5f9; border-top: 5px solid var(--nca-green); margin-top: 4rem; padding: 2rem 0 1rem; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-col h3 { color: #a7f3d0; font-size: 1.2rem; margin-bottom: 1rem; position: relative; padding-bottom: 0.5rem; }
+        .footer-col h3::after { content: ''; position: absolute; inset-inline-start: 0; bottom: 0; width: 40px; height: 3px; background-color: #34d399; }
+        .footer-logos { display: flex; gap: 15px; margin-bottom: 1rem; flex-wrap: wrap; }
+        .hospital-logo, .vision-logo { font-weight: 700; background: rgba(255,255,255,0.08); padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); }
+        .footer-col.links ul { list-style: none; padding: 0; }
         .footer-col.links li { margin-bottom: 0.8rem; }
-        .footer-col.contact p { margin: 0 0 0.8rem; display: flex; align-items: center; gap: 8px; }
-        .footer-col.links a { color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; }
-        .footer-col.links a:hover { color: #ffffff; transform: translateX(-5px); }
-        html[dir="ltr"] .footer-col.links a:hover { transform: translateX(5px); }
-        .footer-logos { display: flex; align-items: center; gap: 15px; margin-bottom: 1.5rem; justify-content: center; flex-wrap: wrap; }
-        .hospital-logo, .vision-logo { font-weight: 700; padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); }
-        .footer-bottom { background-color: #002917; text-align: center; padding: 1.2rem; margin-top: 3rem; font-size: 0.9rem; color: #94a3b8; }
-
-        .btn-theme { background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: white; }
+        .footer-col.links a { color: #cbd5e1; text-decoration: none; transition: 0.3s; }
+        .footer-col.links a:hover { color: white; transform: translateX(-5px); display: inline-block; }
+        .footer-bottom { background-color: #002917; text-align: center; padding: 1rem; margin-top: 2rem; font-size: 0.9rem; color: #94a3b8; }
+        @media (max-width: 768px) {
+            .main-header { flex-direction: column; text-align: center; }
+            .nav-menu { padding: 0 1rem; }
+            .container { padding: 0 1rem; }
+            .footer-container { text-align: center; }
+            .footer-col h3::after { left: 50%; transform: translateX(-50%); }
+        }
     </style>
 </head>
 <body>
@@ -208,40 +215,40 @@
             </a>
         </section>
     </div>
-
+ <!-- الفوتر الحكومي -->
     <footer class="gov-footer">
         <div class="footer-container">
-            <div class="footer-col contact">
-                <h3 data-ar="تواصل مع فريق الأمن" data-en="Contact Security Team">تواصل مع فريق الأمن</h3>
-                <p><i class="las la-envelope"></i> SOC@hospital.edu.sa</p>
-                <p><i class="las la-phone"></i> <span data-ar="تحويلة طوارئ: 9111" data-en="Emergency Ext: 9111">تحويلة طوارئ: 9111</span></p>
+            <div class="footer-col">
+                <div class="footer-logos">
+                    <div class="hospital-logo">🏥 <span data-ar="المدينة الطبية" data-en="Medical City">المدينة الطبية</span></div>
+                    <div class="vision-logo">🇸🇦 <span data-ar="رؤية 2030" data-en="Vision 2030">رؤية 2030</span></div>
+                </div>
+                <p data-ar="منصة التوعية بالأمن السيبراني، نهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى وتضمن استمرارية الأعمال." data-en="Cybersecurity Awareness Portal, aiming to build a secure digital environment that protects patient data and ensures business continuity.">منصة التوعية بالأمن السيبراني، نهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى وتضمن استمرارية الأعمال.</p>
+            </div>
+            <div class="footer-col links">
+                <h3 data-ar="روابط وطنية هامة" data-en="Important National Links">روابط وطنية هامة</h3>
+                <ul>
+                    <li><a href="https://nca.gov.sa" target="_blank" data-ar="الهيئة الوطنية للأمن السيبراني" data-en="National Cybersecurity Authority (NCA)">الهيئة الوطنية للأمن السيبراني</a></li>
+                    <li><a href="https://sdaia.gov.sa" target="_blank" data-ar="الهيئة السعودية للبيانات (سدايا)" data-en="Saudi Data Authority (SDAIA)">الهيئة السعودية للبيانات (سدايا)</a></li>
+                    <li><a href="https://moh.gov.sa" target="_blank" data-ar="وزارة الصحة" data-en="Ministry of Health (MOH)">وزارة الصحة</a></li>
+                </ul>
             </div>
             <div class="footer-col links">
                 <h3 data-ar="السياسات والدعم" data-en="Policies & Support">السياسات والدعم</h3>
                 <ul>
                     <li><a href="#" data-ar="سياسة الخصوصية (PDPL)" data-en="Privacy Policy (PDPL)">سياسة الخصوصية (PDPL)</a></li>
-                    <li><a href="#" data-ar="الأسئلة الشائعة (FAQ)" data-en="FAQs">الأسئلة الشائعة (FAQ)</a></li>
-                    <li><a href="#" data-ar="رفع تذكرة أمنية (SOC)" data-en="Open Security Ticket (SOC)">رفع تذكرة أمنية (SOC)</a></li>
+                    <li><a href="faq.html" data-ar="الأسئلة الشائعة (FAQ)" data-en="Frequently Asked Questions (FAQ)">الأسئلة الشائعة (FAQ)</a></li>
+                    <li><a href="report.html" data-ar="رفع تذكرة أمنية (SOC)" data-en="Raise Security Ticket (SOC)">رفع تذكرة أمنية (SOC)</a></li>
                 </ul>
             </div>
-            <div class="footer-col links">
-                <h3 data-ar="روابط وطنية هامة" data-en="Important National Links">روابط وطنية هامة</h3>
-                <ul>
-                    <li><a href="https://nca.gov.sa" target="_blank" data-ar="الهيئة الوطنية للأمن السيبراني" data-en="National Cybersecurity Authority">الهيئة الوطنية للأمن السيبراني</a></li>
-                    <li><a href="https://sdaia.gov.sa" target="_blank" data-ar="الهيئة السعودية للبيانات (سدايا)" data-en="Saudi Data Authority (SDAIA)">الهيئة السعودية للبيانات (سدايا)</a></li>
-                    <li><a href="https://moh.gov.sa" target="_blank" data-ar="وزارة الصحة" data-en="Ministry of Health">وزارة الصحة</a></li>
-                </ul>
-            </div>
-            <div class="footer-col" style="text-align: center;">
-                <div class="footer-logos" style="justify-content: center;">
-                    <div class="hospital-logo">🏥 <span data-ar="المدينة الطبية" data-en="Medical City">المدينة الطبية</span></div>
-                    <div class="vision-logo" data-ar="SA رؤية 2030" data-en="SA Vision 2030">SA رؤية 2030</div>
-                </div>
-                <p style="font-size: 0.85rem; color: #cbd5e1;" data-ar="منصة التوعية بالأمن السيبراني، تهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى." data-en="Cybersecurity awareness portal aiming to build a secure digital environment protecting patient data.">منصة التوعية بالأمن السيبراني، تهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى.</p>
+            <div class="footer-col contact">
+                <h3 data-ar="تواصل مع فريق الأمن" data-en="Contact Security Team">تواصل مع فريق الأمن</h3>
+                <p>📧 SOC@hospital.edu.sa</p>
+                <p>📞 <span data-ar="تحويلة طوارئ:" data-en="Emergency Ext:">تحويلة طوارئ:</span> 9111</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <span data-ar="جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً" data-en="All Rights Reserved © 2026 University Hospital | Developed Internally">جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً</span>
+            <p data-ar="جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً" data-en="All Rights Reserved © 2026 University Hospital | Developed Internally">جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً</p>
         </div>
     </footer>
 
