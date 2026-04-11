@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* --- 1. نظام المتغيرات --- */
+        /* --- 1. نظام المتغيرات (حل جذري لمشكلة الدارك مود) --- */
         :root {
             --bg-color: #f8fafc;
             --card-bg: #ffffff;
@@ -25,7 +25,7 @@
         [data-theme="dark"] {
             --bg-color: #0f172a;
             --card-bg: #1e293b;
-            --text-main: #f1f5f9;
+            --text-main: #f1f5f9; /* نص أبيض واضح في الدارك مود */
             --text-muted: #94a3b8;
             --border-color: #334155;
         }
@@ -36,7 +36,7 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* --- 2. الهيدر والقوائم --- */
+        /* --- 2. الهيدر والمنيو (ثابت) --- */
         .main-header {
             background-color: var(--header-bg); color: white; padding: 1rem 2rem;
             display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #004224;
@@ -52,42 +52,64 @@
         .nav-link { padding: 1rem 0.5rem; color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 3px solid transparent; white-space: nowrap; transition: 0.2s; }
         .nav-link.active, .nav-link:hover { color: var(--nca-green); border-bottom-color: var(--nca-green); }
 
-        .container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
-        .section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-main); }
-
-        /* --- 3. البطاقات التفاعلية --- */
-        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
-
-        .interactive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
-        .info-card {
-            background: var(--bg-color); border-radius: 12px; padding: 1.5rem; text-align: center; cursor: pointer;
-            transition: 0.3s; border: 1px solid var(--border-color);
+        /* --- 3. التنسيق الطولي المركزي (حل مشكلة الشاشات العريضة) --- */
+        .layout-container {
+            max-width: 1000px; /* عرض محدد لتركيز المحتوى */
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
         }
-        .info-card:hover { transform: translateY(-5px); border-color: var(--nca-green); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .info-card i { font-size: 2.8rem; color: var(--nca-green); margin-bottom: 0.8rem; }
-        .info-card h3 { color: var(--text-main); margin: 0; font-size: 1rem; font-weight: 700; }
 
-        /* --- 4. الأزرار والمهام --- */
+        .section-title { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 10px; color: var(--text-main); }
+
+        /* --- 4. البطاقات والمهام (إصلاح الألوان) --- */
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+
+        .interactive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.2rem; margin-top: 1.5rem; }
+        .info-card { background: var(--bg-color); border-radius: 12px; padding: 1.5rem; text-align: center; cursor: pointer; transition: 0.3s; border: 1px solid var(--border-color); }
+        .info-card:hover { border-color: var(--nca-green); transform: translateY(-5px); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .info-card i { font-size: 2.8rem; color: var(--nca-green); margin-bottom: 0.8rem; display: block; }
+        .info-card h3 { color: var(--text-main); margin: 0; font-size: 0.9rem; font-weight: 700; }
+
         .btn { background: var(--nca-green); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-family: inherit; font-weight: 700; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; }
         .btn-outline { background: transparent; border: 1px solid var(--nca-green); color: var(--nca-green); }
 
-        .checklist-item { display: flex; align-items: center; gap: 10px; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 0.5rem; background: var(--bg-color); }
-        .checklist-item.completed { background: #ecfdf5; border-color: #34d399; color: #065f46; text-decoration: line-through; }
-        [data-theme="dark"] .checklist-item.completed { background: #064e3b; color: #a7f3d0; }
+        .checklist-item {
+            display: flex; align-items: center; gap: 12px; padding: 1rem; border: 1px solid var(--border-color);
+            border-radius: 12px; margin-bottom: 0.8rem; background: var(--bg-color); transition: 0.3s;
+        }
+        .checklist-item span { color: var(--text-main) !important; font-weight: 600; } /* إجبار النص على الظهور */
+        .checklist-item.completed { background: #ecfdf5; border-color: #34d399; }
+        [data-theme="dark"] .checklist-item.completed { background: #064e3b; border-color: #059669; }
 
         .progress-bar { background: var(--border-color); height: 10px; border-radius: 5px; overflow: hidden; margin-top: 1rem; }
         .progress-fill { height: 100%; background: var(--nca-green); width: 0; transition: 0.5s; }
+
+        /* --- 5. الفوتر الحكومي (ثابت) --- */
+        .gov-footer { background-color: #004224; color: #f1f5f9; padding-top: 3rem; margin-top: 4rem; border-top: 5px solid var(--nca-green); }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2.5rem; }
+        .footer-col h3 { color: #a7f3d0; font-size: 1.1rem; margin-bottom: 1.2rem; }
+        .footer-col ul { list-style: none; padding: 0; margin: 0; }
+        .footer-col li { margin-bottom: 0.8rem; }
+        .footer-col a { color: #cbd5e1; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+        .footer-col a:hover { color: white; }
+        .footer-logos { display: flex; align-items: center; gap: 15px; margin-bottom: 1.5rem; flex-wrap: wrap; justify-content: center; }
+        .hospital-logo, .vision-logo { font-weight: 700; padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); }
+        .footer-bottom { background-color: #002917; text-align: center; padding: 1.2rem; margin-top: 3rem; font-size: 0.85rem; color: #94a3b8; }
 
         .btn-theme { background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: white; }
 
         /* النافذة المنبثقة */
         .modal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
         .modal.show { display: flex; align-items: center; justify-content: center; }
-        .modal-content { background: var(--card-bg); padding: 2.5rem; border-radius: var(--card-radius); width: 90%; max-width: 600px; position: relative; line-height: 1.8; }
+        .modal-content { background: var(--card-bg); padding: 2.5rem; border-radius: var(--card-radius); width: 90%; max-width: 600px; position: relative; line-height: 1.8; color: var(--text-main); }
         .modal-header { font-size: 1.4rem; font-weight: 700; color: var(--nca-green); margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
     </style>
 </head>
 <body>
+
     <header class="main-header">
         <div class="header-right">
             <div class="logo-placeholder"><i class="las la-hospital"></i></div>
@@ -111,18 +133,18 @@
         <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> <i class="las la-chart-pie"></i></a>
     </nav>
 
-    <div class="container">
-        <a href="employees.html" style="color: var(--nca-green); text-decoration: none; display: inline-flex; align-items: center; gap: 5px; margin-bottom: 1.5rem; font-weight: 700;" data-ar="← العودة للكادر الصحي" data-en="← Back to Staff List">
-            <i class="las la-arrow-right"></i> <span data-ar="العودة للكادر الصحي" data-en="Back to Staff List">العودة للكادر الصحي</span>
+    <div class="layout-container">
+        <a href="employees.html" style="color: var(--nca-green); text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 5px;">
+            <i class="las la-arrow-right"></i> <span data-ar="العودة للكادر الصحي" data-en="Back to Staff">العودة للكادر الصحي</span>
         </a>
 
         <div class="section-title">
             <i class="las la-university" style="color: var(--nca-green);"></i>
-            <span data-ar="مسؤولياتك كقائد في المستشفى" data-en="Your Responsibilities as a Hospital Leader">مسؤولياتك كقائد في المستشفى</span>
+            <span data-ar="مسؤولياتك كقائد في المستشفى" data-en="Leadership Responsibilities">مسؤولياتك كقائد في المستشفى</span>
         </div>
 
         <div class="card">
-            <p data-ar="الأمن السيبراني يبدأ من القمة. اضغط لعرض تفاصيل مسؤولياتك الاستراتيجية:" data-en="Cybersecurity starts at the top. Click to view strategic responsibilities:">الأمن السيبراني يبدأ من القمة. اضغط لعرض تفاصيل مسؤولياتك الاستراتيجية:</p>
+            <p data-ar="الأمن السيبراني يبدأ من القمة. اضغط لعرض التفاصيل الاستراتيجية:" data-en="Cybersecurity starts at the top. Click for strategic details:">الأمن السيبراني يبدأ من القمة. اضغط لعرض التفاصيل الاستراتيجية:</p>
             <div class="interactive-grid">
                 <div class="info-card" onclick="showInfoModal('support')">
                     <i class="las la-wallet"></i>
@@ -141,8 +163,7 @@
                     <h3 data-ar="ثقافة الأمن" data-en="Security Culture">ثقافة الأمن</h3>
                 </div>
                 <div class="info-card" onclick="showInfoModal('disaster')">
-                    <i class="las la-shield-virus"></i>
-                    <h3 data-ar="التعافي من الكوارث" data-en="Disaster Recovery">التعافي من الكوارث</h3>
+                    <i class="las la-sync-alt"></i> <h3 data-ar="التعافي من الكوارث" data-en="Disaster Recovery">التعافي من الكوارث</h3>
                 </div>
             </div>
         </div>
@@ -160,15 +181,51 @@
         <div class="card">
             <h3 style="margin-top:0;" data-ar="📋 قائمة الأولويات القيادية" data-en="📋 Leadership Checklist">📋 قائمة الأولويات القيادية</h3>
             <div id="checklist">
-                <label class="checklist-item"><input type="checkbox"> <span data-ar="اعتماد سياسة الأمن السيبراني للمستشفى سنوياً." data-en="Approve cybersecurity policy annually.">اعتماد سياسة الأمن السيبراني للمستشفى سنوياً.</span></label>
-                <label class="checklist-item"><input type="checkbox"> <span data-ar="تخصيص ميزانية واضحة لبرامج التوعية والأدوات." data-en="Allocate clear budget for awareness & tools.">تخصيص ميزانية واضحة لبرامج التوعية والأدوات.</span></label>
-                <label class="checklist-item"><input type="checkbox"> <span data-ar="تشكيل لجنة توجيهية للإشراف على المخاطر." data-en="Form a steering committee for risk oversight.">تشكيل لجنة توجيهية للإشراف على المخاطر.</span></label>
-                <label class="checklist-item"><input type="checkbox"> <span data-ar="الاطلاع الدوري على تقارير الحوادث الأمنية." data-en="Regularly review security incident reports.">الاطلاع الدوري على تقارير الحوادث الأمنية.</span></label>
+                <label class="checklist-item"><input type="checkbox" onchange="updateChecklist()"> <span data-ar="اعتماد سياسة الأمن السيبراني للمستشفى سنوياً." data-en="Approve cybersecurity policy annually.">اعتماد سياسة الأمن السيبراني للمستشفى سنوياً.</span></label>
+                <label class="checklist-item"><input type="checkbox" onchange="updateChecklist()"> <span data-ar="تخصيص ميزانية واضحة لبرامج التوعية والأدوات." data-en="Allocate clear budget for awareness & tools.">تخصيص ميزانية واضحة لبرامج التوعية والأدوات.</span></label>
+                <label class="checklist-item"><input type="checkbox" onchange="updateChecklist()"> <span data-ar="تشكيل لجنة توجيهية للإشراف على المخاطر." data-en="Form a steering committee for risk oversight.">تشكيل لجنة توجيهية للإشراف على المخاطر.</span></label>
+                <label class="checklist-item"><input type="checkbox" onchange="updateChecklist()"> <span data-ar="الاطلاع الدوري على تقارير الحوادث الأمنية." data-en="Regularly review security incident reports.">الاطلاع الدوري على تقارير الحوادث الأمنية.</span></label>
             </div>
             <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-            <p style="margin-top: 10px; font-size:0.9rem;" data-ar="التقدم: <span id='progressText'>0</span>/4" data-en="Progress: <span id='progressText'>0</span>/4">التقدم: <span id='progressText'>0</span>/4</p>
+            <p style="margin-top: 10px; font-size:0.9rem;">التقدم: <span id='progressText'>0</span>/4</p>
         </div>
     </div>
+
+    <footer class="gov-footer">
+        <div class="footer-container">
+            <div class="footer-col contact">
+                <h3 data-ar="تواصل مع فريق الأمن" data-en="Contact Security Team">تواصل مع فريق الأمن</h3>
+                <p><i class="las la-envelope"></i> SOC@hospital.edu.sa</p>
+                <p><i class="las la-phone"></i> <span data-ar="تحويلة طوارئ: 9111" data-en="Emergency Ext: 9111">تحويلة طوارئ: 9111</span></p>
+            </div>
+            <div class="footer-col links">
+                <h3 data-ar="السياسات والدعم" data-en="Policies & Support">السياسات والدعم</h3>
+                <ul>
+                    <li><a href="#" data-ar="سياسة الخصوصية (PDPL)" data-en="Privacy Policy (PDPL)">سياسة الخصوصية (PDPL)</a></li>
+                    <li><a href="#" data-ar="الأسئلة الشائعة (FAQ)" data-en="FAQs">الأسئلة الشائعة (FAQ)</a></li>
+                    <li><a href="#" data-ar="رفع تذكرة أمنية (SOC)" data-en="Open Security Ticket (SOC)">رفع تذكرة أمنية (SOC)</a></li>
+                </ul>
+            </div>
+            <div class="footer-col links">
+                <h3 data-ar="روابط وطنية هامة" data-en="Important National Links">روابط وطنية هامة</h3>
+                <ul>
+                    <li><a href="https://nca.gov.sa" target="_blank" data-ar="الهيئة الوطنية للأمن السيبراني" data-en="National Cybersecurity Authority">الهيئة الوطنية للأمن السيبراني</a></li>
+                    <li><a href="https://sdaia.gov.sa" target="_blank" data-ar="الهيئة السعودية للبيانات (سدايا)" data-en="Saudi Data Authority (SDAIA)">الهيئة السعودية للبيانات (سدايا)</a></li>
+                    <li><a href="https://moh.gov.sa" target="_blank" data-ar="وزارة الصحة" data-en="Ministry of Health">وزارة الصحة</a></li>
+                </ul>
+            </div>
+            <div class="footer-col" style="text-align: center;">
+                <div class="footer-logos">
+                    <div class="hospital-logo">🏥 <span data-ar="المدينة الطبية" data-en="Medical City">المدينة الطبية</span></div>
+                    <div class="vision-logo" data-ar="SA رؤية 2030" data-en="SA Vision 2030">SA رؤية 2030</div>
+                </div>
+                <p style="font-size: 0.85rem; color: #cbd5e1;" data-ar="منصة التوعية بالأمن السيبراني، تهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى وتضمن استمرارية الأعمال." data-en="Cybersecurity awareness portal aiming to build a secure digital environment protecting patient data and ensuring business continuity.">منصة التوعية بالأمن السيبراني، تهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى وتضمن استمرارية الأعمال.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span data-ar="جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً" data-en="All Rights Reserved © 2026 University Hospital | Developed Internally">جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً</span>
+        </div>
+    </footer>
 
     <div id="infoModal" class="modal">
         <div class="modal-content">
@@ -195,6 +252,14 @@
             document.getElementById('infoModalHeader').innerText = data.title;
             document.getElementById('infoModalBody').innerText = data.body;
             document.getElementById('infoModal').classList.add('show');
+        }
+
+        // إغلاق المودال عند النقر خارج المحتوى
+        window.onclick = function(event) {
+            const modal = document.getElementById('infoModal');
+            if (event.target == modal) {
+                modal.classList.remove('show');
+            }
         }
 
         function handleScenario(isCorrect) {
@@ -228,7 +293,7 @@
 
         function toggleTheme() {
             const body = document.documentElement;
-            const currentTheme = body.getAttribute('data-theme');
+            const currentTheme = body.getAttribute('data-theme') || 'light';
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             body.setAttribute('data-theme', newTheme);
             document.getElementById('themeIcon').innerText = newTheme === 'dark' ? '☀️' : '🌙';
@@ -265,6 +330,5 @@
             applyLanguage();
         };
     </script>
-    <script src="script.js"></script>
 </body>
 </html>
