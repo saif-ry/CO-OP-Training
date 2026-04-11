@@ -3,244 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrators | Cybersecurity - University Hospital</title>
+    <title>الإداريون | الأمن السيبراني - المدينة الطبية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <style>
-        :root { --bg-color: #f8fafc; --header-bg: #005a32; --nca-green: #007a4d; --text-dark: #1e293b; --text-muted: #64748b; --border-color: #e2e8f0; --card-radius: 16px; --danger: #ef4444; }
-        body { margin: 0; font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-dark); }
-        .main-header { background-color: var(--header-bg); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #004224; }
-        .header-right { display: flex; align-items: center; gap: 15px; }
-        .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        :root { --bg-color: #f8fafc; --card-bg: #ffffff; --header-bg: #005a32; --nca-green: #007a4d; --text-dark: #1e293b; --text-muted: #64748b; --border-color: #e2e8f0; --card-radius: 16px; --danger: #ef4444; --success: #10b981; }
+        [data-theme="dark"] { --bg-color: #0f172a; --card-bg: #1e293b; --text-dark: #f8fafc; --text-muted: #94a3b8; --border-color: #334155; }
+        body { margin: 0; font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-dark); transition: 0.3s; }
+        .main-header { background-color: var(--header-bg); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .header-right, .header-left { display: flex; align-items: center; gap: 15px; }
+        .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: var(--nca-green); }
         .header-titles h1 { margin: 0; font-size: 1.3rem; font-weight: 700; }
         .header-titles p { margin: 0; font-size: 0.9rem; color: #a7f3d0; }
-        .header-left { display: flex; gap: 15px; align-items: center; }
-        .btn-lang { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-family: inherit; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .nav-menu { background: white; border-bottom: 1px solid var(--border-color); padding: 0 2rem; display: flex; gap: 1rem; overflow-x: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .nav-link { padding: 1rem 0.5rem; color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 3px solid transparent; white-space: nowrap; transition: 0.2s; }
-        .nav-link:hover, .nav-link.active { color: var(--nca-green); border-bottom-color: var(--nca-green); }
-
+        .btn-theme, .btn-lang { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-family: inherit; font-weight: 600; cursor: pointer; }
+        .btn-login-nafath { background: #10b981; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-weight: 700; }
+        .nav-menu { background: var(--card-bg); border-bottom: 1px solid var(--border-color); padding: 0 2rem; display: flex; gap: 1rem; overflow-x: auto; }
+        .nav-link { padding: 1rem 0.5rem; color: var(--text-muted); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; border-bottom: 3px solid transparent; }
+        .nav-link.active, .nav-link:hover { color: var(--nca-green); border-bottom-color: var(--nca-green); }
         .container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
-        .section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-dark); }
-
-        .card { background: white; border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-
-        .interactive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
-        .info-card { background: #f8fafc; border-radius: 12px; padding: 1.5rem; text-align: center; cursor: pointer; transition: 0.3s; border: 1px solid var(--border-color); }
-        .info-card:hover { transform: translateY(-5px); border-color: var(--nca-green); background: #f0fdf4; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .info-card .card-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
-        .info-card h3 { color: var(--text-dark); margin: 0.5rem 0; font-size: 1rem; }
-
-        .btn { background: var(--nca-green); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-family: inherit; font-size: 1rem; font-weight: 700; cursor: pointer; transition: 0.3s; display: inline-block; text-decoration: none; margin-bottom: 0.5rem;}
-        .btn:hover { background: #00603c; }
+        .section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-dark); }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2rem; margin-bottom: 1.5rem; }
+        .interactive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+        .info-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; text-align: center; cursor: pointer; transition: 0.3s; }
+        .info-card:hover { transform: translateY(-5px); border-color: var(--nca-green); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .info-card i { font-size: 2.5rem; color: var(--nca-green); margin-bottom: 0.5rem; }
+        .info-card h3 { margin: 0.5rem 0; font-size: 1.1rem; }
+        .btn { background: var(--nca-green); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: inherit; }
         .btn-outline { background: transparent; border: 1px solid var(--nca-green); color: var(--nca-green); }
         .btn-outline:hover { background: var(--nca-green); color: white; }
-
-        .checklist-item { display: flex; align-items: center; gap: 10px; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 0.5rem; background: #f8fafc; transition: 0.2s; }
-        .checklist-item.completed { background: #ecfdf5; border-color: #34d399; color: #065f46; text-decoration: line-through; }
-        .checklist-item input { transform: scale(1.3); accent-color: var(--nca-green); cursor: pointer; }
-        .progress-bar { background: #e2e8f0; height: 10px; border-radius: 5px; overflow: hidden; margin-top: 1rem; margin-bottom: 0.5rem; }
+        .checklist-item { display: flex; align-items: center; gap: 10px; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 0.5rem; background: var(--card-bg); }
+        .checklist-item.completed { background: rgba(52,211,153,0.1); border-color: #34d399; text-decoration: line-through; }
+        .progress-bar { background: var(--border-color); height: 10px; border-radius: 5px; overflow: hidden; margin: 1rem 0; }
         .progress-fill { height: 100%; background: var(--nca-green); width: 0; transition: 0.5s; }
-
-        .interaction-result { display: none; margin-top: 1rem; padding: 1rem; border-radius: 8px; font-weight: bold; text-align: center; }
+        .modal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(2px); align-items: center; justify-content: center; }
+        .modal.show { display: flex; }
+        .modal-content { background: var(--card-bg); padding: 2rem; border-radius: 16px; width: 90%; max-width: 500px; position: relative; }
+        .close { position: absolute; top: 1rem; right: 1.5rem; font-size: 2rem; cursor: pointer; color: var(--text-muted); }
+        .modal-header { font-size: 1.3rem; font-weight: 700; color: var(--nca-green); margin-bottom: 1rem; }
+        .interaction-result { padding: 1rem; border-radius: 8px; margin-top: 1rem; font-weight: bold; }
         .interaction-result.success { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
         .interaction-result.error { background: #fef2f2; color: #dc2626; border: 1px solid #f87171; }
-
-        /* Modal */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
-        .modal.show { display: flex; align-items: center; justify-content: center; }
-        .modal-content { background-color: white; padding: 2.5rem; border-radius: 16px; width: 90%; max-width: 600px; position: relative; line-height: 1.8; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-        .close { position: absolute; top: 1rem; right: 1.5rem; font-size: 2rem; cursor: pointer; color: var(--text-muted); transition: 0.2s; }
-        .close:hover { color: var(--danger); }
-        .modal-header { font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; color: var(--nca-green); display: flex; align-items: center; gap: 0.5rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.8rem; }
-        .modal-body { color: var(--text-dark); font-size: 1.05rem; }
+        .gov-footer { background-color: #004224; color: #f1f5f9; border-top: 5px solid var(--nca-green); margin-top: 4rem; padding: 2rem 0 1rem; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-col h3 { color: #a7f3d0; font-size: 1.2rem; margin-bottom: 1rem; position: relative; padding-bottom: 0.5rem; }
+        .footer-col h3::after { content: ''; position: absolute; inset-inline-start: 0; bottom: 0; width: 40px; height: 3px; background-color: #34d399; }
+        .footer-logos { display: flex; gap: 15px; margin-bottom: 1rem; flex-wrap: wrap; }
+        .hospital-logo, .vision-logo { font-weight: 700; background: rgba(255,255,255,0.08); padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); }
+        .footer-col.links ul { list-style: none; padding: 0; }
+        .footer-col.links li { margin-bottom: 0.8rem; }
+        .footer-col.links a { color: #cbd5e1; text-decoration: none; transition: 0.3s; }
+        .footer-col.links a:hover { color: white; transform: translateX(-5px); display: inline-block; }
+        .footer-bottom { background-color: #002917; text-align: center; padding: 1rem; margin-top: 2rem; font-size: 0.9rem; color: #94a3b8; }
+        @media (max-width: 768px) {
+            .main-header { flex-direction: column; text-align: center; }
+            .nav-menu { padding: 0 1rem; }
+            .container { padding: 0 1rem; }
+            .footer-container { text-align: center; }
+            .footer-col h3::after { left: 50%; transform: translateX(-50%); }
+        }
     </style>
 </head>
 <body>
     <header class="main-header">
         <div class="header-right">
-            <div class="logo-placeholder">🏥</div>
+            <div class="logo-placeholder"><i class="las la-hospital"></i></div>
             <div class="header-titles">
                 <h1 data-ar="المدينة الطبية | منصة التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">المدينة الطبية | منصة التوعية بالأمن السيبراني</h1>
                 <p data-ar="إرشادات الإداريين وحماية سير العمل" data-en="Admin Guidelines">إرشادات الإداريين وحماية سير العمل</p>
             </div>
         </div>
         <div class="header-left">
-            <button class="btn-lang" onclick="toggleLanguage()">🌐 العربية / English</button>
+            <button class="btn-theme" id="themeToggle">🌙</button>
+            <button class="btn-lang" id="langToggle" data-ar="🌐 EN/AR" data-en="🌐 AR/EN">🌐 EN/AR</button>
+            <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</a>
         </div>
     </header>
 
     <nav class="nav-menu">
-        <a href="index.html" class="nav-link"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> 🏠</a>
-        <a href="employees.html" class="nav-link active"><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> 👨‍⚕️</a>
-        <a href="oip.html" class="nav-link"><span data-ar="المكتبة التوعوية" data-en="Library">المكتبة التوعوية</span> 📚</a>
-        <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> 🧰</a>
-        <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> 🚨</a>
-        <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> 📊</a>
-        <a href="quiz.html" class="nav-link"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> 🧠</a>
-        <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> 📈</a>
+        <a href="index.html" class="nav-link"><i class="las la-home"></i> <span data-ar="الرئيسية" data-en="Home">الرئيسية</span></a>
+        <a href="employees.html" class="nav-link active"><i class="las la-user-nurse"></i> <span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span></a>
+        <a href="tools.html" class="nav-link"><i class="las la-tools"></i> <span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span></a>
+        <a href="report.html" class="nav-link"><i class="las la-exclamation-circle"></i> <span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span></a>
+        <a href="dashboard.html" class="nav-link"><i class="las la-chart-pie"></i> <span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span></a>
     </nav>
 
     <div class="container">
-        <a href="employees.html" style="color: var(--text-muted); text-decoration: none; display: inline-block; margin-bottom: 1rem;" data-ar="← العودة للوراء" data-en="← Back">← العودة للوراء</a>
+        <a href="employees.html" class="btn btn-outline" style="margin-bottom: 1rem; display: inline-flex; align-items: center; gap: 5px;"><i class="las la-arrow-right"></i> <span data-ar="العودة للكادر الصحي" data-en="Back to Staff">العودة للكادر الصحي</span></a>
 
-        <div class="section-title">📋 <span data-ar="مسؤولياتك الأمنية كإداري" data-en="Your Security Responsibilities as an Administrator">مسؤولياتك الأمنية كإداري</span></div>
+        <div class="section-title"><i class="las la-clipboard-list"></i> <span data-ar="مسؤولياتك الأمنية كإداري" data-en="Your Security Responsibilities as Administrator">مسؤولياتك الأمنية كإداري</span></div>
 
         <div class="card">
-            <p data-ar="الموظفون الإداريون هم المستهدف الأول لرسائل التصيد. اضغط على أي بطاقة لعرض تفاصيلها الأمنية:" data-en="Administrative staff are the primary target for phishing. Click any card for security details:">الموظفون الإداريون هم المستهدف الأول لرسائل التصيد. اضغط على أي بطاقة لعرض تفاصيلها الأمنية:</p>
+            <p data-ar="الموظفون الإداريون هم المستهدف الأول لرسائل التصيد. اضغط على أي بطاقة لعرض التفاصيل:" data-en="Administrative staff are the primary target for phishing. Click any card for details:">الموظفون الإداريون هم المستهدف الأول لرسائل التصيد. اضغط على أي بطاقة لعرض التفاصيل:</p>
             <div class="interactive-grid">
-                <div class="info-card" onclick="showInfoModal('phishing')">
-                    <div class="card-icon">🎣</div>
-                    <h3 data-ar="التصيد الإلكتروني" data-en="Phishing Emails">التصيد الإلكتروني</h3>
-                </div>
-                <div class="info-card" onclick="showInfoModal('data')">
-                    <div class="card-icon">📁</div>
-                    <h3 data-ar="بيانات المرضى والموظفين" data-en="Patient/Staff Data">بيانات المرضى والموظفين</h3>
-                </div>
-                <div class="info-card" onclick="showInfoModal('paper')">
-                    <div class="card-icon">📄</div>
-                    <h3 data-ar="المستندات الورقية" data-en="Paper Documents">المستندات الورقية</h3>
-                </div>
-                <div class="info-card" onclick="showInfoModal('passwords')">
-                    <div class="card-icon">🔑</div>
-                    <h3 data-ar="المصادقة وكلمات المرور" data-en="MFA & Passwords">المصادقة وكلمات المرور</h3>
-                </div>
-                <div class="info-card" onclick="showInfoModal('report')">
-                    <div class="card-icon">🚨</div>
-                    <h3 data-ar="الإبلاغ عن الحوادث" data-en="Incident Reporting">الإبلاغ عن الحوادث</h3>
-                </div>
+                <div class="info-card" data-topic="phishing"><i class="las la-envelope-open-text"></i><h3 data-ar="التصيد الإلكتروني" data-en="Phishing Emails">التصيد الإلكتروني</h3></div>
+                <div class="info-card" data-topic="data"><i class="las la-database"></i><h3 data-ar="بيانات المرضى والموظفين" data-en="Patient/Staff Data">بيانات المرضى والموظفين</h3></div>
+                <div class="info-card" data-topic="paper"><i class="las la-file-alt"></i><h3 data-ar="المستندات الورقية" data-en="Paper Documents">المستندات الورقية</h3></div>
+                <div class="info-card" data-topic="passwords"><i class="las la-key"></i><h3 data-ar="كلمات المرور" data-en="Passwords">كلمات المرور</h3></div>
+                <div class="info-card" data-topic="report"><i class="las la-bullhorn"></i><h3 data-ar="الإبلاغ عن الحوادث" data-en="Incident Reporting">الإبلاغ عن الحوادث</h3></div>
             </div>
         </div>
 
-        <div class="card" style="border-right: 4px solid var(--nca-green);">
-            <h3 style="margin-top:0;" data-ar="⚠️ سيناريو تفاعلي" data-en="⚠️ Interactive Scenario">⚠️ سيناريو تفاعلي</h3>
+        <div class="card">
+            <h3><i class="las la-exclamation-triangle"></i> <span data-ar="سيناريو تفاعلي" data-en="Interactive Scenario">سيناريو تفاعلي</span></h3>
             <p><strong data-ar="الموقف:" data-en="Situation:">الموقف:</strong> <span data-ar="تستلم مكالمة من شخص يزعم أنه من الدعم الفني، ويطلب منك كلمة المرور 'لحسابك الإداري' بحجة وجود مشكلة عاجلة يجب حلها لتجنب فصل حسابك. ماذا تفعل؟" data-en="You get a call from someone claiming to be IT, asking for your password to solve an urgent issue to avoid account suspension. What do you do?">تستلم مكالمة من شخص يزعم أنه من الدعم الفني، ويطلب منك كلمة المرور "لحسابك الإداري" بحجة وجود مشكلة عاجلة يجب حلها لتجنب فصل حسابك. ماذا تفعل؟</span></p>
-            <button class="btn btn-outline" onclick="handleScenario(false)"><span data-ar="أعطيه البيانات لأن قسم الدعم الفني موثوق ويهتم بمصلحة المستشفى" data-en="Give him the data because IT is trusted">أعطيه البيانات لأن قسم الدعم الفني موثوق ويهتم بمصلحة المستشفى</span></button>
-            <button class="btn" onclick="handleScenario(true)"><span data-ar="أرفض الطلب فوراً وأبلغ مسؤولي الأمن السيبراني بهذه المكالمة المشبوهة" data-en="Refuse and report immediately">أرفض الطلب فوراً وأبلغ مسؤولي الأمن السيبراني بهذه المكالمة المشبوهة</span></button>
-            <div id="scenarioResult" class="interaction-result"></div>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-outline" id="scenarioWrong"><span data-ar="أعطيه البيانات" data-en="Give him the data">أعطيه البيانات</span></button>
+                <button class="btn" id="scenarioCorrect"><span data-ar="أرفض وأبلغ الأمن السيبراني" data-en="Refuse and report">أرفض وأبلغ الأمن السيبراني</span></button>
+            </div>
+            <div id="scenarioResult" class="interaction-result" style="display: none;"></div>
         </div>
 
         <div class="card">
-            <h3 style="margin-top:0;" data-ar="📋 قائمة المهام اليومية" data-en="📋 Daily Checklist">📋 قائمة المهام اليومية</h3>
+            <h3><i class="las la-tasks"></i> <span data-ar="قائمة المهام اليومية" data-en="Daily Checklist">قائمة المهام اليومية</span></h3>
             <div id="checklist">
-                <label class="checklist-item"><input type="checkbox"> <span data-ar="عدم فتح أي بريد إلكتروني من مرسل غير معروف أو يحتوي على مرفقات مشبوهة." data-en="Do not open emails from unknown senders or with suspicious attachments.">عدم فتح أي بريد إلكتروني من مرسل غير معروف أو يحتوي على مرفقات مشبوهة.</span></label>
-                <label class="checklist-item"><input type="checkbox"> <span data-ar="تأمين الملفات الورقية الحساسة في أدراج مغلقة قبل مغادرة المكتب." data-en="Secure sensitive paper documents in locked drawers before leaving.">تأمين الملفات الورقية الحساسة في أدراج مغلقة قبل مغادرة المكتب.</span></label>
-                <label class="checklist-item"><input type="checkbox"> <span data-ar="تسجيل الخروج أو قفل الشاشة (Win+L) عند مغادرة المكتب لأي سبب." data-en="Log out or lock screen (Win+L) when leaving the desk.">تسجيل الخروج أو قفل الشاشة (Win+L) عند مغادرة المكتب لأي سبب.</span></label>
-                <label class="checklist-item"><input type="checkbox"> <span data-ar="تفعيل التحديثات التلقائية لنظام التشغيل وبرامج الأوفيس المستخدمة." data-en="Enable auto-updates for your OS and Office programs.">تفعيل التحديثات التلقائية لنظام التشغيل وبرامج الأوفيس المستخدمة.</span></label>
+                <label class="checklist-item"><input type="checkbox"> <span data-ar="عدم فتح أي بريد إلكتروني من مرسل غير معروف." data-en="Do not open emails from unknown senders.">عدم فتح أي بريد إلكتروني من مرسل غير معروف.</span></label>
+                <label class="checklist-item"><input type="checkbox"> <span data-ar="تأمين الملفات الورقية الحساسة في أدراج مغلقة." data-en="Secure sensitive paper documents in locked drawers.">تأمين الملفات الورقية الحساسة في أدراج مغلقة.</span></label>
+                <label class="checklist-item"><input type="checkbox"> <span data-ar="تسجيل الخروج أو قفل الشاشة عند مغادرة المكتب." data-en="Log out or lock screen when leaving desk.">تسجيل الخروج أو قفل الشاشة عند مغادرة المكتب.</span></label>
+                <label class="checklist-item"><input type="checkbox"> <span data-ar="تفعيل التحديثات التلقائية لنظام التشغيل." data-en="Enable auto-updates for your OS.">تفعيل التحديثات التلقائية لنظام التشغيل.</span></label>
             </div>
             <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-            <p style="margin-bottom:0; font-size:0.9rem;" data-ar="التقدم: <span id='progressText'>0</span>/4" data-en="Progress: <span id='progressText'>0</span>/4">التقدم: <span id='progressText'>0</span>/4</p>
+            <p><span data-ar="التقدم:" data-en="Progress:">التقدم:</span> <span id="progressText">0</span>/4</p>
         </div>
     </div>
 
-    <div id="infoModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="document.getElementById('infoModal').classList.remove('show')">&times;</span>
-            <div class="modal-header" id="infoModalHeader"></div>
-            <div class="modal-body" id="infoModalBody"></div>
+    <div id="infoModal" class="modal"><div class="modal-content"><span class="close">&times;</span><div class="modal-header" id="modalHeader"></div><div class="modal-body" id="modalBody"></div></div></div>
+
+    <footer class="gov-footer">
+        <div class="footer-container">
+            <div class="footer-col"><div class="footer-logos"><div class="hospital-logo">🏥 <span data-ar="المدينة الطبية" data-en="Medical City">المدينة الطبية</span></div><div class="vision-logo">🇸🇦 <span data-ar="رؤية 2030" data-en="Vision 2030">رؤية 2030</span></div></div><p data-ar="منصة التوعية بالأمن السيبراني، نهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى وتضمن استمرارية الأعمال." data-en="Cybersecurity Awareness Portal, aiming to build a secure digital environment that protects patient data and ensures business continuity.">منصة التوعية بالأمن السيبراني، نهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى وتضمن استمرارية الأعمال.</p></div>
+            <div class="footer-col links"><h3 data-ar="روابط وطنية هامة" data-en="Important National Links">روابط وطنية هامة</h3><ul><li><a href="https://nca.gov.sa" target="_blank" data-ar="الهيئة الوطنية للأمن السيبراني" data-en="National Cybersecurity Authority (NCA)">الهيئة الوطنية للأمن السيبراني</a></li><li><a href="https://sdaia.gov.sa" target="_blank" data-ar="الهيئة السعودية للبيانات (سدايا)" data-en="Saudi Data Authority (SDAIA)">الهيئة السعودية للبيانات (سدايا)</a></li><li><a href="https://moh.gov.sa" target="_blank" data-ar="وزارة الصحة" data-en="Ministry of Health (MOH)">وزارة الصحة</a></li></ul></div>
+            <div class="footer-col links"><h3 data-ar="السياسات والدعم" data-en="Policies & Support">السياسات والدعم</h3><ul><li><a href="#" data-ar="سياسة الخصوصية (PDPL)" data-en="Privacy Policy (PDPL)">سياسة الخصوصية (PDPL)</a></li><li><a href="faq.html" data-ar="الأسئلة الشائعة (FAQ)" data-en="Frequently Asked Questions (FAQ)">الأسئلة الشائعة (FAQ)</a></li><li><a href="report.html" data-ar="رفع تذكرة أمنية (SOC)" data-en="Raise Security Ticket (SOC)">رفع تذكرة أمنية (SOC)</a></li></ul></div>
+            <div class="footer-col contact"><h3 data-ar="تواصل مع فريق الأمن" data-en="Contact Security Team">تواصل مع فريق الأمن</h3><p>📧 SOC@hospital.edu.sa</p><p>📞 <span data-ar="تحويلة طوارئ:" data-en="Emergency Ext:">تحويلة طوارئ:</span> 9111</p></div>
         </div>
-    </div>
+        <div class="footer-bottom"><p data-ar="جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً" data-en="All Rights Reserved © 2026 University Hospital | Developed Internally">جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً</p></div>
+    </footer>
 
     <script>
-        const role = 'admin';
-        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
-
         const infoData = {
-            phishing: {
-                ar: { title: '🎣 التصيد الإلكتروني', body: 'موظفو الإدارة هم الهدف الأول لهجمات التصيد (Phishing). يجب الحذر دائماً من رسائل البريد التي تطلب معلومات شخصية، أو تطلب النقر على روابط لتحديث البيانات، أو تحتوي على مرفقات فواتير غير متوقعة.' },
-                en: { title: '🎣 Phishing Emails', body: 'Administrative staff are the primary targets for phishing. Always be wary of emails asking for personal info, clicking links to update data, or unexpected invoice attachments.' }
-            },
-            data: {
-                ar: { title: '📁 بيانات المرضى والموظفين', body: 'يُمنع منعاً باتاً إرسال أو مشاركة بيانات المرضى أو الموظفين عبر البريد الإلكتروني الشخصي (مثل Gmail) أو تطبيقات المراسلة غير الرسمية. استخدم القنوات المعتمدة من المستشفى فقط.' },
-                en: { title: '📁 Patient/Staff Data', body: 'It is strictly prohibited to share patient or staff data via personal email (e.g., Gmail) or unofficial messaging apps. Use only hospital-approved channels.' }
-            },
-            paper: {
-                ar: { title: '📄 المستندات الورقية', body: 'الأمن السيبراني لا يقتصر على الأجهزة. احرص على تطبيق سياسة "المكتب النظيف" (Clean Desk Policy) بتأمين المستندات الورقية التي تحتوي على معلومات حساسة في أدراج مغلقة قبل المغادرة.' },
-                en: { title: '📄 Paper Documents', body: 'Cybersecurity isn’t just digital. Enforce the "Clean Desk Policy" by securing paper documents containing sensitive information in locked drawers before leaving.' }
-            },
-            passwords: {
-                ar: { title: '🔑 المصادقة وكلمات المرور', body: 'استخدم كلمات مرور قوية ومعقدة للأنظمة الإدارية، وتأكد من تفعيل المصادقة متعددة العوامل (MFA) إن أمكن. لا تقم بتدوين كلمة المرور على أوراق وإلصاقها بالشاشة.' },
-                en: { title: '🔑 MFA & Passwords', body: 'Use strong, complex passwords for admin systems, and ensure MFA is enabled if possible. Do not write passwords on sticky notes attached to your monitor.' }
-            },
-            report: {
-                ar: { title: '🚨 الإبلاغ عن الحوادث', body: 'إذا قمت بالنقر على رابط مشبوه بالخطأ، أو لاحظت نشاطاً غير طبيعي في بريدك أو النظام الإداري، أبلغ قسم تقنية المعلومات (SOC) فوراً. السرعة هي مفتاح تقليل الضرر.' },
-                en: { title: '🚨 Incident Reporting', body: 'If you accidentally click a suspicious link or notice abnormal activity in your email or system, report to IT (SOC) immediately. Speed minimizes damage.' }
-            }
+            phishing: { ar: { title: 'التصيد الإلكتروني', body: 'موظفو الإدارة هم الهدف الأول لهجمات التصيد. احذر من الرسائل التي تطلب معلومات شخصية أو روابط لتحديث البيانات.' }, en: { title: 'Phishing', body: 'Administrative staff are primary targets. Beware of emails asking for personal info or update links.' } },
+            data: { ar: { title: 'بيانات المرضى والموظفين', body: 'يُمنع إرسال بيانات المرضى عبر البريد الشخصي أو تطبيقات المراسلة غير الرسمية.' }, en: { title: 'Patient/Staff Data', body: 'Do not send patient data via personal email or unofficial messaging apps.' } },
+            paper: { ar: { title: 'المستندات الورقية', body: 'طبق سياسة "المكتب النظيف": أمن المستندات الورقية الحساسة في أدراج مغلقة.' }, en: { title: 'Paper Documents', body: 'Apply "Clean Desk Policy": secure sensitive paper documents in locked drawers.' } },
+            passwords: { ar: { title: 'كلمات المرور', body: 'استخدم كلمات مرور قوية وفعّل المصادقة متعددة العوامل (MFA) إن أمكن.' }, en: { title: 'Passwords', body: 'Use strong passwords and enable MFA if possible.' } },
+            report: { ar: { title: 'الإبلاغ عن الحوادث', body: 'إذا نقرت على رابط مشبوه أو لاحظت نشاطاً غير طبيعي، أبلغ قسم تقنية المعلومات فوراً.' }, en: { title: 'Incident Reporting', body: 'If you click a suspicious link or notice abnormal activity, report to IT immediately.' } }
         };
-
-        function showInfoModal(topic) {
-            const data = infoData[topic][currentLang];
-            document.getElementById('infoModalHeader').innerText = data.title;
-            document.getElementById('infoModalBody').innerText = data.body;
-            document.getElementById('infoModal').classList.add('show');
-        }
-
-        function handleScenario(isCorrect) {
-            const res = document.getElementById('scenarioResult');
-            res.style.display = 'block';
-            if (isCorrect) {
-                res.className = 'interaction-result success';
-                res.innerText = currentLang === 'ar' ? '✅ ممتاز! الدعم الفني الحقيقي لا يطلب كلمة المرور أبداً، هذا الأسلوب يُعرف بالهندسة الاجتماعية (Vishing).' : '✅ Excellent! Real IT support never asks for passwords. This is known as Vishing (Voice Phishing).';
-            } else {
-                res.className = 'interaction-result error';
-                res.innerText = currentLang === 'ar' ? '❌ خطأ! هذه هجمة هندسة اجتماعية كلاسيكية لاختراق حسابك والوصول لبيانات المستشفى.' : '❌ Wrong! This is a classic social engineering attack to hack your account and access hospital data.';
-            }
-            let key = `${role}_scenario`;
-            let existing = JSON.parse(localStorage.getItem(key)) || { total: 0, correct: 0 };
-            existing.total++; if (isCorrect) existing.correct++;
-            localStorage.setItem(key, JSON.stringify(existing));
-        }
-
-        function updateChecklist() {
-            const items = document.querySelectorAll('.checklist-item');
-            let checked = 0, dataArr = [];
-            items.forEach(item => {
-                const cb = item.querySelector('input');
-                if (cb.checked) { checked++; item.classList.add('completed'); }
-                else { item.classList.remove('completed'); }
-                dataArr.push({ completed: cb.checked });
-            });
-            document.getElementById('progressFill').style.width = ((checked / items.length) * 100) + '%';
-            const pText = document.getElementById('progressText');
-            if (pText) pText.innerText = checked;
-            localStorage.setItem(`${role}_checklist`, JSON.stringify(dataArr));
-        }
-
-        window.onload = () => {
-            const saved = JSON.parse(localStorage.getItem(`${role}_checklist`));
-            const items = document.querySelectorAll('.checklist-item');
-            if (saved) {
-                saved.forEach((s, i) => { if(items[i]) items[i].querySelector('input').checked = s.completed; });
-            }
-            items.forEach(item => item.querySelector('input').addEventListener('change', updateChecklist));
-            updateChecklist();
-            applyLanguage();
-        };
-
-        function applyLanguage() {
-            const elements = document.querySelectorAll('[data-ar][data-en]');
-            if (currentLang === 'en') {
-                elements.forEach(el => {
-                    if(el.innerHTML.includes('<span')) el.innerHTML = el.getAttribute('data-en');
-                    else el.innerText = el.getAttribute('data-en');
-                });
-                document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr';
-            } else {
-                elements.forEach(el => {
-                    if(el.innerHTML.includes('<span')) el.innerHTML = el.getAttribute('data-ar');
-                    else el.innerText = el.getAttribute('data-ar');
-                });
-                document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl';
-            }
-            const res = document.getElementById('scenarioResult');
-            if(res.style.display === 'block') handleScenario(res.classList.contains('success'));
-            updateChecklist();
-        }
-
-        function toggleLanguage() {
-            currentLang = currentLang === 'ar' ? 'en' : 'ar';
-            localStorage.setItem('preferredLanguage', currentLang);
-            applyLanguage();
-        }
+        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+        const role = 'admin';
+        function showInfoModal(topic) { const data = infoData[topic][currentLang]; document.getElementById('modalHeader').innerHTML = data.title; document.getElementById('modalBody').innerHTML = `<p>${data.body}</p>`; document.getElementById('infoModal').classList.add('show'); }
+        function closeModal() { document.getElementById('infoModal').classList.remove('show'); }
+        function handleScenario(isCorrect) { const res = document.getElementById('scenarioResult'); res.style.display = 'block'; if(isCorrect) { res.className = 'interaction-result success'; res.innerHTML = currentLang === 'ar' ? '✅ ممتاز! الدعم الفني الحقيقي لا يطلب كلمة المرور أبداً، هذا الأسلوب يُعرف بالهندسة الاجتماعية (Vishing).' : '✅ Excellent! Real IT support never asks for passwords. This is known as Vishing.'; } else { res.className = 'interaction-result error'; res.innerHTML = currentLang === 'ar' ? '❌ خطأ! هذه هجمة هندسة اجتماعية كلاسيكية لاختراق حسابك والوصول لبيانات المستشفى.' : '❌ Wrong! This is a classic social engineering attack to hack your account and access hospital data.'; } let key = `${role}_scenario`; let ex = JSON.parse(localStorage.getItem(key)) || { total: 0, correct: 0 }; ex.total++; if(isCorrect) ex.correct++; localStorage.setItem(key, JSON.stringify(ex)); }
+        function updateChecklist() { const items = document.querySelectorAll('.checklist-item'); let c=0; items.forEach(i=>{ const cb=i.querySelector('input'); if(cb.checked){ c++; i.classList.add('completed'); } else i.classList.remove('completed'); }); document.getElementById('progressFill').style.width = ((c/items.length)*100)+'%'; document.getElementById('progressText').innerText = c; localStorage.setItem(`${role}_checklist`, JSON.stringify(Array.from(items).map(i=>({completed:i.querySelector('input').checked})))); }
+        function loadSavedData() { const saved = JSON.parse(localStorage.getItem(`${role}_checklist`)); if(saved) { const items = document.querySelectorAll('.checklist-item'); items.forEach((item,i)=>{ if(saved[i]?.completed){ item.querySelector('input').checked=true; item.classList.add('completed'); } }); updateChecklist(); } }
+        function initTheme() { const saved = localStorage.getItem('theme'); if(saved==='dark'){ document.documentElement.setAttribute('data-theme','dark'); document.getElementById('themeToggle').innerHTML='☀️'; } else { document.documentElement.setAttribute('data-theme','light'); document.getElementById('themeToggle').innerHTML='🌙'; } }
+        function toggleTheme() { const cur = document.documentElement.getAttribute('data-theme'); const neu = cur==='dark'?'light':'dark'; document.documentElement.setAttribute('data-theme',neu); localStorage.setItem('theme',neu); document.getElementById('themeToggle').innerHTML = neu==='dark'?'☀️':'🌙'; }
+        function applyLanguage() { document.querySelectorAll('[data-ar][data-en]').forEach(el=>{ const txt = currentLang==='en'?el.getAttribute('data-en'):el.getAttribute('data-ar'); const ic = el.querySelector('i'); if(ic) el.innerHTML = ic.outerHTML + ' ' + txt; else el.innerText = txt; }); document.querySelectorAll('#scenarioCorrect span, #scenarioWrong span').forEach(span=>{ const isCor = span.parentElement.id==='scenarioCorrect'; span.innerText = currentLang==='en'?(isCor?'Refuse and report':'Give him the data'):(isCor?'أرفض وأبلغ الأمن السيبراني':'أعطيه البيانات'); }); const sr = document.getElementById('scenarioResult'); if(sr.style.display==='block'){ const isSucc = sr.classList.contains('success'); sr.innerHTML = currentLang==='ar'?(isSucc?'✅ ممتاز! الدعم الفني الحقيقي لا يطلب كلمة المرور أبداً، هذا الأسلوب يُعرف بالهندسة الاجتماعية (Vishing).':'❌ خطأ! هذه هجمة هندسة اجتماعية كلاسيكية لاختراق حسابك والوصول لبيانات المستشفى.'):(isSucc?'✅ Excellent! Real IT support never asks for passwords. This is known as Vishing.':'❌ Wrong! This is a classic social engineering attack to hack your account and access hospital data.'); } document.documentElement.lang = currentLang; document.documentElement.dir = currentLang==='en'?'ltr':'rtl'; }
+        function toggleLanguage() { currentLang = currentLang==='ar'?'en':'ar'; localStorage.setItem('preferredLanguage',currentLang); applyLanguage(); }
+        document.addEventListener('DOMContentLoaded',()=>{ document.querySelectorAll('.info-card').forEach(c=>c.addEventListener('click',()=>showInfoModal(c.getAttribute('data-topic')))); document.querySelector('.close')?.addEventListener('click',closeModal); window.addEventListener('click',e=>{if(e.target===document.getElementById('infoModal')) closeModal();}); document.getElementById('scenarioCorrect').addEventListener('click',()=>handleScenario(true)); document.getElementById('scenarioWrong').addEventListener('click',()=>handleScenario(false)); document.querySelectorAll('.checklist-item input').forEach(cb=>cb.addEventListener('change',updateChecklist)); loadSavedData(); initTheme(); document.getElementById('themeToggle').addEventListener('click',toggleTheme); document.getElementById('langToggle').addEventListener('click',toggleLanguage); applyLanguage(); });
     </script>
 </body>
 </html>
