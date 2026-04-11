@@ -5,40 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Report | Cybersecurity - University Hospital</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root { --bg-color: #f8fafc; --header-bg: #005a32; --nca-green: #007a4d; --text-dark: #1e293b; --text-muted: #64748b; --border-color: #e2e8f0; --card-radius: 16px; --danger: #ef4444; }
-        body { margin: 0; font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-dark); }
-        .main-header { background-color: var(--header-bg); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #004224; }
-        .header-right { display: flex; align-items: center; gap: 15px; }
-        .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-        .header-titles h1 { margin: 0; font-size: 1.3rem; font-weight: 700; }
-        .header-titles p { margin: 0; font-size: 0.9rem; color: #a7f3d0; }
-        .header-left { display: flex; gap: 15px; align-items: center; }
-        .btn-lang { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-family: inherit; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .btn-lang:hover { background: rgba(255,255,255,0.2); }
-        .nav-menu { background: white; border-bottom: 1px solid var(--border-color); padding: 0 2rem; display: flex; gap: 1rem; overflow-x: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .nav-link { padding: 1rem 0.5rem; color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 3px solid transparent; white-space: nowrap; transition: 0.2s; }
-        .nav-link:hover { color: var(--nca-green); }
-        .nav-link.active { color: var(--nca-green); border-bottom-color: var(--nca-green); }
 
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* التنسيقات الخاصة بصفحة الإبلاغ فقط */
         .container { max-width: 1000px; margin: 2rem auto; padding: 0 2rem; display: grid; grid-template-columns: 1fr 350px; gap: 2rem; }
         @media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
         .section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--danger); grid-column: 1 / -1; }
 
-        .form-card { background: white; border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); border-top: 4px solid var(--danger); }
+        .form-card { background: white; border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); border-top: 4px solid var(--danger); transition: 0.3s; }
         .form-group { margin-bottom: 1.5rem; }
         .form-group label { display: block; font-weight: 700; margin-bottom: 0.8rem; font-size: 0.95rem; }
-        .form-select, .form-textarea, .form-input { width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 1rem; outline: none; background: #f8fafc; box-sizing: border-box; }
+        .form-select, .form-textarea, .form-input { width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 1rem; outline: none; background: #f8fafc; box-sizing: border-box; transition: 0.3s; color: var(--text-dark); }
         .form-select:focus, .form-textarea:focus, .form-input:focus { border-color: var(--danger); background: white; }
 
         .btn-submit { background: var(--danger); color: white; border: none; padding: 1rem; width: 100%; border-radius: 8px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: 0.3s; font-family: inherit; }
         .btn-submit:hover { background: #b91c1c; }
 
-        .side-info { background: #fef2f2; border: 1px solid #fca5a5; border-radius: var(--card-radius); padding: 2rem; color: #991b1b; }
+        .side-info { background: #fef2f2; border: 1px solid #fca5a5; border-radius: var(--card-radius); padding: 2rem; color: #991b1b; transition: 0.3s; }
         .side-info h3 { margin-top: 0; }
         .side-info ul { padding-right: 1.2rem; line-height: 1.8; font-size: 0.95rem; }
+        html[dir="ltr"] .side-info ul { padding-right: 0; padding-left: 1.2rem; }
 
         .result-box { display: none; margin-top: 1.5rem; padding: 1.5rem; border-radius: 12px; font-weight: bold; text-align: center; font-size: 1.1rem; background: #ecfdf5; color: #059669; border: 2px solid #34d399; }
+
+        /* دعم الوضع المظلم لصفحة الإبلاغ */
+        body.dark-mode .section-title { color: #fca5a5; }
+        body.dark-mode .form-card { background: #1e293b; border-color: var(--border-color); border-top-color: #ef4444; }
+        body.dark-mode .form-select, body.dark-mode .form-textarea { background: #0f172a; border-color: var(--border-color); color: #f8fafc; }
+        body.dark-mode .form-select:focus, body.dark-mode .form-textarea:focus { border-color: #ef4444; background: #1e293b; }
+        body.dark-mode .side-info { background: rgba(239, 68, 68, 0.1); border-color: #ef4444; color: #fca5a5; }
+        body.dark-mode .result-box { background: rgba(16, 185, 129, 0.1); color: #6ee7b7; border-color: #10b981; }
     </style>
 </head>
 <body>
@@ -50,10 +48,12 @@
                 <p data-ar="سرعة الإبلاغ تقلل الأضرار" data-en="Fast reporting minimizes damage">سرعة الإبلاغ تقلل الأضرار</p>
             </div>
         </div>
-        <div class="header-left">
-            <button class="btn-lang" onclick="toggleLanguage()">🌐 العربية / English</button>
-        </div>
 
+        <div class="header-left">
+            <button class="btn-dark-mode" onclick="toggleDarkMode()" title="تغيير المظهر">🌙</button>
+            <button class="btn-lang" onclick="toggleLanguage()">🌐 العربية / English</button>
+            <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login" style="background: #10b981; border: none; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-weight: 700; text-decoration: none;">تسجيل الدخول</a>
+        </div>
     </header>
 
     <nav class="nav-menu">
@@ -61,7 +61,7 @@
         <a href="employees.html" class="nav-link"><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> 👨‍⚕️</a>
         <a href="oip.html" class="nav-link"><span data-ar="المكتبة التوعوية" data-en="Library">المكتبة التوعوية</span> 📚</a>
         <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> 🧰</a>
-        <a href="report.html" class="nav-link active" style="color:var(--danger); border-color:var(--danger);"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> 🚨</a>
+        <a href="report.html" class="nav-link active" style="color:var(--danger); border-bottom-color:var(--danger);"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> 🚨</a>
         <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> 📊</a>
         <a href="quiz.html" class="nav-link"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> 🧠</a>
         <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> 📈</a>
@@ -105,7 +105,7 @@
                 <li><strong data-ar="تحويلة الطوارئ السيبرانية:" data-en="Cyber Emergency Ext:">تحويلة الطوارئ السيبرانية:</strong> 9999</li>
                 <li><strong data-ar="البريد الإلكتروني:" data-en="Email:">البريد الإلكتروني:</strong> soc@hospital.edu.sa</li>
             </ul>
-            <hr style="border-color: #fca5a5; margin: 1.5rem 0;">
+            <hr style="border-color: inherit; opacity: 0.3; margin: 1.5rem 0;">
             <h4 data-ar="⚠️ تعليمات هامة فورية:" data-en="⚠️ Immediate Instructions:">⚠️ تعليمات هامة فورية:</h4>
             <ul>
                 <li data-ar="لا تقم بإغلاق الجهاز المشبوه، بل افصله عن الشبكة (انزع الكيبل/أغلق الـ Wi-Fi)." data-en="Do not shut down the device, just disconnect it from network.">لا تقم بإغلاق الجهاز المشبوه، بل افصله عن الشبكة (انزع الكيبل/أغلق الـ Wi-Fi).</li>
@@ -114,13 +114,17 @@
         </div>
     </div>
 
+    <script src="script.js"></script>
+
     <script>
         let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+
         function submitReport() {
             const box = document.getElementById('resultBox');
             box.style.display = 'block';
             box.innerText = currentLang === 'ar' ? '✅ تم إنشاء تذكرة بلاغ أمني عاجلة. سنتواصل معك خلال دقائق. (هذه محاكاة)' : '✅ Emergency security ticket created. We will contact you in minutes. (Simulation)';
         }
+
         function applyLanguage() {
             const elements = document.querySelectorAll('[data-ar][data-en]');
             if (currentLang === 'en') {
@@ -140,12 +144,14 @@
             }
             if(document.getElementById('resultBox').style.display === 'block') submitReport();
         }
+
         function toggleLanguage() {
             currentLang = currentLang === 'ar' ? 'en' : 'ar';
             localStorage.setItem('preferredLanguage', currentLang);
             applyLanguage();
         }
-        window.onload = applyLanguage;
+
+        window.addEventListener('DOMContentLoaded', applyLanguage);
     </script>
 </body>
 </html>
