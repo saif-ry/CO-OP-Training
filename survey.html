@@ -5,34 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Survey | Cybersecurity - University Hospital</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
     <style>
-        :root { --bg-color: #f8fafc; --header-bg: #005a32; --nca-green: #007a4d; --text-dark: #1e293b; --text-muted: #64748b; --border-color: #e2e8f0; --card-radius: 16px; }
-        body { margin: 0; font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-dark); }
-        .main-header { background-color: var(--header-bg); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #004224; }
-        .header-right { display: flex; align-items: center; gap: 15px; }
-        .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-        .header-titles h1 { margin: 0; font-size: 1.3rem; font-weight: 700; }
-        .header-titles p { margin: 0; font-size: 0.9rem; color: #a7f3d0; }
-        .header-left { display: flex; gap: 15px; align-items: center; }
-        .btn-lang { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-family: inherit; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .btn-lang:hover { background: rgba(255,255,255,0.2); }
-        .nav-menu { background: white; border-bottom: 1px solid var(--border-color); padding: 0 2rem; display: flex; gap: 1rem; overflow-x: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .nav-link { padding: 1rem 0.5rem; color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 3px solid transparent; white-space: nowrap; transition: 0.2s; }
-        .nav-link:hover { color: var(--nca-green); }
-        .nav-link.active { color: var(--nca-green); border-bottom-color: var(--nca-green); }
-
+        /* التنسيقات الخاصة بصفحة الاستبيان فقط */
         .container { max-width: 800px; margin: 2rem auto; padding: 0 2rem; }
-        .section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-dark); }
 
-        .form-card { background: white; border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .form-card { background: white; border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: 0.3s; }
         .form-group { margin-bottom: 1.5rem; }
         .form-group label { display: block; font-weight: 700; margin-bottom: 0.8rem; font-size: 1.05rem; }
-        .form-select, .form-textarea { width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 1rem; outline: none; background: #f8fafc; box-sizing: border-box; }
+        .form-select, .form-textarea { width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 1rem; outline: none; background: #f8fafc; box-sizing: border-box; transition: 0.3s; color: var(--text-dark); }
         .form-select:focus, .form-textarea:focus { border-color: var(--nca-green); background: white; }
 
         .btn-submit { background: var(--nca-green); color: white; border: none; padding: 1rem; width: 100%; border-radius: 8px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: 0.3s; font-family: inherit; margin-top: 1rem; }
         .btn-submit:hover { background: #00603c; }
+
         .result-box { display: none; margin-top: 1.5rem; padding: 1.5rem; border-radius: 12px; font-weight: bold; text-align: center; font-size: 1.1rem; background: #ecfdf5; color: #059669; border: 2px solid #34d399; }
+
+        /* دعم الوضع المظلم لصفحة الاستبيان */
+        body.dark-mode .form-card { background: #1e293b; border-color: var(--border-color); }
+        body.dark-mode .form-select, body.dark-mode .form-textarea { background: #0f172a; border-color: var(--border-color); color: #f8fafc; }
+        body.dark-mode .form-select:focus, body.dark-mode .form-textarea:focus { border-color: var(--nca-green); background: #1e293b; }
+        body.dark-mode .result-box { background: rgba(16, 185, 129, 0.1); color: #6ee7b7; border-color: #10b981; }
     </style>
 </head>
 <body>
@@ -44,8 +39,11 @@
                 <p data-ar="رأيك يهمنا لتحسين المنصة" data-en="Your feedback helps us improve">رأيك يهمنا لتحسين المنصة</p>
             </div>
         </div>
+
         <div class="header-left">
+            <button class="btn-dark-mode" onclick="toggleDarkMode()" title="تغيير المظهر">🌙</button>
             <button class="btn-lang" onclick="toggleLanguage()">🌐 العربية / English</button>
+            <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login" style="background: #10b981; border: none; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-weight: 700; text-decoration: none;">تسجيل الدخول</a>
         </div>
     </header>
 
@@ -93,15 +91,26 @@
         </div>
     </div>
 
+    <script src="script.js"></script>
+
     <script>
         let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+        let isSubmitted = false; // متغير لمنع تكرار الإرسال عند تغيير اللغة
+
         function submitSurvey() {
             const box = document.getElementById('resultBox');
             box.style.display = 'block';
             box.innerText = currentLang === 'ar' ? '✨ شكراً لك! تم إرسال إجاباتك بنجاح، وهي تساعدنا في تحسين بيئة العمل.' : '✨ Thank you! Your answers have been submitted successfully.';
-            let surveyResults = JSON.parse(localStorage.getItem('surveyResults')) || { total: 0 };
-            surveyResults.total++; localStorage.setItem('surveyResults', JSON.stringify(surveyResults));
+
+            // حفظ النتيجة مرة واحدة فقط للوحة القيادة
+            if (!isSubmitted) {
+                let surveyResults = JSON.parse(localStorage.getItem('surveyResults')) || { total: 0 };
+                surveyResults.total++;
+                localStorage.setItem('surveyResults', JSON.stringify(surveyResults));
+                isSubmitted = true;
+            }
         }
+
         function applyLanguage() {
             const elements = document.querySelectorAll('[data-ar][data-en]');
             if (currentLang === 'en') {
@@ -119,14 +128,21 @@
                 });
                 document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl';
             }
-            if(document.getElementById('resultBox').style.display === 'block') submitSurvey();
+
+            // تحديث نص رسالة النجاح إذا كانت ظاهرة بدون إعادة الإرسال
+            if(document.getElementById('resultBox').style.display === 'block') {
+                const box = document.getElementById('resultBox');
+                box.innerText = currentLang === 'ar' ? '✨ شكراً لك! تم إرسال إجاباتك بنجاح، وهي تساعدنا في تحسين بيئة العمل.' : '✨ Thank you! Your answers have been submitted successfully.';
+            }
         }
+
         function toggleLanguage() {
             currentLang = currentLang === 'ar' ? 'en' : 'ar';
             localStorage.setItem('preferredLanguage', currentLang);
             applyLanguage();
         }
-        window.onload = applyLanguage;
+
+        window.addEventListener('DOMContentLoaded', applyLanguage);
     </script>
 </body>
 </html>
