@@ -4,157 +4,204 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تسجيل الدخول | المدينة الطبية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* تنسيقات مخصصة لمركزة نموذج تسجيل الدخول تتوافق مع الوضع المظلم */
-        .login-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 70vh;
+        /* --- 1. نظام المتغيرات --- */
+        :root {
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
+            --header-bg: #005a32;
+            --nca-green: #007a4d;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --input-focus: #10b981;
         }
-        .login-container {
-            width: 100%;
-            max-width: 420px;
-            padding: 2.5rem;
-            background: white;
-            border-radius: var(--card-radius);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            border-top: 5px solid var(--nca-green);
+
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+        }
+
+        /* --- 2. التنسيقات الأساسية --- */
+        body {
+            margin: 0; font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color); color: var(--text-main);
             transition: 0.3s;
         }
-        body.dark-mode .login-container {
-            background: #1e293b;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+
+        .main-header {
+            background-color: var(--header-bg); color: white; padding: 1rem 2rem;
+            display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #004224;
         }
-        .login-header {
-            text-align: center;
-            margin-bottom: 2rem;
+
+        /* --- 3. حاوية تسجيل الدخول --- */
+        .login-wrapper {
+            display: flex; align-items: center; justify-content: center;
+            min-height: calc(100vh - 120px); padding: 2rem;
         }
-        .login-header h2 {
-            color: var(--nca-green);
-            margin-bottom: 0.5rem;
+
+        .login-card {
+            width: 100%; max-width: 400px;
+            background: var(--card-bg); border-radius: 20px;
+            padding: 3rem 2rem; border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            text-align: center; transition: 0.3s;
         }
-        .form-group {
-            margin-bottom: 1.5rem;
+
+        .login-icon-box {
+            width: 80px; height: 80px; background: rgba(16, 185, 129, 0.1);
+            color: var(--nca-green); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem; margin: 0 auto 1.5rem;
         }
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-        body.dark-mode .form-group label {
-            color: #f8fafc;
-        }
+
+        .login-header h2 { margin: 0 0 0.5rem; font-size: 1.6rem; color: var(--text-main); }
+        .login-header p { margin: 0 0 2rem; color: var(--text-muted); font-size: 0.9rem; }
+
+        /* --- 4. تنسيق النماذج --- */
+        .form-group { text-align: right; margin-bottom: 1.5rem; }
+        .form-group label { display: block; font-weight: 700; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-main); }
+
+        .input-wrapper { position: relative; }
+        .input-wrapper i { position: absolute; top: 50%; right: 15px; transform: translateY(-50%); color: var(--text-muted); font-size: 1.2rem; }
+
         .form-group input {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 1rem;
-            background: #f8fafc;
-            color: var(--text-dark);
-            transition: border-color 0.3s;
-            box-sizing: border-box;
+            width: 100%; padding: 0.8rem 2.8rem 0.8rem 1rem;
+            border: 2px solid var(--border-color); border-radius: 10px;
+            font-family: inherit; font-size: 1rem; background: var(--bg-color);
+            color: var(--text-main); outline: none; transition: 0.3s; box-sizing: border-box;
         }
-        body.dark-mode .form-group input {
-            background: #0f172a;
-            color: white;
-        }
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--nca-green);
-        }
-        .login-footer {
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
+
+        .form-group input:focus { border-color: var(--input-focus); box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); }
+
         .btn-login {
-            width: 100%;
-            padding: 1rem;
-            font-size: 1.1rem;
-            margin-top: 1rem;
+            width: 100%; padding: 1rem; background: var(--nca-green);
+            color: white; border: none; border-radius: 10px;
+            font-size: 1.1rem; font-weight: 700; cursor: pointer;
+            transition: 0.3s; margin-top: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px;
         }
+        .btn-login:hover { background: #059669; transform: translateY(-2px); }
+
+        .login-footer { margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted); }
+        .login-footer a { color: var(--nca-green); text-decoration: none; font-weight: 700; }
+
+        /* الأزرار العلوية */
+        .btn-theme { background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: white; }
     </style>
 </head>
 <body>
 
     <header class="main-header">
-
         <div class="header-right">
-            <div class="logo-placeholder">🏥</div>
+            <div class="logo-placeholder"><i class="las la-hospital"></i></div>
             <div class="header-titles">
-                <h1 data-ar="المدينة الطبية | منصة التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">المدينة الطبية | منصة التوعية بالأمن السيبراني</h1>
+                <h1 data-ar="المدينة الطبية | بوابة التوعية" data-en="Medical City | Portal">المدينة الطبية | بوابة التوعية</h1>
             </div>
         </div>
         <div class="header-left">
-            <button class="btn-dark-mode" id="darkModeBtn" onclick="toggleDarkMode()" title="تغيير المظهر">🌙</button>
-            <button class="btn-lang" onclick="toggleLanguage()">🌐 العربية / English</button>
+            <button class="btn-theme" id="themeIcon" onclick="toggleTheme()">🌙</button>
+            <button class="btn-lang" onclick="toggleLanguage()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: 600; cursor: pointer;">🌐 EN/AR</button>
         </div>
     </header>
 
-    <div class="container login-wrapper">
-        <div class="login-container">
-            <div class="login-header">
-                <div style="font-size: 3rem; margin-bottom: 1rem;">🔐</div>
-                <h2 data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</h2>
-                <p data-ar="الرجاء إدخال بياناتك للوصول للحقيبة" data-en="Please enter your credentials to access the portal">الرجاء إدخال بياناتك للوصول للحقيبة</p>
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="login-icon-box">
+                <i class="las la-user-lock"></i>
             </div>
 
-            <form id="loginForm" onsubmit="handleLogin(event)">
+            <div class="login-header">
+                <h2 data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</h2>
+                <p data-ar="أدخل بياناتك للوصول إلى المنصة التوعوية" data-en="Enter credentials to access the platform">أدخل بياناتك للوصول إلى المنصة التوعوية</p>
+            </div>
+
+            <form onsubmit="handleLogin(event)">
                 <div class="form-group">
-                    <label for="username" data-ar="اسم المستخدم (الرقم الوظيفي)" data-en="Username (Employee ID)">اسم المستخدم (الرقم الوظيفي)</label>
-                    <input type="text" id="username" required>
+                    <label data-ar="الرقم الوظيفي" data-en="Employee ID">الرقم الوظيفي</label>
+                    <div class="input-wrapper">
+                        <i class="las la-user-circle"></i>
+                        <input type="text" id="username" placeholder="1111" required dir="ltr">
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="password" data-ar="كلمة المرور" data-en="Password">كلمة المرور</label>
-                    <input type="password" id="password" required>
+                    <label data-ar="كلمة المرور" data-en="Password">كلمة المرور</label>
+                    <div class="input-wrapper">
+                        <i class="las la-key"></i>
+                        <input type="password" id="password" placeholder="••••" required dir="ltr">
+                    </div>
                 </div>
 
-                <button type="submit" class="btn btn-login" data-ar="دخول آمن" data-en="Secure Login">دخول آمن</button>
+                <button type="submit" class="btn-login">
+                    <span data-ar="دخول آمن" data-en="Secure Login">دخول آمن</span>
+                    <i class="las la-arrow-left"></i>
+                </button>
 
-                <div id="loginError" class="interaction-result error" style="display: none; margin-top: 1rem;">
-                    <span data-ar="❌ بيانات الدخول غير صحيحة، حاول مجدداً." data-en="❌ Invalid credentials, please try again.">❌ بيانات الدخول غير صحيحة، حاول مجدداً.</span>
+                <div id="loginError" style="display: none; color: #ef4444; font-size: 0.85rem; margin-top: 1rem; font-weight: 700;">
+                    <i class="las la-exclamation-circle"></i> <span data-ar="بيانات الدخول غير صحيحة" data-en="Invalid credentials">بيانات الدخول غير صحيحة</span>
                 </div>
             </form>
 
             <div class="login-footer">
-                <p data-ar="نسيت كلمة المرور؟ تواصل مع الدعم الفني" data-en="Forgot password? Contact IT Support">نسيت كلمة المرور؟ تواصل مع الدعم الفني</p>
+                <p data-ar="تواجه مشكلة؟ تواصل مع الدعم الفني" data-en="Having issues? Contact IT Support">تواجه مشكلة؟ تواصل مع الدعم الفني</p>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
-
     <script>
-        // دالة التحقق من الدخول
+        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+
         function handleLogin(event) {
             event.preventDefault();
             const user = document.getElementById('username').value;
             const pass = document.getElementById('password').value;
             const errorDiv = document.getElementById('loginError');
 
-            // تم تحديث بيانات الدخول هنا
             if (user === "1111" && pass === "0000") {
-                // يمكنك حفظ حالة الدخول هنا إذا أردت
                 localStorage.setItem('isLoggedIn', 'true');
-                window.location.href = "index.html"; // التوجه للرئيسية عند النجاح
+                window.location.href = "index.html";
             } else {
                 errorDiv.style.display = 'block';
-                // إخفاء رسالة الخطأ بعد 3 ثواني
-                setTimeout(() => {
-                    errorDiv.style.display = 'none';
-                }, 3000);
+                setTimeout(() => errorDiv.style.display = 'none', 3000);
             }
         }
+
+        function toggleTheme() {
+            const body = document.documentElement;
+            const newTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            document.getElementById('themeIcon').innerText = newTheme === 'dark' ? '☀️' : '🌙';
+            localStorage.setItem('theme', newTheme);
+        }
+
+        function applyLanguage() {
+            const elements = document.querySelectorAll('[data-ar][data-en]');
+            elements.forEach(el => {
+                el.innerText = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
+            });
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'en' ? 'ltr' : 'rtl';
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('preferredLanguage', currentLang);
+            applyLanguage();
+        }
+
+        window.onload = () => {
+            if (localStorage.getItem('theme') === 'dark') toggleTheme();
+            applyLanguage();
+        };
     </script>
+    <script src="script.js"></script>
 </body>
 </html>
