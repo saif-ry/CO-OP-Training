@@ -26,8 +26,10 @@
 
         /* --- 2. الهيدر والقائمة --- */
         .main-header { background-color: var(--header-bg); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #004224; }
-        .header-titles h1 { margin: 0; font-size: 1.3rem; font-weight: 700; }
-        .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--nca-green); }
+        .header-titles h1 { margin: 0; font-size: 1.4rem; font-weight: 700; }
+        .header-titles .sub-title { margin-top: 0.2rem; font-size: 0.95rem; color: #a7f3d0; font-weight: 600; }
+        .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--nca-green); margin-left: 15px; }
+        html[dir="ltr"] .logo-placeholder { margin-left: 0; margin-right: 15px; }
 
         .nav-menu { background: var(--card-bg); border-bottom: 1px solid var(--border-color); padding: 0 2rem; display: flex; gap: 1rem; overflow-x: auto; box-shadow: var(--shadow-sm); }
         .nav-link { padding: 1rem 0.5rem; color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 3px solid transparent; white-space: nowrap; transition: 0.2s; }
@@ -43,18 +45,18 @@
         .ticker-text { display: inline-block; animation: ticker-animation-rtl 50s linear infinite; }
         .ticker-text span { margin-right: 60px; font-weight: 600; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 8px; }
         @keyframes ticker-animation-rtl { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        html[dir="ltr"] .ticker-text { animation: ticker-animation-ltr 50s linear infinite; }
+        @keyframes ticker-animation-ltr { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
 
-        /* --- 4. البطاقات (نظيفة بدون خلفية ملونة) --- */
+        /* --- 4. البطاقات النظيفة --- */
         .section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.2rem; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
         .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
-
-        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2rem 1.5rem; text-align: center; cursor: pointer; transition: 0.3s; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2rem 1.5rem; text-align: center; cursor: pointer; transition: 0.3s; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; align-items: center; }
         .card:hover { transform: translateY(-5px); border-color: var(--nca-green); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
 
-        .card-top { margin-bottom: 1rem; }
+        .card-top { height: 80px; display: flex; align-items: center; justify-content: center; background: transparent !important; margin-bottom: 1rem; }
         .card-icon { font-size: 4rem; }
 
-        /* تلوين الأيقونات حسب الفئة فقط */
         .theme-purple .card-icon { color: #6366f1; }
         .theme-red .card-icon { color: #ef4444; }
         .theme-green .card-icon { color: #10b981; }
@@ -62,12 +64,9 @@
         .theme-blue .card-icon { color: #3b82f6; }
 
         .card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-main); }
-        .card-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem; flex: 1; }
+        .card-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
 
-        .btn-more { display: inline-block; padding: 0.6rem 1.5rem; border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main); text-decoration: none; font-weight: 600; transition: 0.2s; background: var(--bg-color); }
-        .card:hover .btn-more { border-color: var(--nca-green); color: var(--nca-green); }
-
-        /* --- 5. القائمة السفلية --- */
+        /* --- 5. القائمة السفلية للموارد --- */
         .sidebar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; padding-top: 2rem; border-top: 2px dashed var(--border-color); }
         .sidebar-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 1.5rem; text-decoration: none; color: inherit; transition: 0.2s; box-shadow: var(--shadow-sm); }
         .sidebar-card:hover { border-color: var(--nca-green); transform: translateY(-3px); }
@@ -79,40 +78,48 @@
         /* --- 6. النافذة المنبثقة (Modal) --- */
         .modal { display: none; position: fixed; z-index: 2000; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); align-items: center; justify-content: center; }
         .modal.show { display: flex; }
-        .modal-content { background: var(--card-bg); width: 90%; max-width: 500px; padding: 2.5rem; border-radius: 20px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.3); text-align: center; color: var(--text-main); }
-        .modal-header i { font-size: 4rem; margin-bottom: 1rem; display: inline-block; }
-        .modal-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-main); }
-        .modal-body { line-height: 1.8; color: var(--text-muted); margin-bottom: 2rem; font-size: 0.95rem; }
-        .btn-modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 2rem; cursor: pointer; color: var(--text-muted); }
-        html[dir="ltr"] .btn-modal-close { right: auto; left: 1rem; }
-        .btn-modal-link { background: var(--nca-green); color: white; padding: 0.8rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 700; transition: 0.3s; display: inline-block; }
-        .btn-modal-link:hover { background: #059669; transform: translateY(-2px); }
+        .modal-content { background: var(--card-bg); width: 90%; max-width: 500px; padding: 3rem 2rem; border-radius: 20px; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.4); text-align: center; color: var(--text-main); }
+        .modal-header i { font-size: 5rem; margin-bottom: 1.5rem; display: inline-block; }
+        .modal-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
+        .modal-body { line-height: 1.8; color: var(--text-muted); margin-bottom: 2rem; font-size: 1rem; }
+        .btn-modal-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; font-size: 2.5rem; cursor: pointer; color: var(--text-muted); line-height: 1; }
+        html[dir="ltr"] .btn-modal-close { right: auto; left: 1.5rem; }
+        .btn-modal-link { background: var(--nca-green); color: white; padding: 0.8rem 2.5rem; border-radius: 12px; text-decoration: none; font-weight: 700; transition: 0.3s; display: inline-block; margin-top: 1rem; }
+        .btn-modal-link:hover { background: #059669; transform: translateY(-3px); }
 
-        /* الفوتر الحكومي */
+        /* --- 7. الفوتر الحكومي (مطابق للدكتور) --- */
         .gov-footer { background-color: #004224; color: #f1f5f9; padding-top: 3rem; margin-top: 4rem; border-top: 5px solid var(--nca-green); }
         .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2.5rem; }
-        .footer-col h3 { color: #a7f3d0; font-size: 1.2rem; margin-bottom: 1.2rem; }
-        .footer-col.links a { color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: 0.3s; display: block; margin-bottom: 0.8rem; }
+        .footer-col h3 { color: #a7f3d0; font-size: 1.2rem; margin-bottom: 1.2rem; position: relative; padding-bottom: 0.5rem; }
+        .footer-col h3::after { content: ''; position: absolute; right: 0; bottom: 0; width: 40px; height: 3px; background-color: #34d399; }
+        html[dir="ltr"] .footer-col h3::after { right: auto; left: 0; }
+        .footer-col.links ul { list-style: none; padding: 0; margin: 0; }
+        .footer-col.links li { margin-bottom: 0.8rem; }
+        .footer-col.contact p { margin: 0 0 0.8rem; display: flex; align-items: center; gap: 8px; }
+        .footer-col.links a { color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; }
         .footer-col.links a:hover { color: #ffffff; transform: translateX(-5px); }
+        html[dir="ltr"] .footer-col.links a:hover { transform: translateX(5px); }
         .footer-logos { display: flex; align-items: center; gap: 15px; margin-bottom: 1.5rem; justify-content: center; flex-wrap: wrap; }
         .hospital-logo, .vision-logo { font-weight: 700; padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); }
         .footer-bottom { background-color: #002917; text-align: center; padding: 1.2rem; margin-top: 3rem; font-size: 0.9rem; color: #94a3b8; }
+
         .btn-theme { background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: white; }
     </style>
 </head>
 <body>
 
     <header class="main-header">
-        <div class="header-right">
+        <div style="display: flex; align-items: center;">
             <div class="logo-placeholder"><i class="las la-hospital"></i></div>
             <div class="header-titles">
-                <h1 data-ar="المدينة الطبية | منصة التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">المدينة الطبية | منصة التوعية بالأمن السيبراني</h1>
-                <p data-ar="المعرفة هي خط الدفاع الأول" data-en="Knowledge is the first line of defense">المعرفة هي خط الدفاع الأول</p>
+                <h1 data-ar="المدينة الطبية" data-en="Medical City">المدينة الطبية</h1>
+                <div class="sub-title" data-ar="منصة التوعية بالأمن السيبراني" data-en="Cybersecurity Portal">منصة التوعية بالأمن السيبراني</div>
             </div>
         </div>
         <div class="header-left">
             <button class="btn-theme" id="themeIcon" onclick="toggleTheme()">🌙</button>
             <button class="btn-lang" onclick="toggleLanguage()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: 600; cursor: pointer;">🌐 EN/AR</button>
+            <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login" style="background: #10b981; border: none; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-weight: 700; text-decoration: none;">تسجيل الدخول</a>
         </div>
     </header>
 
@@ -130,57 +137,51 @@
             <div class="ticker-label"><i class="las la-bullhorn"></i> <span data-ar="تنبيهات:" data-en="Alerts:">تنبيهات:</span></div>
             <div class="ticker-content">
                 <div class="ticker-text">
-                    <span data-ar="🛡️ الأمن السيبراني: حماية بيانات المرضى هي حماية لخصوصيتهم وأمانهم.">🛡️ الأمن السيبراني: حماية بيانات المرضى هي حماية لخصوصيتهم وأمانهم.</span>
-                    <span data-ar="🔑 ثلاثية (CIA): السرية، النزاهة، وتوافر الأنظمة الطبية في كل وقت.">🔑 ثلاثية (CIA): السرية، النزاهة، وتوافر الأنظمة الطبية في كل وقت.</span>
-                    <span data-ar="🎣 احذر التصيد: لا تضغط على أي رابط خارجي يطلب بياناتك الشخصية.">🎣 احذر التصيد: لا تضغط على أي رابط خارجي يطلب بياناتك الشخصية.</span>
+                    <span data-ar="<i class='las la-shield-alt'></i> الأمن السيبراني: حماية بيانات المرضى هي حماية لخصوصيتهم وأمانهم."><i class='las la-shield-alt'></i> الأمن السيبراني: حماية بيانات المرضى هي حماية لخصوصيتهم وأمانهم.</span>
+                    <span data-ar="<i class='las la-key'></i> ثلاثية الأمان (CIA): السرية، النزاهة، وتوافر الأنظمة الطبية في كل وقت."><i class='las la-key'></i> ثلاثية الأمان (CIA): السرية، النزاهة، وتوافر الأنظمة الطبية في كل وقت.</span>
+                    <span data-ar="<i class='las la-fish'></i> احذر التصيد: لا تضغط على أي رابط خارجي يطلب بياناتك الشخصية."><i class='las la-fish'></i> احذر التصيد: لا تضغط على أي رابط خارجي يطلب بياناتك الشخصية.</span>
                 </div>
             </div>
         </div>
 
-        <div class="section-title"><i class="las la-shield-alt" style="color: var(--nca-green);"></i> <span data-ar="حملات التوعية الرئيسية" data-en="Key Awareness Campaigns">حملات التوعية الرئيسية</span></div>
+        <div class="section-title"><i class="las la-shield-alt"></i> <span data-ar="حملات التوعية الرئيسية" data-en="Key Awareness Campaigns">حملات التوعية الرئيسية</span></div>
 
         <div class="cards-grid">
 
             <div class="card theme-purple" onclick="openModal('mfa')">
                 <div class="card-top"><i class="las la-fingerprint card-icon"></i></div>
                 <h3 class="card-title" data-ar="MFA وكلمات المرور" data-en="MFA & Passwords">MFA وكلمات المرور</h3>
-                <p class="card-desc" data-ar="تأمين حساباتك من الاختراق." data-en="Securing your accounts from takeover.">تأمين حساباتك من الاختراق.</p>
-                <div class="btn-more" data-ar="استعراض" data-en="View">استعراض</div>
+                <p class="card-desc" data-ar="تأمين حساباتك من الاختراق." data-en="Securing your accounts.">تأمين حساباتك من الاختراق.</p>
             </div>
 
             <div class="card theme-red" onclick="openModal('phishing')">
                 <div class="card-top"><i class="las la-envelope-open-text card-icon"></i></div>
                 <h3 class="card-title" data-ar="التصيد الإلكتروني" data-en="Phishing">التصيد الإلكتروني</h3>
                 <p class="card-desc" data-ar="كيف تكتشف الروابط المزيفة." data-en="How to spot fake links.">كيف تكتشف الروابط المزيفة.</p>
-                <div class="btn-more" data-ar="استعراض" data-en="View">استعراض</div>
             </div>
 
             <div class="card theme-green" onclick="openModal('data')">
                 <div class="card-top"><i class="fas fa-user-shield card-icon"></i></div>
                 <h3 class="card-title" data-ar="حماية البيانات" data-en="Data Protection">حماية البيانات</h3>
-                <p class="card-desc" data-ar="بيانات المرضى أمانة طبية وقانونية." data-en="Patient data is a medical trust.">بيانات المرضى أمانة طبية وقانونية.</p>
-                <div class="btn-more" data-ar="استعراض" data-en="View">استعراض</div>
+                <p class="card-desc" data-ar="بيانات المرضى أمانة طبية وقانونية." data-en="Patient data is a trust.">بيانات المرضى أمانة طبية وقانونية.</p>
             </div>
 
             <div class="card theme-yellow" onclick="openModal('usb')">
                 <div class="card-top"><i class="lab la-usb card-icon"></i></div>
                 <h3 class="card-title" data-ar="وسائط التخزين (USB)" data-en="USB Security">وسائط التخزين (USB)</h3>
                 <p class="card-desc" data-ar="مخاطر استخدام الأجهزة المجهولة." data-en="Risks of using unknown devices.">مخاطر استخدام الأجهزة المجهولة.</p>
-                <div class="btn-more" data-ar="استعراض" data-en="View">استعراض</div>
             </div>
 
             <div class="card theme-blue" onclick="openModal('medical')">
                 <div class="card-top"><i class="las la-heartbeat card-icon"></i></div>
                 <h3 class="card-title" data-ar="الأجهزة الطبية" data-en="Medical Devices">الأجهزة الطبية</h3>
                 <p class="card-desc" data-ar="تأمين الأجهزة الحساسة المتصلة." data-en="Securing sensitive connected devices.">تأمين الأجهزة الحساسة المتصلة.</p>
-                <div class="btn-more" data-ar="استعراض" data-en="View">استعراض</div>
             </div>
 
             <div class="card theme-purple" onclick="openModal('remote')">
                 <div class="card-top"><i class="fas fa-laptop-house card-icon"></i></div>
                 <h3 class="card-title" data-ar="العمل عن بعد" data-en="Remote Work">العمل عن بعد</h3>
                 <p class="card-desc" data-ar="الوصول الآمن لأنظمة المستشفى." data-en="Secure access to hospital systems.">الوصول الآمن لأنظمة المستشفى.</p>
-                <div class="btn-more" data-ar="استعراض" data-en="View">استعراض</div>
             </div>
 
         </div>
@@ -188,17 +189,17 @@
         <section class="sidebar-grid">
             <div class="alert-yellow">
                 <i class="las la-exclamation-triangle" style="font-size: 1.8rem;"></i>
-                <span data-ar="تذكر: لا تضغط على أي رابط مجهول قبل فحصه وتأكيد سلامته." data-en="Remember: Never click unknown links before verifying safety.">تذكر: لا تضغط على أي رابط مجهول قبل فحصه وتأكيد سلامته.</span>
+                <span data-ar="تذكر: لا تضغط على أي رابط مجهول قبل فحصه وتأكيد سلامته عبر بوابة (تحقق)." data-en="Remember: Never click unknown links before verifying safety via (Tahqaq) portal.">تذكر: لا تضغط على أي رابط مجهول قبل فحصه وتأكيد سلامته عبر بوابة (تحقق).</span>
             </div>
 
             <a href="tools.html" class="sidebar-card">
                 <h4><i class="las la-search-shield" style="color: #38bdf8;"></i> <span data-ar="منصة تحقق (Tahqaq)" data-en="Tahqaq Platform">منصة تحقق (Tahqaq)</span></h4>
-                <p data-ar="لفحص الروابط والمواقع المشبوهة عبر الذكاء الاصطناعي." data-en="To check suspicious links via AI.">لفحص الروابط والمواقع المشبوهة عبر الذكاء الاصطناعي.</p>
+                <p data-ar="لفحص الروابط والمواقع المشبوهة." data-en="To check suspicious links.">لفحص الروابط والمواقع المشبوهة.</p>
             </a>
 
             <a href="report.html" class="sidebar-card">
                 <h4><i class="las la-headset" style="color: var(--nca-green);"></i> <span data-ar="الإبلاغ السريع" data-en="Quick Reporting">الإبلاغ السريع</span></h4>
-                <p data-ar="للإبلاغ الفوري عن أي اختراق، أو رسالة مريبة في العمل." data-en="To immediately report any breach or suspicious msg.">للإبلاغ الفوري عن أي اختراق، أو رسالة مريبة في العمل.</p>
+                <p data-ar="للإبلاغ الفوري عن أي اختراق أو رسالة مريبة." data-en="To immediately report any breach or suspicious msg.">للإبلاغ الفوري عن أي اختراق، أو رسالة مريبة في العمل.</p>
             </a>
 
             <a href="https://nca.gov.sa" target="_blank" class="sidebar-card">
@@ -213,26 +214,35 @@
             <div class="footer-col contact">
                 <h3 data-ar="تواصل مع فريق الأمن" data-en="Contact Security Team">تواصل مع فريق الأمن</h3>
                 <p><i class="las la-envelope"></i> SOC@hospital.edu.sa</p>
-                <p><i class="las la-phone"></i> 9111</p>
+                <p><i class="las la-phone"></i> <span data-ar="تحويلة طوارئ: 9111" data-en="Emergency Ext: 9111">تحويلة طوارئ: 9111</span></p>
             </div>
             <div class="footer-col links">
                 <h3 data-ar="السياسات والدعم" data-en="Policies & Support">السياسات والدعم</h3>
-                <a href="#">سياسة الخصوصية (PDPL)</a>
-                <a href="#">الأسئلة الشائعة</a>
+                <ul>
+                    <li><a href="#" data-ar="سياسة الخصوصية (PDPL)" data-en="Privacy Policy (PDPL)">سياسة الخصوصية (PDPL)</a></li>
+                    <li><a href="#" data-ar="الأسئلة الشائعة (FAQ)" data-en="FAQs">الأسئلة الشائعة (FAQ)</a></li>
+                    <li><a href="#" data-ar="رفع تذكرة أمنية (SOC)" data-en="Open Security Ticket (SOC)">رفع تذكرة أمنية (SOC)</a></li>
+                </ul>
             </div>
             <div class="footer-col links">
-                <h3 data-ar="روابط وطنية" data-en="National Links">روابط وطنية</h3>
-                <a href="https://nca.gov.sa" target="_blank">الأمن السيبراني (NCA)</a>
-                <a href="https://sdaia.gov.sa" target="_blank">سدايا (SDAIA)</a>
+                <h3 data-ar="روابط وطنية هامة" data-en="Important National Links">روابط وطنية هامة</h3>
+                <ul>
+                    <li><a href="https://nca.gov.sa" target="_blank" data-ar="الهيئة الوطنية للأمن السيبراني" data-en="National Cybersecurity Authority">الهيئة الوطنية للأمن السيبراني</a></li>
+                    <li><a href="https://sdaia.gov.sa" target="_blank" data-ar="الهيئة السعودية للبيانات (سدايا)" data-en="Saudi Data Authority (SDAIA)">الهيئة السعودية للبيانات (سدايا)</a></li>
+                    <li><a href="https://moh.gov.sa" target="_blank" data-ar="وزارة الصحة" data-en="Ministry of Health">وزارة الصحة</a></li>
+                </ul>
             </div>
             <div class="footer-col" style="text-align: center;">
-                <div class="footer-logos">
-                    <div class="hospital-logo">🏥 المدينة الطبية</div>
-                    <div class="vision-logo">SA رؤية 2030</div>
+                <div class="footer-logos" style="justify-content: center;">
+                    <div class="hospital-logo">🏥 <span data-ar="المدينة الطبية" data-en="Medical City">المدينة الطبية</span></div>
+                    <div class="vision-logo" data-ar="SA رؤية 2030" data-en="SA Vision 2030">SA رؤية 2030</div>
                 </div>
+                <p style="font-size: 0.85rem; color: #cbd5e1;" data-ar="منصة التوعية بالأمن السيبراني، تهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى." data-en="Cybersecurity awareness portal aiming to build a secure digital environment protecting patient data.">منصة التوعية بالأمن السيبراني، تهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى.</p>
             </div>
         </div>
-        <div class="footer-bottom">جميع الحقوق محفوظة © 2026 المدينة الطبية</div>
+        <div class="footer-bottom">
+            <span data-ar="جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً" data-en="All Rights Reserved © 2026 University Hospital | Developed Internally">جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً</span>
+        </div>
     </footer>
 
     <div id="infoModal" class="modal">
@@ -241,21 +251,21 @@
             <div id="modalIcon" class="modal-header"></div>
             <h2 id="modalTitle" class="modal-title"></h2>
             <p id="modalBody" class="modal-body"></p>
-            <a id="modalLink" href="#" class="btn-modal-link"></a>
+            <a id="modalLink" href="#" class="btn-modal-link" data-ar="اذهب للإرشادات التخصصية" data-en="Go to Guidelines">اذهب للإرشادات التخصصية</a>
         </div>
     </div>
 
     <script>
         let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
 
-        // بيانات النوافذ المنبثقة (تُجلب بناءً على البطاقة المضغوطة)
+        // بيانات النوافذ المنبثقة للبطاقات
         const modalData = {
-            mfa: { titleAr: 'MFA وكلمات المرور', titleEn: 'MFA & Passwords', icon: 'las la-fingerprint', color: '#6366f1', link: 'admin.html', bodyAr: 'تفعيل التحقق الثنائي (MFA) يضيف طبقة حماية ثانية قوية تمنع المخترق من دخول حسابك، حتى لو تمكن من سرقة كلمة المرور الخاصة بك. احرص على تفعيله في كافة أنظمة المستشفى.', bodyEn: 'MFA adds a second layer of security that prevents hackers from accessing your account even if they steal your password.' },
-            phishing: { titleAr: 'التصيد الإلكتروني', titleEn: 'Phishing', icon: 'las la-envelope-open-text', color: '#ef4444', link: 'doctor.html', bodyAr: 'أكثر من 80% من الاختراقات تبدأ برسالة تصيد. المهاجم يعتمد على التلاعب النفسي وإرسال روابط مزيفة تطلب تحديث البيانات أو تخويفك بإغلاق حسابك.', bodyEn: 'Over 80% of breaches start with phishing. Attackers use social engineering to steal data.' },
-            data: { titleAr: 'حماية البيانات', titleEn: 'Data Protection', icon: 'fas fa-user-shield', color: '#10b981', link: 'doctor.html', bodyAr: 'بيانات المرضى والموظفين تعتبر معلومات مصنفة (عالية الحساسية). يُحظر تماماً تبادلها عبر برامج الدردشة الشخصية كالواتساب، ويجب الالتزام بالأنظمة الداخلية المعتمدة.', bodyEn: 'Patient data is highly sensitive. It must never be shared via personal chat apps like WhatsApp.' },
-            usb: { titleAr: 'وسائط التخزين (USB)', titleEn: 'USB Security', icon: 'lab la-usb', color: '#f59e0b', link: 'it-staff.html', bodyAr: 'الفلاش ميموري المجهول قد يكون محملاً ببرمجيات خبيثة وتحديداً (Ransomware). بمجرد إدخاله في جهاز المستشفى قد يتم تشفير الشبكة بالكامل.', bodyEn: 'Unknown USBs may carry malware (Ransomware). Plugging it in can encrypt the entire network.' },
-            medical: { titleAr: 'الأجهزة الطبية', titleEn: 'Medical Devices', icon: 'las la-heartbeat', color: '#3b82f6', link: 'nurse.html', bodyAr: 'الأجهزة الطبية المتصلة بالإنترنت (IoMT) أصبحت هدفاً للمخترقين. أي تلاعب بهذه الأجهزة قد يؤثر مباشرة على التشخيص وحياة المريض.', bodyEn: 'IoMT devices are hacker targets. Tampering with them directly affects patient diagnosis and life.' },
-            remote: { titleAr: 'العمل عن بعد', titleEn: 'Remote Work', icon: 'fas fa-laptop-house', color: '#6366f1', link: 'management.html', bodyAr: 'عند استعراض السجلات من خارج المستشفى، استخدم دوماً شبكة VPN المعتمدة. لا تتصل أبداً بشبكات الواي فاي العامة في المقاهي لإنجاز عملك.', bodyEn: 'When working outside, always use the approved VPN. Never use public Wi-Fi for work.' }
+            mfa: { titleAr: 'MFA وكلمات المرور', titleEn: 'MFA & Passwords', icon: 'las la-fingerprint', color: '#6366f1', link: 'admin.html', bodyAr: 'تفعيل التحقق الثنائي (MFA) يضيف طبقة حماية ثانية تمنع المخترق من دخول حسابك حتى لو تمكن من سرقة كلمة المرور الخاصة بك.', bodyEn: 'MFA adds a second layer of security that prevents hackers from accessing your account even if they steal your password.' },
+            phishing: { titleAr: 'التصيد الإلكتروني', titleEn: 'Phishing', icon: 'las la-envelope-open-text', color: '#ef4444', link: 'doctor.html', bodyAr: 'أكثر من 80% من الاختراقات تبدأ برسالة تصيد. تأكد دائماً من هوية المرسل ولا تضغط على الروابط المشبوهة.', bodyEn: 'Over 80% of breaches start with phishing. Always verify the sender\'s identity.' },
+            data: { titleAr: 'حماية البيانات', titleEn: 'Data Protection', icon: 'fas fa-user-shield', color: '#10b981', link: 'doctor.html', bodyAr: 'بيانات المرضى والموظفين أمانة طبية وقانونية؛ استخدم الأنظمة الرسمية المعتمدة فقط لمشاركتها وتجنب التطبيقات الشخصية.', bodyEn: 'Patient data is a medical and legal trust; use only official systems to share it.' },
+            usb: { titleAr: 'وسائط التخزين (USB)', titleEn: 'USB Security', icon: 'lab la-usb', color: '#f59e0b', link: 'it-staff.html', bodyAr: 'الفلاش ميموري المجهول قد يحمل برمجيات خبيثة تشفر ملفات المستشفى بالكامل (Ransomware). لا توصله بجهاز العمل أبداً.', bodyEn: 'Unknown USBs may carry ransomware that encrypts hospital files. Never connect them to work devices.' },
+            medical: { titleAr: 'الأجهزة الطبية', titleEn: 'Medical Devices', icon: 'las la-heartbeat', color: '#3b82f6', link: 'nurse.html', bodyAr: 'تأمين أجهزة قياس العلامات الحيوية والأشعة يحمي سلامة المرضى من التلاعب الرقمي الذي قد يهدد حياتهم.', bodyEn: 'Securing medical devices protects patient safety from digital tampering.' },
+            remote: { titleAr: 'العمل عن بعد', titleEn: 'Remote Work', icon: 'fas fa-laptop-house', color: '#6366f1', link: 'management.html', bodyAr: 'عند العمل خارج المستشفى، استخدم دائماً شبكة VPN المشفرة ولا تتصل أبداً بشبكات المقاهي العامة المفتوحة.', bodyEn: 'When working outside, always use encrypted VPN and never use public Wi-Fi.' }
         };
 
         function openModal(id) {
@@ -264,14 +274,12 @@
             document.getElementById('modalBody').innerText = currentLang === 'ar' ? data.bodyAr : data.bodyEn;
             document.getElementById('modalIcon').innerHTML = `<i class="${data.icon}" style="color: ${data.color}"></i>`;
             document.getElementById('modalLink').href = data.link;
-            document.getElementById('modalLink').innerText = currentLang === 'ar' ? 'اذهب للإرشادات التخصصية' : 'Go to Guidelines';
             document.getElementById('infoModal').classList.add('show');
         }
 
         function closeModal() { document.getElementById('infoModal').classList.remove('show'); }
         window.onclick = (e) => { if(e.target.classList.contains('modal')) closeModal(); }
 
-        // الوظائف الأساسية
         function toggleTheme() {
             const body = document.documentElement;
             const newTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
@@ -284,9 +292,12 @@
             const elements = document.querySelectorAll('[data-ar][data-en]');
             elements.forEach(el => {
                 const text = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
-                if (el.tagName === 'INPUT') el.placeholder = text;
-                else if (el.innerHTML.includes('<i')) { const icon = el.querySelector('i'); el.innerHTML = icon ? icon.outerHTML + ' ' + text : text; }
-                else el.innerText = text;
+                if (el.innerHTML.includes('<i')) {
+                    const icon = el.querySelector('i');
+                    el.innerHTML = icon ? icon.outerHTML + ' ' + text : text;
+                } else {
+                    el.innerText = text;
+                }
             });
             document.documentElement.lang = currentLang; document.documentElement.dir = currentLang === 'en' ? 'ltr' : 'rtl';
         }
@@ -294,7 +305,8 @@
         function toggleLanguage() { currentLang = currentLang === 'ar' ? 'en' : 'ar'; localStorage.setItem('preferredLanguage', currentLang); applyLanguage(); }
 
         window.onload = () => {
-            if (localStorage.getItem('theme') === 'dark') toggleTheme();
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) { document.documentElement.setAttribute('data-theme', savedTheme); document.getElementById('themeIcon').innerText = savedTheme === 'dark' ? '☀️' : '🌙'; }
             applyLanguage();
         };
     </script>
