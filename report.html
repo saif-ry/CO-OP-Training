@@ -3,98 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Report | Cybersecurity - University Hospital</title>
+    <title>الإبلاغ عن حادث | الأمن السيبراني - المدينة الطبية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <style>
-        /* التنسيقات الخاصة بصفحة الإبلاغ فقط */
+        :root { --bg-color: #f8fafc; --card-bg: #ffffff; --header-bg: #005a32; --nca-green: #007a4d; --text-dark: #1e293b; --text-muted: #64748b; --border-color: #e2e8f0; --card-radius: 16px; --danger: #ef4444; --success: #10b981; }
+        [data-theme="dark"] { --bg-color: #0f172a; --card-bg: #1e293b; --text-dark: #f8fafc; --text-muted: #94a3b8; --border-color: #334155; }
+        body { margin: 0; font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-dark); transition: 0.3s; }
+        .main-header { background-color: var(--header-bg); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .header-right, .header-left { display: flex; align-items: center; gap: 15px; }
+        .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: var(--nca-green); }
+        .header-titles h1 { margin: 0; font-size: 1.3rem; font-weight: 700; }
+        .header-titles p { margin: 0; font-size: 0.9rem; color: #a7f3d0; }
+        .btn-theme, .btn-lang { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-family: inherit; font-weight: 600; cursor: pointer; }
+        .btn-login-nafath { background: #10b981; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-weight: 700; }
+        .nav-menu { background: var(--card-bg); border-bottom: 1px solid var(--border-color); padding: 0 2rem; display: flex; gap: 1rem; overflow-x: auto; }
+        .nav-link { padding: 1rem 0.5rem; color: var(--text-muted); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; border-bottom: 3px solid transparent; }
+        .nav-link.active, .nav-link:hover { color: var(--nca-green); border-bottom-color: var(--nca-green); }
         .container { max-width: 1000px; margin: 2rem auto; padding: 0 2rem; display: grid; grid-template-columns: 1fr 350px; gap: 2rem; }
         @media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
         .section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--danger); grid-column: 1 / -1; }
-
-        .form-card { background: white; border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); border-top: 4px solid var(--danger); transition: 0.3s; }
+        .form-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2rem; border-top: 5px solid var(--danger); }
         .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; font-weight: 700; margin-bottom: 0.8rem; font-size: 0.95rem; }
-        .form-select, .form-textarea, .form-input { width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 1rem; outline: none; background: #f8fafc; box-sizing: border-box; transition: 0.3s; color: var(--text-dark); }
-        .form-select:focus, .form-textarea:focus, .form-input:focus { border-color: var(--danger); background: white; }
-
-        .btn-submit { background: var(--danger); color: white; border: none; padding: 1rem; width: 100%; border-radius: 8px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: 0.3s; font-family: inherit; }
+        .form-group label { display: block; font-weight: 700; margin-bottom: 0.5rem; }
+        .form-select, .form-textarea { width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; background: var(--bg-color); color: var(--text-dark); }
+        .btn-submit { background: var(--danger); color: white; border: none; padding: 1rem; width: 100%; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 1rem; transition: 0.3s; }
         .btn-submit:hover { background: #b91c1c; }
-
-        .side-info { background: #fef2f2; border: 1px solid #fca5a5; border-radius: var(--card-radius); padding: 2rem; color: #991b1b; transition: 0.3s; }
-        .side-info h3 { margin-top: 0; }
-        .side-info ul { padding-right: 1.2rem; line-height: 1.8; font-size: 0.95rem; }
-        html[dir="ltr"] .side-info ul { padding-right: 0; padding-left: 1.2rem; }
-
-        .result-box { display: none; margin-top: 1.5rem; padding: 1.5rem; border-radius: 12px; font-weight: bold; text-align: center; font-size: 1.1rem; background: #ecfdf5; color: #059669; border: 2px solid #34d399; }
-
-        /* دعم الوضع المظلم لصفحة الإبلاغ */
-        body.dark-mode .section-title { color: #fca5a5; }
-        body.dark-mode .form-card { background: #1e293b; border-color: var(--border-color); border-top-color: #ef4444; }
-        body.dark-mode .form-select, body.dark-mode .form-textarea { background: #0f172a; border-color: var(--border-color); color: #f8fafc; }
-        body.dark-mode .form-select:focus, body.dark-mode .form-textarea:focus { border-color: #ef4444; background: #1e293b; }
-        body.dark-mode .side-info { background: rgba(239, 68, 68, 0.1); border-color: #ef4444; color: #fca5a5; }
-        body.dark-mode .result-box { background: rgba(16, 185, 129, 0.1); color: #6ee7b7; border-color: #10b981; }
+        .side-info { background: #fef2f2; border: 1px solid #fca5a5; border-radius: var(--card-radius); padding: 1.5rem; color: #991b1b; }
+        [data-theme="dark"] .side-info { background: rgba(239,68,68,0.1); border-color: #ef4444; color: #fca5a5; }
+        .result-box { display: none; margin-top: 1rem; padding: 1rem; border-radius: 12px; background: #ecfdf5; color: #059669; border: 1px solid #34d399; text-align: center; font-weight: bold; }
+        .gov-footer { background-color: #004224; color: #f1f5f9; border-top: 5px solid var(--nca-green); margin-top: 4rem; padding: 2rem 0 1rem; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-col h3 { color: #a7f3d0; font-size: 1.2rem; margin-bottom: 1rem; position: relative; padding-bottom: 0.5rem; }
+        .footer-col h3::after { content: ''; position: absolute; inset-inline-start: 0; bottom: 0; width: 40px; height: 3px; background-color: #34d399; }
+        .footer-logos { display: flex; gap: 15px; margin-bottom: 1rem; flex-wrap: wrap; }
+        .hospital-logo, .vision-logo { font-weight: 700; background: rgba(255,255,255,0.08); padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); }
+        .footer-col.links ul { list-style: none; padding: 0; }
+        .footer-col.links li { margin-bottom: 0.8rem; }
+        .footer-col.links a { color: #cbd5e1; text-decoration: none; transition: 0.3s; }
+        .footer-col.links a:hover { color: white; transform: translateX(-5px); display: inline-block; }
+        .footer-bottom { background-color: #002917; text-align: center; padding: 1rem; margin-top: 2rem; font-size: 0.9rem; color: #94a3b8; }
+        @media (max-width: 768px) {
+            .main-header { flex-direction: column; text-align: center; }
+            .nav-menu { padding: 0 1rem; }
+            .container { padding: 0 1rem; }
+            .footer-container { text-align: center; }
+            .footer-col h3::after { left: 50%; transform: translateX(-50%); }
+        }
     </style>
 </head>
 <body>
     <header class="main-header">
         <div class="header-right">
-            <div class="logo-placeholder">🏥</div>
+            <div class="logo-placeholder"><i class="las la-hospital"></i></div>
             <div class="header-titles">
                 <h1 data-ar="المدينة الطبية | منصة التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">المدينة الطبية | منصة التوعية بالأمن السيبراني</h1>
                 <p data-ar="سرعة الإبلاغ تقلل الأضرار" data-en="Fast reporting minimizes damage">سرعة الإبلاغ تقلل الأضرار</p>
             </div>
         </div>
-
         <div class="header-left">
-            <button class="btn-dark-mode" onclick="toggleDarkMode()" title="تغيير المظهر">🌙</button>
-            <button class="btn-lang" onclick="toggleLanguage()">🌐 العربية / English</button>
-            <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login" style="background: #10b981; border: none; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-weight: 700; text-decoration: none;">تسجيل الدخول</a>
+            <button class="btn-theme" id="themeToggle">🌙</button>
+            <button class="btn-lang" id="langToggle" data-ar="🌐 EN/AR" data-en="🌐 AR/EN">🌐 EN/AR</button>
+            <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</a>
         </div>
     </header>
 
     <nav class="nav-menu">
-        <a href="index.html" class="nav-link"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> 🏠</a>
-        <a href="employees.html" class="nav-link"><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> 👨‍⚕️</a>
-        <a href="oip.html" class="nav-link"><span data-ar="المكتبة التوعوية" data-en="Library">المكتبة التوعوية</span> 📚</a>
-        <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> 🧰</a>
-        <a href="report.html" class="nav-link active" style="color:var(--danger); border-bottom-color:var(--danger);"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> 🚨</a>
-        <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> 📊</a>
-        <a href="quiz.html" class="nav-link"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> 🧠</a>
-        <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> 📈</a>
+        <a href="index.html" class="nav-link"><i class="las la-home"></i> <span data-ar="الرئيسية" data-en="Home">الرئيسية</span></a>
+        <a href="employees.html" class="nav-link"><i class="las la-user-nurse"></i> <span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span></a>
+        <a href="oip.html" class="nav-link"><i class="las la-book"></i> <span data-ar="المكتبة التوعوية" data-en="Library">المكتبة التوعوية</span></a>
+        <a href="tools.html" class="nav-link"><i class="las la-tools"></i> <span data-ar="الأدوات التفاعلية" data-en="Tools">الأدوات التفاعلية</span></a>
+        <a href="report.html" class="nav-link active"><i class="las la-exclamation-circle"></i> <span data-ar="الإبلاغ عن حادث" data-en="Report">الإبلاغ عن حادث</span></a>
+        <a href="dashboard.html" class="nav-link"><i class="las la-chart-pie"></i> <span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span></a>
     </nav>
 
     <div class="container">
-        <div class="section-title">🚨 <span data-ar="الإبلاغ الفوري عن الحوادث" data-en="Immediate Incident Reporting">الإبلاغ الفوري عن الحوادث</span></div>
+        <div class="section-title"><i class="las la-exclamation-triangle"></i> <span data-ar="الإبلاغ الفوري عن الحوادث" data-en="Immediate Incident Reporting">الإبلاغ الفوري عن الحوادث</span></div>
 
         <div class="form-card">
             <div class="form-group">
                 <label data-ar="نوع الحادث:" data-en="Incident Type:">نوع الحادث:</label>
-                <select class="form-select">
-                    <option data-ar="رسالة تصيد (بريد إلكتروني/SMS)" data-en="Phishing (Email/SMS)">رسالة تصيد (بريد إلكتروني/SMS)</option>
-                    <option data-ar="سلوك غريب في الأجهزة الطبية/المكتبية" data-en="Strange behavior in devices">سلوك غريب في الأجهزة الطبية/المكتبية</option>
-                    <option data-ar="فقدان بطاقة أو جهاز تابع للمستشفى" data-en="Loss of hospital card/device">فقدان بطاقة أو جهاز تابع للمستشفى</option>
-                    <option data-ar="اشتباه في اختراق حساب" data-en="Suspected account breach">اشتباه في اختراق حساب</option>
+                <select class="form-select" id="incidentType">
+                    <option value="phishing" data-ar="رسالة تصيد (بريد إلكتروني/SMS)" data-en="Phishing (Email/SMS)">رسالة تصيد (بريد إلكتروني/SMS)</option>
+                    <option value="device" data-ar="سلوك غريب في الأجهزة الطبية/المكتبية" data-en="Strange device behavior">سلوك غريب في الأجهزة الطبية/المكتبية</option>
+                    <option value="lost" data-ar="فقدان بطاقة أو جهاز تابع للمستشفى" data-en="Lost hospital card/device">فقدان بطاقة أو جهاز تابع للمستشفى</option>
+                    <option value="breach" data-ar="اشتباه في اختراق حساب" data-en="Suspected account breach">اشتباه في اختراق حساب</option>
                 </select>
             </div>
-
             <div class="form-group">
                 <label data-ar="مستوى الخطورة (تقديري):" data-en="Estimated Severity:">مستوى الخطورة (تقديري):</label>
-                <select class="form-select">
-                    <option data-ar="عالي (يؤثر على المرضى أو النظام كامل)" data-en="High (Affects patients/system)">عالي (يؤثر على المرضى أو النظام كامل)</option>
-                    <option data-ar="متوسط" data-en="Medium">متوسط</option>
-                    <option data-ar="منخفض (مجرد استفسار أو شك)" data-en="Low (Just a doubt)">منخفض (مجرد استفسار أو شك)</option>
+                <select class="form-select" id="severity">
+                    <option value="high" data-ar="عالي (يؤثر على المرضى أو النظام كامل)" data-en="High (Affects patients/system)">عالي (يؤثر على المرضى أو النظام كامل)</option>
+                    <option value="medium" data-ar="متوسط" data-en="Medium">متوسط</option>
+                    <option value="low" data-ar="منخفض (مجرد استفسار أو شك)" data-en="Low (Just a doubt)">منخفض (مجرد استفسار أو شك)</option>
                 </select>
             </div>
-
             <div class="form-group">
                 <label data-ar="وصف مختصر للحادث:" data-en="Brief description:">وصف مختصر للحادث:</label>
-                <textarea class="form-textarea" rows="4" placeholder="الرجاء عدم كتابة أي كلمات مرور هنا..." data-ar-placeholder="الرجاء عدم كتابة أي كلمات مرور هنا..." data-en-placeholder="Please do not write any passwords here..."></textarea>
+                <textarea class="form-textarea" id="description" rows="4" placeholder="الرجاء عدم كتابة أي كلمات مرور هنا..." data-ar-placeholder="الرجاء عدم كتابة أي كلمات مرور هنا..." data-en-placeholder="Please do not write any passwords here..."></textarea>
             </div>
-
             <button class="btn-submit" onclick="submitReport()"><span data-ar="إرسال البلاغ لمركز العمليات (SOC)" data-en="Submit Report to SOC">إرسال البلاغ لمركز العمليات (SOC)</span></button>
             <div id="resultBox" class="result-box"></div>
         </div>
@@ -105,7 +113,7 @@
                 <li><strong data-ar="تحويلة الطوارئ السيبرانية:" data-en="Cyber Emergency Ext:">تحويلة الطوارئ السيبرانية:</strong> 9999</li>
                 <li><strong data-ar="البريد الإلكتروني:" data-en="Email:">البريد الإلكتروني:</strong> soc@hospital.edu.sa</li>
             </ul>
-            <hr style="border-color: inherit; opacity: 0.3; margin: 1.5rem 0;">
+            <hr style="border-color: inherit; opacity: 0.3; margin: 1rem 0;">
             <h4 data-ar="⚠️ تعليمات هامة فورية:" data-en="⚠️ Immediate Instructions:">⚠️ تعليمات هامة فورية:</h4>
             <ul>
                 <li data-ar="لا تقم بإغلاق الجهاز المشبوه، بل افصله عن الشبكة (انزع الكيبل/أغلق الـ Wi-Fi)." data-en="Do not shut down the device, just disconnect it from network.">لا تقم بإغلاق الجهاز المشبوه، بل افصله عن الشبكة (انزع الكيبل/أغلق الـ Wi-Fi).</li>
@@ -114,44 +122,45 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <footer class="gov-footer">
+        <div class="footer-container">
+            <div class="footer-col"><div class="footer-logos"><div class="hospital-logo">🏥 <span data-ar="المدينة الطبية" data-en="Medical City">المدينة الطبية</span></div><div class="vision-logo">🇸🇦 <span data-ar="رؤية 2030" data-en="Vision 2030">رؤية 2030</span></div></div><p data-ar="منصة التوعية بالأمن السيبراني، نهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى وتضمن استمرارية الأعمال." data-en="Cybersecurity Awareness Portal, aiming to build a secure digital environment that protects patient data and ensures business continuity.">منصة التوعية بالأمن السيبراني، نهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى وتضمن استمرارية الأعمال.</p></div>
+            <div class="footer-col links"><h3 data-ar="روابط وطنية هامة" data-en="Important National Links">روابط وطنية هامة</h3><ul><li><a href="https://nca.gov.sa" target="_blank" data-ar="الهيئة الوطنية للأمن السيبراني" data-en="NCA">الهيئة الوطنية للأمن السيبراني</a></li><li><a href="https://sdaia.gov.sa" target="_blank" data-ar="الهيئة السعودية للبيانات (سدايا)" data-en="SDAIA">الهيئة السعودية للبيانات (سدايا)</a></li><li><a href="https://moh.gov.sa" target="_blank" data-ar="وزارة الصحة" data-en="MOH">وزارة الصحة</a></li></ul></div>
+            <div class="footer-col links"><h3 data-ar="السياسات والدعم" data-en="Policies & Support">السياسات والدعم</h3><ul><li><a href="#" data-ar="سياسة الخصوصية (PDPL)" data-en="Privacy Policy (PDPL)">سياسة الخصوصية (PDPL)</a></li><li><a href="faq.html" data-ar="الأسئلة الشائعة (FAQ)" data-en="FAQ">الأسئلة الشائعة (FAQ)</a></li><li><a href="report.html" data-ar="رفع تذكرة أمنية (SOC)" data-en="SOC Ticket">رفع تذكرة أمنية (SOC)</a></li></ul></div>
+            <div class="footer-col contact"><h3 data-ar="تواصل مع فريق الأمن" data-en="Contact Security">تواصل مع فريق الأمن</h3><p>📧 SOC@hospital.edu.sa</p><p>📞 <span data-ar="تحويلة طوارئ:" data-en="Emergency Ext:">تحويلة طوارئ:</span> 9111</p></div>
+        </div>
+        <div class="footer-bottom"><p data-ar="جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً" data-en="All Rights Reserved © 2026 University Hospital | Developed Internally">جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً</p></div>
+    </footer>
 
     <script>
         let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
 
         function submitReport() {
-            const box = document.getElementById('resultBox');
-            box.style.display = 'block';
-            box.innerText = currentLang === 'ar' ? '✅ تم إنشاء تذكرة بلاغ أمني عاجلة. سنتواصل معك خلال دقائق. (هذه محاكاة)' : '✅ Emergency security ticket created. We will contact you in minutes. (Simulation)';
+            const result = document.getElementById('resultBox');
+            result.style.display = 'block';
+            result.innerHTML = currentLang === 'ar' ? '✅ تم إنشاء تذكرة بلاغ أمني عاجلة. سنتواصل معك خلال دقائق. (هذه محاكاة)' : '✅ Emergency security ticket created. We will contact you in minutes. (Simulation)';
+            // In a real system, you would send data to server here
         }
 
+        function initTheme() { const saved = localStorage.getItem('theme'); if(saved==='dark'){ document.documentElement.setAttribute('data-theme','dark'); document.getElementById('themeToggle').innerHTML='☀️'; } else { document.documentElement.setAttribute('data-theme','light'); document.getElementById('themeToggle').innerHTML='🌙'; } }
+        function toggleTheme() { const cur = document.documentElement.getAttribute('data-theme'); const neu = cur==='dark'?'light':'dark'; document.documentElement.setAttribute('data-theme',neu); localStorage.setItem('theme',neu); document.getElementById('themeToggle').innerHTML = neu==='dark'?'☀️':'🌙'; }
         function applyLanguage() {
-            const elements = document.querySelectorAll('[data-ar][data-en]');
-            if (currentLang === 'en') {
-                elements.forEach(el => {
-                    if (el.tagName === 'OPTION') el.innerText = el.getAttribute('data-en');
-                    else if (el.hasAttribute('data-en-placeholder')) el.placeholder = el.getAttribute('data-en-placeholder');
-                    else el.innerText = el.getAttribute('data-en');
-                });
-                document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr';
-            } else {
-                elements.forEach(el => {
-                    if (el.tagName === 'OPTION') el.innerText = el.getAttribute('data-ar');
-                    else if (el.hasAttribute('data-ar-placeholder')) el.placeholder = el.getAttribute('data-ar-placeholder');
-                    else el.innerText = el.getAttribute('data-ar');
-                });
-                document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl';
-            }
-            if(document.getElementById('resultBox').style.display === 'block') submitReport();
+            document.querySelectorAll('[data-ar][data-en]').forEach(el => {
+                const txt = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
+                if (el.tagName === 'OPTION') el.innerText = txt;
+                else if (el.hasAttribute('data-ar-placeholder')) el.placeholder = currentLang === 'en' ? el.getAttribute('data-en-placeholder') : el.getAttribute('data-ar-placeholder');
+                else if (el.classList.contains('btn-submit') || el.classList.contains('side-info')) { /* handled separately */ }
+                else if (el.innerHTML.includes('<i')) {
+                    const icon = el.querySelector('i');
+                    if (icon) el.innerHTML = icon.outerHTML + ' ' + txt;
+                    else el.innerText = txt;
+                } else el.innerText = txt;
+            });
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'en' ? 'ltr' : 'rtl';
         }
-
-        function toggleLanguage() {
-            currentLang = currentLang === 'ar' ? 'en' : 'ar';
-            localStorage.setItem('preferredLanguage', currentLang);
-            applyLanguage();
-        }
-
-        window.addEventListener('DOMContentLoaded', applyLanguage);
+        function toggleLanguage() { currentLang = currentLang === 'ar' ? 'en' : 'ar'; localStorage.setItem('preferredLanguage',currentLang); applyLanguage(); }
+        document.addEventListener('DOMContentLoaded',()=>{ initTheme(); document.getElementById('themeToggle').addEventListener('click',toggleTheme); document.getElementById('langToggle').addEventListener('click',toggleLanguage); applyLanguage(); });
     </script>
 </body>
 </html>
