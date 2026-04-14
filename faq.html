@@ -5,18 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQ | Cybersecurity - University Hospital</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 
     <style>
+        /* ========== المتغيرات والتصميم الأساسي ========== */
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --header-bg: #005a32;
+            --nca-green: #007a4d;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --card-radius: 12px;
+            --danger: #ef4444;
+            --success: #10b981;
+        }
+        [data-theme="dark"] {
+            --bg-color: #111827;
+            --card-bg: #1f2937;
+            --text-dark: #f8fafc;
+            --text-muted: #9ca3af;
+            --border-color: #374151;
+        }
+        body {
+            margin: 0;
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            transition: 0.3s;
+        }
+
+        /* الهيدر */
+        .main-header {
+            background-color: var(--header-bg);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-bottom: 4px solid #004224;
+        }
+        .header-right, .header-left { display: flex; align-items: center; gap: 15px; }
+        .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: var(--nca-green); }
+        .header-titles h1 { margin: 0; font-size: 1.3rem; font-weight: 700; }
+        .header-titles p { margin: 0; font-size: 0.9rem; color: #a7f3d0; }
+        .btn-theme, .btn-lang {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-theme:hover, .btn-lang:hover { background: rgba(255,255,255,0.2); }
+        .btn-login-nafath {
+            background: #10b981;
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        /* شريط التنقل */
+        .nav-menu {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 2rem;
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+        }
+        .nav-link {
+            padding: 1rem 0.5rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+        .nav-link.active, .nav-link:hover { color: var(--nca-green); border-bottom-color: var(--nca-green); }
+
         /* التنسيقات الخاصة بصفحة الأسئلة الشائعة */
-        .container { max-width: 900px; margin: 2rem auto; padding: 0 2rem; }
+        .container { max-width: 900px; margin: 2rem auto; padding: 0 2rem; min-height: 50vh; }
         .section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem; color: var(--nca-green); }
 
-        .faq-intro { background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 1.5rem; margin-bottom: 2rem; color: var(--text-muted); line-height: 1.6; }
+        .faq-intro { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 1.5rem; margin-bottom: 2rem; color: var(--text-muted); line-height: 1.6; }
 
         /* تنسيق الأكورديون (الأسئلة القابلة للطي) */
-        details { background: white; border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 1rem; padding: 0.5rem 1.5rem; transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        details { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 1rem; padding: 0.5rem 1.5rem; transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
         details:hover { border-color: var(--nca-green); }
 
         summary { font-weight: 700; font-size: 1.1rem; color: var(--text-dark); padding: 1rem 0; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; outline: none; }
@@ -29,50 +116,65 @@
 
         .faq-answer { padding-bottom: 1.5rem; color: var(--text-muted); line-height: 1.8; font-size: 0.95rem; }
 
-        /* دعم الوضع المظلم لصفحة الأسئلة */
-        body.dark-mode .faq-intro { background: #1e293b; border-color: var(--border-color); color: #cbd5e1; }
-        body.dark-mode details { background: #0f172a; border-color: var(--border-color); }
-        body.dark-mode details:hover { border-color: var(--nca-green); }
-        body.dark-mode details[open] { background: #1e293b; border-color: var(--nca-green); }
-        body.dark-mode summary { color: #f8fafc; }
-        body.dark-mode details[open] summary { border-bottom-color: var(--border-color); }
-        body.dark-mode .faq-answer { color: #cbd5e1; }
+        /* الفوتر الحكومي */
+        .gov-footer { background-color: #004224; color: #f1f5f9; border-top: 5px solid var(--nca-green); margin-top: 4rem; padding: 2rem 0 1rem; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-col h3 { color: #a7f3d0; font-size: 1.2rem; margin-bottom: 1rem; position: relative; padding-bottom: 0.5rem; }
+        .footer-col h3::after { content: ''; position: absolute; inset-inline-start: 0; bottom: 0; width: 40px; height: 3px; background-color: #34d399; }
+        html[dir="ltr"] .footer-col h3::after { right: auto; left: 0; }
+        .footer-logos { display: flex; gap: 15px; margin-bottom: 1rem; flex-wrap: wrap; }
+        .hospital-logo, .vision-logo { font-weight: 700; background: rgba(255,255,255,0.08); padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); }
+        .footer-col.links ul { list-style: none; padding: 0; }
+        .footer-col.links li { margin-bottom: 0.8rem; }
+        .footer-col.links a { color: #cbd5e1; text-decoration: none; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; }
+        .footer-col.links a:hover { color: white; transform: translateX(-5px); }
+        html[dir="ltr"] .footer-col.links a:hover { transform: translateX(5px); }
+        .footer-bottom { background-color: #002917; text-align: center; padding: 1rem; margin-top: 2rem; font-size: 0.9rem; color: #94a3b8; }
+
+        @media (max-width: 768px) {
+            .main-header { flex-direction: column; text-align: center; }
+            .nav-menu { padding: 0 1rem; }
+            .container { padding: 0 1rem; }
+            .footer-container { text-align: center; }
+            .footer-col h3::after { left: 50%; transform: translateX(-50%); }
+            html[dir="ltr"] .footer-col h3::after { left: 50%; transform: translateX(-50%); }
+        }
     </style>
 </head>
 <body>
 
     <header class="main-header">
         <div class="header-right">
-            <div class="logo-placeholder">🏥</div>
+            <div class="logo-placeholder"><i class="las la-hospital"></i></div>
             <div class="header-titles">
-                <h1 data-ar="المدينة الطبية | منصة التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">المدينة الطبية | منصة التوعية بالأمن السيبراني</h1>
+                 <h1 data-ar="المدينة الطبية " data-en="Medical City | Cybersecurity Portal">المدينة الطبية </h1>
+                <h1 data-ar=" التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal"> منصة التوعية بالأمن السيبراني</h1>
                 <p data-ar="دليلك السريع للإجابات الأمنية" data-en="Your quick guide for security answers">دليلك السريع للإجابات الأمنية</p>
             </div>
         </div>
 
         <div class="header-left">
-            <button class="btn-dark-mode" onclick="toggleDarkMode()" title="تغيير المظهر">🌙</button>
-            <button class="btn-lang" onclick="toggleLanguage()">🌐 العربية / English</button>
-            <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login" style="background: #10b981; border: none; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-weight: 700; text-decoration: none;">تسجيل الدخول</a>
+            <button class="btn-theme" id="themeToggle">🌙</button>
+            <button class="btn-lang" id="langToggle" data-ar="🌐 EN/AR" data-en="🌐 AR/EN">🌐 EN/AR</button>
+            <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</a>
         </div>
     </header>
 
     <nav class="nav-menu">
-        <a href="index.html" class="nav-link"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> 🏠</a>
-        <a href="employees.html" class="nav-link"><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> 👨‍⚕️</a>
-        <a href="oip.html" class="nav-link"><span data-ar="المكتبة التوعوية" data-en="Library">المكتبة التوعوية</span> 📚</a>
-        <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> 🧰</a>
-        <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> 🚨</a>
-        <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> 📊</a>
-        <a href="quiz.html" class="nav-link"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> 🧠</a>
-        <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> 📈</a>
+        <a href="index.html" class="nav-link"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> <i class="las la-home"></i></a>
+        <a href="employees.html" class="nav-link active"><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> <i class="las la-user-nurse"></i></a>
+        <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> <i class="las la-tools"></i></a>
+        <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> <i class="las la-exclamation-circle"></i></a>
+        <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> <i class="las la-poll"></i></a>
+        <a href="quiz.html" class="nav-link"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> <i class="las la-brain"></i></a>
+        <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> <i class="las la-chart-pie"></i></a>
     </nav>
 
     <div class="container">
-        <div class="section-title">❓ <span data-ar="الأسئلة الشائعة (FAQ)" data-en="Frequently Asked Questions (FAQ)">الأسئلة الشائعة (FAQ)</span></div>
+        <div class="section-title"><i class="las la-question-circle"></i> <span data-ar="الأسئلة الشائعة (FAQ)" data-en="Frequently Asked Questions (FAQ)">الأسئلة الشائعة (FAQ)</span></div>
 
-        <div class="faq-intro">
-            <span data-ar="لقد قمنا بتجميع الإجابات على أكثر الأسئلة شيوعاً بين موظفي المستشفى لضمان بيئة عمل آمنة. إذا لم تجد إجابة لسؤالك، فلا تتردد في التواصل مع الدعم الفني." data-en="We have compiled answers to the most common questions among hospital staff to ensure a safe work environment. If you don't find your answer, contact IT Support.">لقد قمنا بتجميع الإجابات على أكثر الأسئلة شيوعاً بين موظفي المستشفى لضمان بيئة عمل آمنة. إذا لم تجد إجابة لسؤالك، فلا تتردد في التواصل مع الدعم الفني.</span>
+        <div class="faq-intro" data-ar="لقد قمنا بتجميع الإجابات على أكثر الأسئلة شيوعاً بين موظفي المستشفى لضمان بيئة عمل آمنة. إذا لم تجد إجابة لسؤالك، فلا تتردد في التواصل مع الدعم الفني." data-en="We have compiled answers to the most common questions among hospital staff to ensure a safe work environment. If you don't find your answer, contact IT Support.">
+            لقد قمنا بتجميع الإجابات على أكثر الأسئلة شيوعاً بين موظفي المستشفى لضمان بيئة عمل آمنة. إذا لم تجد إجابة لسؤالك، فلا تتردد في التواصل مع الدعم الفني.
         </div>
 
         <details>
@@ -101,19 +203,88 @@
         </details>
     </div>
 
+    <footer class="gov-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="footer-logos">
+                    <div class="hospital-logo">🏥 <span data-ar="المدينة الطبية" data-en="Medical City">المدينة الطبية</span></div>
+                    <div class="vision-logo">🇸🇦 <span data-ar="رؤية 2030" data-en="Vision 2030">رؤية 2030</span></div>
+                </div>
+                <p data-ar="منصة التوعية بالأمن السيبراني، نهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى وتضمن استمرارية الأعمال." data-en="Cybersecurity Awareness Portal, aiming to build a secure digital environment that protects patient data and ensures business continuity.">منصة التوعية بالأمن السيبراني، نهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى وتضمن استمرارية الأعمال.</p>
+            </div>
+            <div class="footer-col links">
+                <h3 data-ar="روابط وطنية هامة" data-en="Important National Links">روابط وطنية هامة</h3>
+                <ul>
+                    <li><a href="https://nca.gov.sa" target="_blank" data-ar="الهيئة الوطنية للأمن السيبراني" data-en="National Cybersecurity Authority (NCA)">الهيئة الوطنية للأمن السيبراني</a></li>
+                    <li><a href="https://sdaia.gov.sa" target="_blank" data-ar="الهيئة السعودية للبيانات (سدايا)" data-en="Saudi Data Authority (SDAIA)">الهيئة السعودية للبيانات (سدايا)</a></li>
+                    <li><a href="https://moh.gov.sa" target="_blank" data-ar="وزارة الصحة" data-en="Ministry of Health (MOH)">وزارة الصحة</a></li>
+                </ul>
+            </div>
+            <div class="footer-col links">
+                <h3 data-ar="السياسات والدعم" data-en="Policies & Support">السياسات والدعم</h3>
+                <ul>
+                    <li><a href="#" data-ar="سياسة الخصوصية (PDPL)" data-en="Privacy Policy (PDPL)">سياسة الخصوصية (PDPL)</a></li>
+                    <li><a href="faq.html" data-ar="الأسئلة الشائعة (FAQ)" data-en="Frequently Asked Questions (FAQ)">الأسئلة الشائعة (FAQ)</a></li>
+                    <li><a href="oip.html" data-ar="المكتبة التوعوية" data-en="Awareness Library">المكتبة التوعوية</a></li>
+                    <li><a href="report.html" data-ar="رفع تذكرة أمنية (SOC)" data-en="Raise Security Ticket (SOC)">رفع تذكرة أمنية (SOC)</a></li>
+                </ul>
+            </div>
+            <div class="footer-col contact">
+                <h3 data-ar="تواصل مع فريق الأمن" data-en="Contact Security Team">تواصل مع فريق الأمن</h3>
+                <p>📧 SOC@hospital.edu.sa</p>
+                <p>📞 <span data-ar="تحويلة طوارئ:" data-en="Emergency Ext:">تحويلة طوارئ:</span> 9111</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-ar="جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً" data-en="All Rights Reserved © 2026 University Hospital | Developed Internally">جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً</p>
+        </div>
+    </footer>
+
     <script src="script.js"></script>
 
     <script>
         let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
 
+        // ========== الوضع المظلم ==========
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.getElementById('themeToggle').innerHTML = '☀️';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                document.getElementById('themeToggle').innerHTML = '🌙';
+            }
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const newTheme = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            document.getElementById('themeToggle').innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // ========== الترجمة الشاملة ==========
         function applyLanguage() {
             const elements = document.querySelectorAll('[data-ar][data-en]');
+
+            elements.forEach(el => {
+                const text = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
+                const icon = el.querySelector('i');
+                if (icon) {
+                    el.innerHTML = icon.outerHTML + ' ' + text;
+                } else {
+                    el.innerText = text;
+                }
+            });
+
             if (currentLang === 'en') {
-                elements.forEach(el => el.innerText = el.getAttribute('data-en'));
-                document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr';
+                document.documentElement.lang = 'en';
+                document.documentElement.dir = 'ltr';
             } else {
-                elements.forEach(el => el.innerText = el.getAttribute('data-ar'));
-                document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl';
+                document.documentElement.lang = 'ar';
+                document.documentElement.dir = 'rtl';
             }
         }
 
@@ -123,7 +294,13 @@
             applyLanguage();
         }
 
-        window.addEventListener('DOMContentLoaded', applyLanguage);
+        // تهيئة الصفحة
+        window.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            applyLanguage();
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            document.getElementById('langToggle').addEventListener('click', toggleLanguage);
+        });
     </script>
 </body>
 </html>
