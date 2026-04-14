@@ -8,37 +8,130 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <style>
-        :root { --bg-color: #f8fafc; --card-bg: #ffffff; --header-bg: #005a32; --nca-green: #007a4d; --text-dark: #1e293b; --text-muted: #64748b; --border-color: #e2e8f0; --card-radius: 16px; --danger: #ef4444; --warning: #f59e0b; --success: #10b981; }
-        [data-theme="dark"] { --bg-color: #0f172a; --card-bg: #1e293b; --text-dark: #f8fafc; --text-muted: #94a3b8; --border-color: #334155; }
-        body { margin: 0; font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-dark); transition: 0.3s; }
-        .main-header { background-color: var(--header-bg); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        /* ========== المتغيرات والتصميم الأساسي ========== */
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --header-bg: #005a32;
+            --nca-green: #007a4d;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --card-radius: 12px;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --success: #10b981;
+        }
+        [data-theme="dark"] {
+            --bg-color: #111827;
+            --card-bg: #1f2937;
+            --text-dark: #f8fafc;
+            --text-muted: #9ca3af;
+            --border-color: #374151;
+        }
+        body {
+            margin: 0;
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            transition: 0.3s;
+        }
+
+        /* الهيدر */
+        .main-header {
+            background-color: var(--header-bg);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
         .header-right, .header-left { display: flex; align-items: center; gap: 15px; }
         .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: var(--nca-green); }
         .header-titles h1 { margin: 0; font-size: 1.3rem; font-weight: 700; }
         .header-titles p { margin: 0; font-size: 0.9rem; color: #a7f3d0; }
-        .btn-theme, .btn-lang { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-family: inherit; font-weight: 600; cursor: pointer; }
-        .btn-login-nafath { background: #10b981; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; text-decoration: none; font-weight: 700; }
-        .nav-menu { background: var(--card-bg); border-bottom: 1px solid var(--border-color); padding: 0 2rem; display: flex; gap: 1rem; overflow-x: auto; }
-        .nav-link { padding: 1rem 0.5rem; color: var(--text-muted); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; border-bottom: 3px solid transparent; }
+        .btn-theme, .btn-lang {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-login-nafath {
+            background: #10b981;
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        /* شريط التنقل */
+        .nav-menu {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 2rem;
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+        }
+        .nav-link {
+            padding: 1rem 0.5rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 3px solid transparent;
+        }
         .nav-link.active, .nav-link:hover { color: var(--nca-green); border-bottom-color: var(--nca-green); }
-        .container { max-width: 1000px; margin: 2rem auto; padding: 0 2rem; }
-        .section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-dark); }
-        .tool-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2rem; margin-bottom: 2rem; }
+
+        /* الحاوية وتنسيق الأدوات */
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
+        .section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-dark); }
+
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 2rem; }
+        @media (max-width: 768px) { .tools-grid { grid-template-columns: 1fr; } }
+
+        .tool-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
         .tool-header { display: flex; align-items: center; gap: 0.8rem; font-size: 1.2rem; font-weight: 700; color: var(--nca-green); margin-bottom: 1rem; }
         .tool-header i { font-size: 1.8rem; }
-        .tool-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.7; }
-        .tool-input { width: 100%; padding: 0.8rem; border: 2px solid var(--border-color); border-radius: 10px; font-family: inherit; font-size: 1rem; background: var(--bg-color); color: var(--text-dark); outline: none; margin-bottom: 1rem; }
+        .tool-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6; }
+
+        .tool-input { width: 100%; padding: 0.8rem 1rem; border: 2px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 1rem; margin-bottom: 1rem; outline: none; transition: 0.3s; box-sizing: border-box; background: var(--bg-color); color: var(--text-dark); }
         .tool-input:focus { border-color: var(--nca-green); }
-        .btn-action { background: var(--nca-green); color: white; border: none; padding: 0.8rem; border-radius: 10px; font-weight: 700; cursor: pointer; width: 100%; transition: 0.3s; font-size: 1rem; }
-        .btn-action:hover { background: #00603c; }
-        .result-box { margin-top: 1.5rem; padding: 1rem; border-radius: 12px; display: none; background: var(--bg-color); border: 1px solid var(--border-color); }
-        .risk-meter { height: 10px; background: var(--border-color); border-radius: 5px; overflow: hidden; margin: 1rem 0; }
-        .risk-fill { height: 100%; width: 0; transition: 1s; }
-        .strength-bar-bg { height: 8px; background: var(--border-color); border-radius: 4px; overflow: hidden; margin: 0.5rem 0; }
-        .strength-bar-fill { height: 100%; width: 0; transition: 0.5s; }
-        .interactive-option { padding: 1rem; border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 1rem; cursor: pointer; transition: 0.3s; background: var(--bg-color); display: flex; gap: 12px; align-items: flex-start; }
-        .interactive-option:hover { border-color: var(--nca-green); background: var(--card-bg); }
-        .btn-outline-small { background: transparent; border: 1px solid var(--nca-green); color: var(--nca-green); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.8rem; cursor: pointer; }
+
+        .btn-action { background: var(--nca-green); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-family: inherit; font-size: 1rem; font-weight: 700; cursor: pointer; transition: 0.3s; width: 100%; }
+        .btn-action:hover { opacity: 0.9; }
+
+        /* Analyzer Result Styles */
+        .result-box { margin-top: 1.5rem; padding: 1.5rem; border-radius: 12px; display: none; border: 1px solid transparent; background: var(--bg-color); }
+        .risk-meter { height: 8px; background: var(--border-color); border-radius: 4px; overflow: hidden; margin: 1rem 0; }
+        .risk-fill { height: 100%; width: 0; transition: 1s ease-out; }
+        .findings-list { margin: 0; padding-right: 1.5rem; padding-left: 1.5rem; font-size: 0.9rem; color: var(--text-dark); line-height: 1.8; }
+
+        /* OSINT External Buttons */
+        .external-scanners { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); }
+        .btn-external { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); flex: 1; min-width: 120px; }
+        .btn-external:hover { transform: translateY(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.15); }
+        .btn-vt { background: #3b82f6; color: white; }
+        .btn-gsb { background: #10b981; color: white; }
+        .btn-urlscan { background: #0f172a; color: white; }
+        html[data-theme="dark"] .btn-urlscan { border: 1px solid #334155; }
+
+        /* Password Meter & Phishing */
+        .password-strength-meter { height: 8px; background: var(--border-color); border-radius: 4px; overflow: hidden; margin-bottom: 0.5rem; }
+        .strength-bar { height: 100%; width: 0; transition: 0.3s; }
+        .interactive-option { padding: 1rem; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 0.8rem; cursor: pointer; transition: 0.2s; background: var(--bg-color); color: var(--text-dark); display: flex; gap: 10px; align-items: flex-start;}
+        .interactive-option:hover { border-color: var(--nca-green); background: rgba(16, 185, 129, 0.05); }
+
+        /* الفوتر الحكومي */
         .gov-footer { background-color: #004224; color: #f1f5f9; border-top: 5px solid var(--nca-green); margin-top: 4rem; padding: 2rem 0 1rem; }
         .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
         .footer-col h3 { color: #a7f3d0; font-size: 1.2rem; margin-bottom: 1rem; position: relative; padding-bottom: 0.5rem; }
@@ -50,21 +143,17 @@
         .footer-col.links a { color: #cbd5e1; text-decoration: none; transition: 0.3s; }
         .footer-col.links a:hover { color: white; transform: translateX(-5px); display: inline-block; }
         .footer-bottom { background-color: #002917; text-align: center; padding: 1rem; margin-top: 2rem; font-size: 0.9rem; color: #94a3b8; }
-        @media (max-width: 768px) {
-            .main-header { flex-direction: column; text-align: center; }
-            .nav-menu { padding: 0 1rem; }
-            .container { padding: 0 1rem; }
-            .footer-container { text-align: center; }
-            .footer-col h3::after { left: 50%; transform: translateX(-50%); }
-        }
+        @media (max-width: 768px) { .footer-container { text-align: center; } .footer-col h3::after { left: 50%; transform: translateX(-50%); } }
     </style>
 </head>
 <body>
+
     <header class="main-header">
         <div class="header-right">
-            <div class="logo-placeholder"><i class="las la-hospital"></i></div>
+             <div class="logo-placeholder"><i class="las la-hospital"></i></div>
             <div class="header-titles">
-                <h1 data-ar="المدينة الطبية | منصة التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">المدينة الطبية | منصة التوعية بالأمن السيبراني</h1>
+                <h1 data-ar="المدينة الطبية " data-en="Medical City | Cybersecurity Portal">المدينة الطبية </h1>
+                <h1 data-ar=" التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal"> منصة التوعية بالأمن السيبراني</h1>
                 <p data-ar="أدوات تفاعلية لفحص وحماية بياناتك" data-en="Interactive tools to check and protect your data">أدوات تفاعلية لفحص وحماية بياناتك</p>
             </div>
         </div>
@@ -76,131 +165,353 @@
     </header>
 
     <nav class="nav-menu">
-        <a href="index.html" class="nav-link"><i class="las la-home"></i> <span data-ar="الرئيسية" data-en="Home">الرئيسية</span></a>
-        <a href="employees.html" class="nav-link"><i class="las la-user-nurse"></i> <span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span></a>
-        <a href="oip.html" class="nav-link"><i class="las la-book"></i> <span data-ar="المكتبة التوعوية" data-en="Library">المكتبة التوعوية</span></a>
-        <a href="tools.html" class="nav-link active"><i class="las la-tools"></i> <span data-ar="الأدوات التفاعلية" data-en="Tools">الأدوات التفاعلية</span></a>
-        <a href="report.html" class="nav-link"><i class="las la-exclamation-circle"></i> <span data-ar="الإبلاغ عن حادث" data-en="Report">الإبلاغ عن حادث</span></a>
-        <a href="dashboard.html" class="nav-link"><i class="las la-chart-pie"></i> <span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span></a>
+        <a href="index.html" class="nav-link"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> <i class="las la-home"></i></a>
+        <a href="employees.html" class="nav-link "><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> <i class="las la-user-nurse"></i></a>
+        <a href="tools.html" class="nav-link active"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> <i class="las la-tools"></i></a>
+        <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> <i class="las la-exclamation-circle"></i></a>
+        <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> <i class="las la-poll"></i></a>
+        <a href="quiz.html" class="nav-link"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> <i class="las la-brain"></i></a>
+        <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> <i class="las la-chart-pie"></i></a>
     </nav>
 
     <div class="container">
-        <div class="section-title"><i class="las la-tools"></i> <span data-ar="الأدوات التفاعلية المتقدمة" data-en="Advanced Interactive Tools">الأدوات التفاعلية المتقدمة</span></div>
+        <div class="section-title"><i class="las la-toolbox"></i> <span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span></div>
 
-        <!-- أداة 1: فاحص الروابط -->
-        <div class="tool-card">
-            <div class="tool-header"><i class="las la-link"></i> <span data-ar="فاحص الروابط الاستدلالي" data-en="Heuristic Link Checker">فاحص الروابط الاستدلالي</span></div>
-            <p class="tool-desc" data-ar="حلل الروابط المشبوهة للكشف عن تقنيات التمويه، النطاقات المزيفة، وبروتوكولات الاتصال غير الآمنة." data-en="Analyze suspicious links to detect obfuscation, fake domains, and insecure protocols.">حلل الروابط المشبوهة للكشف عن تقنيات التمويه، النطاقات المزيفة، وبروتوكولات الاتصال غير الآمنة.</p>
-            <input type="text" class="tool-input" id="linkInput" placeholder="https://example.com" dir="ltr">
-            <button class="btn-action" onclick="analyzeLink()"><i class="las la-search"></i> <span data-ar="بدء فحص الرابط" data-en="Start URL Scan">بدء فحص الرابط</span></button>
-            <div id="linkResult" class="result-box">
-                <h3 id="riskTitle" style="margin:0 0 0.5rem 0; font-size:1rem;"></h3>
-                <div class="risk-meter"><div id="riskFill" class="risk-fill"></div></div>
-                <ul id="findingsList" style="padding-right:1.2rem; margin:0.5rem 0;"></ul>
-            </div>
-        </div>
+        <div class="tools-grid">
 
-        <!-- أداة 2: قوة كلمة المرور -->
-        <div class="tool-card">
-            <div class="tool-header"><i class="las la-key"></i> <span data-ar="مقياس مناعة كلمة المرور" data-en="Password Immunity Meter">مقياس مناعة كلمة المرور</span></div>
-            <p class="tool-desc" data-ar="اختبر مدى صمود كلمة مرورك أمام هجمات التخمين. يتم الفحص محلياً في جهازك لضمان خصوصيتك." data-en="Test how well your password stands against brute-force attacks. Scanned locally for your privacy.">اختبر مدى صمود كلمة مرورك أمام هجمات التخمين. يتم الفحص محلياً في جهازك لضمان خصوصيتك.</p>
-            <input type="password" class="tool-input" id="passwordInput" placeholder="أدخل كلمة المرور..." dir="ltr" oninput="checkPasswordStrength()">
-            <div class="strength-bar-bg"><div id="strengthBar" class="strength-bar-fill"></div></div>
-            <div id="passwordStrengthText" style="font-weight:700; font-size:0.9rem;"></div>
-        </div>
+            <div class="tool-card" style="grid-column: 1 / -1; border-top: 4px solid #3b82f6;">
+                <div class="tool-header"><i class="las la-link"></i> <span data-ar="فاحص الروابط المتقدم (ذكاء صناعي واستدلال)" data-en="Advanced Link Checker">فاحص الروابط المتقدم</span></div>
+                <p class="tool-desc" data-ar="يقوم المحرك الاستدلالي بالبحث عن الحيل الدقيقة (كـ النطاقات المزيفة، الأطوال غير الطبيعية، والكلمات المضللة). ولتأكيد النتيجة، وفرنا لك روابط فحص مباشر في كبرى قواعد البيانات العالمية." data-en="The heuristic engine looks for subtle tricks (like fake domains, abnormal lengths, and deceptive words). To confirm, we provide direct scan links to top global databases.">يقوم المحرك الاستدلالي بالبحث عن الحيل الدقيقة (كـ النطاقات المزيفة، الأطوال غير الطبيعية، والكلمات المضللة). ولتأكيد النتيجة، وفرنا لك روابط فحص مباشر في كبرى قواعد البيانات العالمية.</p>
 
-        <!-- أداة 3: محاكي كشف التصيد -->
-        <div class="tool-card">
-            <div class="tool-header"><i class="las la-fish"></i> <span data-ar="محاكي كشف التصيد" data-en="Phishing Detection Simulator">محاكي كشف التصيد</span></div>
-            <p class="tool-desc" data-ar="اختبر مهاراتك في التفريق بين الرسائل الرسمية ومحاولات الهندسة الاجتماعية." data-en="Test your skills in differentiating between official messages and social engineering attempts.">اختبر مهاراتك في التفريق بين الرسائل الرسمية ومحاولات الهندسة الاجتماعية.</p>
-            <div class="interactive-option" onclick="selectPhishingOption(true)">
-                <i class="las la-exclamation-circle" style="color: var(--warning); font-size:1.5rem;"></i>
-                <span data-ar="إيميل عاجل: 'سيتم إيقاف حسابك الطبي خلال ساعتين، اضغط هنا لتأكيد بياناتك'." data-en="Urgent Email: 'Your medical account will be suspended in 2 hours, click here to verify'.">إيميل عاجل: "سيتم إيقاف حسابك الطبي خلال ساعتين، اضغط هنا لتأكيد بياناتك".</span>
+                <input type="text" class="tool-input" id="linkInput" placeholder="https://example.com" dir="ltr">
+                <button class="btn-action" onclick="analyzeRealLink()" style="background: #3b82f6;"><span data-ar="تحليل وفحص الرابط" data-en="Analyze & Scan Link">تحليل وفحص الرابط</span></button>
+
+                <div id="analyzerResult" class="result-box">
+                    <h3 id="riskTitle" style="margin-top:0;"></h3>
+                    <div class="risk-meter"><div id="riskFill" class="risk-fill"></div></div>
+                    <p style="font-weight: 700; font-size: 0.95rem; color: var(--text-dark);" data-ar="1. التحليل الأمني لهيكل الرابط:" data-en="1. URL Structure Security Analysis:">1. التحليل الأمني لهيكل الرابط:</p>
+                    <ul id="findingsList" class="findings-list"></ul>
+
+                    <div class="external-scanners">
+                        <h4 style="margin-top:0; margin-bottom:1rem;" data-ar="2. الفحص العميق في قواعد البيانات العالمية:" data-en="2. Deep Scan in Global Databases:">2. الفحص العميق في قواعد البيانات العالمية:</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top:-0.5rem;" data-ar="اضغط على الأزرار أدناه للبحث عن النطاق في قواعد بيانات الأمن العالمية." data-en="Click the buttons below to search the domain in global security databases.">اضغط على الأزرار أدناه للبحث عن النطاق في قواعد بيانات الأمن العالمية.</p>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <a id="gsbLink" href="#" target="_blank" class="btn-external btn-gsb"><i class="fab fa-google"></i> Safe Browsing</a>
+                            <a id="vtLink" href="#" target="_blank" class="btn-external btn-vt"><i class="fas fa-bug"></i> VirusTotal</a>
+                            <a id="urlscanLink" href="#" target="_blank" class="btn-external btn-urlscan"><i class="fas fa-search"></i> URLScan.io</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="interactive-option" onclick="selectPhishingOption(false)">
-                <i class="las la-info-circle" style="color: var(--nca-green); font-size:1.5rem;"></i>
-                <span data-ar="إيميل دوري: 'تذكير بموعد تجديد الإجازات السنوية عبر بوابة الموظفين الداخلية'." data-en="Routine Email: 'Reminder for annual leave renewal via the internal staff portal'.">إيميل دوري: "تذكير بموعد تجديد الإجازات السنوية عبر بوابة الموظفين الداخلية".</span>
+
+            <div class="tool-card">
+                <div class="tool-header"><i class="las la-key"></i> <span data-ar="مقياس قوة كلمة المرور" data-en="Password Strength Meter">مقياس قوة كلمة المرور</span></div>
+                <p class="tool-desc" data-ar="التقييم يتم بشكل فوري وآمن داخل متصفحك. لا يتم إرسال أو حفظ الكلمة." data-en="Evaluation is done securely and instantly in your browser. The password is not sent or saved.">التقييم يتم بشكل فوري وآمن داخل متصفحك. لا يتم إرسال أو حفظ الكلمة.</p>
+
+                <input type="password" class="tool-input" id="passwordInput" placeholder="********" oninput="checkPasswordStrength()" dir="ltr">
+                <div class="password-strength-meter"><div class="strength-bar" id="strengthBar"></div></div>
+                <div id="passwordStrengthText" style="font-weight: 700; margin-bottom: 1rem;" data-ar="قوة الكلمة" data-en="Password Strength">قوة الكلمة</div>
+
+                <ul class="findings-list" style="font-size: 0.85rem; color: var(--text-muted); list-style: none; padding: 0;">
+                    <li data-ar="✔️ 8 أحرف على الأقل" data-en="✔️ At least 8 characters">✔️ 8 أحرف على الأقل</li>
+                    <li data-ar="✔️ حروف إنجليزية كبيرة وصغيرة (A, a)" data-en="✔️ Upper and lowercase letters (A, a)">✔️ حروف إنجليزية كبيرة وصغيرة (A, a)</li>
+                    <li data-ar="✔️ أرقام ورموز خاصة (!@#)" data-en="✔️ Numbers and special symbols (!@#)">✔️ أرقام ورموز خاصة (!@#)</li>
+                </ul>
             </div>
-            <div id="phishingResult" class="result-box" style="font-weight:700;"></div>
+
+            <div class="tool-card">
+                <div class="tool-header"><i class="las la-fish"></i> <span data-ar="تدريب كشف رسائل التصيد" data-en="Phishing Detection Training">تدريب كشف رسائل التصيد</span></div>
+                <p class="tool-desc" data-ar="أي من السيناريوهات التالية يعتبر الأخطر ويشير إلى محاولة تصيد محتملة؟" data-en="Which of the following scenarios is the most dangerous and indicates a potential phishing attempt?">أي من السيناريوهات التالية يعتبر الأخطر ويشير إلى محاولة تصيد محتملة؟</p>
+
+                <div class="interactive-option" onclick="selectPhishingOption(true)">
+                    <strong style="color: var(--nca-green);">1.</strong>
+                    <span data-ar="بريد إلكتروني عاجل يطلب تحديث كلمة المرور فوراً لتجنب إغلاق حسابك، مع رابط." data-en="Urgent email asking to update password immediately to avoid account closure, with a link.">بريد إلكتروني عاجل يطلب تحديث كلمة المرور فوراً لتجنب إغلاق حسابك، مع رابط.</span>
+                </div>
+                <div class="interactive-option" onclick="selectPhishingOption(false)">
+                    <strong style="color: var(--nca-green);">2.</strong>
+                    <span data-ar="بريد من الموارد البشرية يذكرك بموعد تجديد إجازتك السنوية عبر النظام الداخلي المعتاد." data-en="Email from HR reminding you of your annual leave renewal via the internal system.">بريد من الموارد البشرية يذكرك بموعد تجديد إجازتك السنوية عبر النظام الداخلي المعتاد.</span>
+                </div>
+
+                <div id="phishingResult" style="margin-top: 1rem; font-weight: 700; padding: 1rem; border-radius: 8px; display: none;"></div>
+            </div>
+
         </div>
     </div>
 
-    <footer class="gov-footer">
+   <footer class="gov-footer">
         <div class="footer-container">
-            <div class="footer-col"><div class="footer-logos"><div class="hospital-logo">🏥 <span data-ar="المدينة الطبية" data-en="Medical City">المدينة الطبية</span></div><div class="vision-logo">🇸🇦 <span data-ar="رؤية 2030" data-en="Vision 2030">رؤية 2030</span></div></div><p data-ar="منصة التوعية بالأمن السيبراني، نهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى وتضمن استمرارية الأعمال." data-en="Cybersecurity Awareness Portal, aiming to build a secure digital environment that protects patient data and ensures business continuity.">منصة التوعية بالأمن السيبراني، نهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى وتضمن استمرارية الأعمال.</p></div>
-            <div class="footer-col links"><h3 data-ar="روابط وطنية هامة" data-en="Important National Links">روابط وطنية هامة</h3><ul><li><a href="https://nca.gov.sa" target="_blank" data-ar="الهيئة الوطنية للأمن السيبراني" data-en="NCA">الهيئة الوطنية للأمن السيبراني</a></li><li><a href="https://sdaia.gov.sa" target="_blank" data-ar="الهيئة السعودية للبيانات (سدايا)" data-en="SDAIA">الهيئة السعودية للبيانات (سدايا)</a></li><li><a href="https://moh.gov.sa" target="_blank" data-ar="وزارة الصحة" data-en="MOH">وزارة الصحة</a></li></ul></div>
-            <div class="footer-col links"><h3 data-ar="السياسات والدعم" data-en="Policies & Support">السياسات والدعم</h3><ul><li><a href="#" data-ar="سياسة الخصوصية (PDPL)" data-en="Privacy Policy (PDPL)">سياسة الخصوصية (PDPL)</a></li><li><a href="faq.html" data-ar="الأسئلة الشائعة (FAQ)" data-en="FAQ">الأسئلة الشائعة (FAQ)</a></li><li><a href="report.html" data-ar="رفع تذكرة أمنية (SOC)" data-en="SOC Ticket">رفع تذكرة أمنية (SOC)</a></li></ul></div>
-            <div class="footer-col contact"><h3 data-ar="تواصل مع فريق الأمن" data-en="Contact Security">تواصل مع فريق الأمن</h3><p>📧 SOC@hospital.edu.sa</p><p>📞 <span data-ar="تحويلة طوارئ:" data-en="Emergency Ext:">تحويلة طوارئ:</span> 9111</p></div>
+            <div class="footer-col">
+                <div class="footer-logos">
+                    <div class="hospital-logo">🏥 <span data-ar="المدينة الطبية" data-en="Medical City">المدينة الطبية</span></div>
+                    <div class="vision-logo">🇸🇦 <span data-ar="رؤية 2030" data-en="Vision 2030">رؤية 2030</span></div>
+                </div>
+                <p data-ar="منصة التوعية بالأمن السيبراني، نهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى وتضمن استمرارية الأعمال." data-en="Cybersecurity Awareness Portal, aiming to build a secure digital environment that protects patient data and ensures business continuity.">منصة التوعية بالأمن السيبراني، نهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى وتضمن استمرارية الأعمال.</p>
+            </div>
+            <div class="footer-col links">
+                <h3 data-ar="روابط وطنية هامة" data-en="Important National Links">روابط وطنية هامة</h3>
+                <ul>
+                    <li><a href="https://nca.gov.sa" target="_blank" data-ar="الهيئة الوطنية للأمن السيبراني" data-en="National Cybersecurity Authority (NCA)">الهيئة الوطنية للأمن السيبراني</a></li>
+                    <li><a href="https://sdaia.gov.sa" target="_blank" data-ar="الهيئة السعودية للبيانات (سدايا)" data-en="Saudi Data Authority (SDAIA)">الهيئة السعودية للبيانات (سدايا)</a></li>
+                    <li><a href="https://moh.gov.sa" target="_blank" data-ar="وزارة الصحة" data-en="Ministry of Health (MOH)">وزارة الصحة</a></li>
+                </ul>
+            </div>
+            <div class="footer-col links">
+                <h3 data-ar="السياسات والدعم" data-en="Policies & Support">السياسات والدعم</h3>
+                <ul>
+                    <li><a href="#" data-ar="سياسة الخصوصية (PDPL)" data-en="Privacy Policy (PDPL)">سياسة الخصوصية (PDPL)</a></li>
+                    <li><a href="faq.html" data-ar="الأسئلة الشائعة (FAQ)" data-en="Frequently Asked Questions (FAQ)">الأسئلة الشائعة (FAQ)</a></li>
+                    <li><a href="oip.html" data-ar="المكتبة التوعوية" data-en="Awareness Library">المكتبة التوعوية</a></li>
+                    <li><a href="report.html" data-ar="رفع تذكرة أمنية (SOC)" data-en="Raise Security Ticket (SOC)">رفع تذكرة أمنية (SOC)</a></li>
+                </ul>
+            </div>
+            <div class="footer-col contact">
+                <h3 data-ar="تواصل مع فريق الأمن" data-en="Contact Security Team">تواصل مع فريق الأمن</h3>
+                <p>📧 SOC@hospital.edu.sa</p>
+                <p>📞 <span data-ar="تحويلة طوارئ:" data-en="Emergency Ext:">تحويلة طوارئ:</span> 9111</p>
+            </div>
         </div>
-        <div class="footer-bottom"><p data-ar="جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً" data-en="All Rights Reserved © 2026 University Hospital | Developed Internally">جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً</p></div>
+        <div class="footer-bottom">
+            <p data-ar="جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً" data-en="All Rights Reserved © 2026 University Hospital | Developed Internally">جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً</p>
+        </div>
     </footer>
 
     <script>
         let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+        let lastLinkAnalysis = null;
+        let lastPhishingSelection = null;
 
-        function analyzeLink() {
-            let url = document.getElementById('linkInput').value.trim();
-            if (!url) return;
-            if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
-            try {
-                const urlObj = new URL(url);
-                const domain = urlObj.hostname;
-                let score = 0;
-                let findings = [];
-                if (urlObj.protocol === 'http:') { score += 30; findings.push(currentLang === 'ar' ? '⚠️ الاتصال غير مشفر (HTTP)' : '⚠️ Connection is unencrypted (HTTP)'); }
-                if (domain.split('.').length > 3) { score += 20; findings.push(currentLang === 'ar' ? '⚠️ نطاق فرعي معقد بشكل مريب' : '⚠️ Subdomain is suspiciously complex'); }
-                if (['.xyz','.top','.tk','.site','.click'].some(tld => domain.endsWith(tld))) { score += 30; findings.push(currentLang === 'ar' ? '🚨 يستخدم امتداد نطاق رخيص (شائع في الاحتيال)' : '🚨 Uses cheap TLD (common in scams)'); }
-                if (/(login|verify|secure|update|account)/i.test(url)) { score += 20; findings.push(currentLang === 'ar' ? '⚠️ الرابط يحتوي على كلمات استدراج' : '⚠️ URL contains bait keywords'); }
-                score = Math.min(score, 100);
-                const resultDiv = document.getElementById('linkResult');
-                const title = document.getElementById('riskTitle');
-                const fill = document.getElementById('riskFill');
-                const list = document.getElementById('findingsList');
-                resultDiv.style.display = 'block';
-                list.innerHTML = findings.map(f => `<li>${f}</li>`).join('') || `<li>${currentLang === 'ar' ? '✅ لم تظهر علامات تصيد واضحة' : '✅ No obvious phishing signs'}</li>`;
-                fill.style.width = score + '%';
-                fill.style.background = score > 50 ? 'var(--danger)' : (score > 0 ? 'var(--warning)' : 'var(--success)');
-                title.innerText = score > 50 ? (currentLang === 'ar' ? '⚠️ عالي الخطورة!' : '⚠️ High Risk!') : (currentLang === 'ar' ? '✅ يبدو آمناً نسبياً' : '✅ Appears relatively safe');
-            } catch(e) { alert(currentLang === 'ar' ? 'الرابط غير صالح' : 'Invalid URL'); }
-        }
+        const trustedDomains = [
+            'google.com', 'microsoft.com', 'apple.com', 'github.com',
+            '.gov.sa', '.edu.sa', 'nca.gov.sa', 'moh.gov.sa'
+        ];
 
-        function checkPasswordStrength() {
-            const pass = document.getElementById('passwordInput').value;
-            const bar = document.getElementById('strengthBar');
-            const text = document.getElementById('passwordStrengthText');
-            let s = 0;
-            if (pass.length >= 8) s++;
-            if (/[A-Z]/.test(pass)) s++;
-            if (/[0-9]/.test(pass)) s++;
-            if (/[^A-Za-z0-9]/.test(pass)) s++;
-            const colors = ['var(--danger)', 'var(--warning)', '#84cc16', 'var(--success)'];
-            const labelsAr = ['ضعيفة جداً', 'ضعيفة', 'قوية', 'منيعة 🛡️'];
-            const labelsEn = ['Very weak', 'Weak', 'Strong', 'Invincible 🛡️'];
-            bar.style.width = (s * 25) + '%';
-            bar.style.background = colors[s-1] || '#e2e8f0';
-            text.innerText = (currentLang === 'ar' ? labelsAr[s-1] : labelsEn[s-1]) || '';
-            text.style.color = colors[s-1];
-        }
+        // 1. فاحص الروابط الحقيقي المحدث
+        function analyzeRealLink() {
+            let urlString = document.getElementById('linkInput').value.trim();
 
-        function selectPhishingOption(isCorrect) {
-            const res = document.getElementById('phishingResult');
-            res.style.display = 'block';
-            if (isCorrect) {
-                res.style.borderColor = 'var(--success)';
-                res.style.color = 'var(--success)';
-                res.innerHTML = currentLang === 'ar' ? '✅ إجابة صحيحة! التهديد العاجل هو أكبر مؤشر على التصيد.' : '✅ Correct! Urgent threat is the biggest indicator of phishing.';
+            if (!urlString) {
+                alert(currentLang === 'ar' ? 'الرجاء إدخال رابط للتحليل.' : 'Please enter a link to analyze.');
+                return;
+            }
+
+            if (!/^https?:\/\//i.test(urlString)) {
+                urlString = 'http://' + urlString;
+            }
+
+            let url;
+            try { url = new URL(urlString); }
+            catch (e) {
+                alert(currentLang === 'ar' ? 'الرابط غير صالح، الرجاء إدخال رابط حقيقي.' : 'Invalid URL, please enter a real link.');
+                return;
+            }
+
+            const domain = url.hostname;
+            const encodedUrl = encodeURIComponent(urlString);
+
+            document.getElementById('vtLink').href = `https://www.virustotal.com/gui/domain/${domain}`;
+            document.getElementById('urlscanLink').href = `https://urlscan.io/search/#domain:${domain}`;
+            document.getElementById('gsbLink').href = `https://transparencyreport.google.com/safe-browsing/search?url=${encodedUrl}`;
+
+            let score = 0;
+            let findings = [];
+            let isTrusted = false;
+
+            if (trustedDomains.some(d => domain.toLowerCase().endsWith(d))) {
+                isTrusted = true;
+                findings.push({ ar: '✅ النطاق مسجل ضمن القائمة البيضاء الموثوقة عالمياً/محلياً.', en: '✅ Domain is registered in the trusted whitelist.' });
             } else {
-                res.style.borderColor = 'var(--danger)';
-                res.style.color = 'var(--danger)';
-                res.innerHTML = currentLang === 'ar' ? '❌ خطأ. الرسائل الروتينية عادة ما تكون آمنة، ابحث عن رسائل الذعر.' : '❌ Wrong. Routine messages are usually safe, look for panic-inducing ones.';
+                findings.push({ ar: 'ℹ️ النطاق غير مسجل في القائمة البيضاء (هذا طبيعي للمواقع الجديدة أو غير المشهورة).', en: 'ℹ️ Domain is not in the trusted whitelist (normal for new/lesser-known sites).' });
+            }
+
+            if (url.protocol === 'http:') {
+                score += 25;
+                findings.push({ ar: '⚠️ بروتوكول HTTP غير مشفر (يسهل اعتراض بياناتك).', en: '⚠️ Unencrypted HTTP protocol (data easily intercepted).' });
+            } else if (!isTrusted) {
+                findings.push({ ar: 'ℹ️ يستخدم بروتوكول HTTPS (اتصال مشفر، ولكن لا يضمن أن الموقع غير خبيث).', en: 'ℹ️ Uses HTTPS (secure connection, but site could still be malicious).' });
+            }
+
+            const ipRegex = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/;
+            if (ipRegex.test(domain)) {
+                score += 50;
+                findings.push({ ar: '🚨 الرابط يستخدم عنوان IP مباشر بدلاً من اسم موقع (حيلة لتخطي الحماية).', en: '🚨 Uses a direct IP address instead of a domain (evasion tactic).' });
+            }
+
+            const shorteners = ['bit.ly', 'goo.gl', 't.co', 'tinyurl.com', 'is.gd', 'ow.ly', 'cutt.ly'];
+            if (shorteners.includes(domain.toLowerCase())) {
+                score += 40;
+                findings.push({ ar: '🚨 هذا رابط مختصر! وجهته النهائية مخفية عنك، يرجى عدم فتحه.', en: '🚨 This is a shortened link! Its final destination is hidden.' });
+            }
+
+            if (domain.split('-').length > 2) {
+                score += 20;
+                findings.push({ ar: '⚠️ النطاق يحتوي على شرطات متعددة (أسلوب شائع في النطاقات الخبيثة).', en: '⚠️ Domain contains multiple hyphens (common in malicious domains).' });
+            }
+
+            const badTLDs = ['.xyz', '.top', '.pw', '.click', '.date', '.site', '.tk', '.vip', '.online', '.club'];
+            if (badTLDs.some(tld => domain.toLowerCase().endsWith(tld))) {
+                score += 40;
+                findings.push({ ar: '🚨 يستخدم امتداد نطاق رخيص أو مجاني يرتبط بكثافة بعمليات الاحتيال.', en: '🚨 Uses a cheap/free TLD heavily associated with scams.' });
+            }
+
+            const suspiciousWords = ['login', 'verify', 'update', 'secure', 'account', 'auth', 'password', 'wallet', 'banking', 'support', 'service'];
+            let foundWords = suspiciousWords.filter(word => url.href.toLowerCase().includes(word));
+            if (foundWords.length > 0 && !isTrusted) {
+                score += 30;
+                findings.push({ ar: `🚨 يحتوي على كلمات لخداعك نفسياً: (${foundWords.join(', ')}).`, en: `🚨 Contains psychologically deceptive keywords: (${foundWords.join(', ')}).` });
+            }
+
+            if (score === 0 && !isTrusted) {
+                findings.push({ ar: '✅ لم نكتشف أي حيل تصيد واضحة في تركيبة هذا الرابط.', en: '✅ No obvious phishing tricks detected in this URL structure.' });
+            }
+
+            score = Math.min(score, 100);
+            lastLinkAnalysis = { score: score, findings: findings };
+            renderLinkAnalysis();
+        }
+
+        function renderLinkAnalysis() {
+            if (!lastLinkAnalysis) return;
+            const resultBox = document.getElementById('analyzerResult');
+            const titleEl = document.getElementById('riskTitle');
+            const fillEl = document.getElementById('riskFill');
+            const listEl = document.getElementById('findingsList');
+            const { score, findings } = lastLinkAnalysis;
+
+            resultBox.style.display = 'block';
+            fillEl.style.width = score + '%';
+            listEl.innerHTML = '';
+
+            findings.forEach(f => {
+                let li = document.createElement('li');
+                li.innerText = currentLang === 'ar' ? f.ar : f.en;
+                listEl.appendChild(li);
+            });
+
+            if (score >= 50) {
+                resultBox.style.borderColor = 'var(--danger)';
+                fillEl.style.backgroundColor = 'var(--danger)';
+                titleEl.innerText = currentLang === 'ar' ? `هيكل الرابط عالي الخطورة (${score}%) ❌` : `High Risk URL Structure (${score}%) ❌`;
+                titleEl.style.color = 'var(--danger)';
+            } else if (score > 0) {
+                resultBox.style.borderColor = 'var(--warning)';
+                fillEl.style.backgroundColor = 'var(--warning)';
+                titleEl.innerText = currentLang === 'ar' ? `الرابط يحتوي على علامات مشبوهة (${score}%) ⚠️` : `URL contains suspicious signs (${score}%) ⚠️`;
+                titleEl.style.color = '#b45309';
+            } else {
+                resultBox.style.borderColor = 'var(--success)';
+                fillEl.style.backgroundColor = 'var(--success)';
+                titleEl.innerText = currentLang === 'ar' ? `هيكل الرابط يبدو سليماً (0%) ✅` : `URL Structure Appears Safe (0%) ✅`;
+                titleEl.style.color = 'var(--success)';
             }
         }
 
-        function initTheme() { const saved = localStorage.getItem('theme'); if(saved==='dark'){ document.documentElement.setAttribute('data-theme','dark'); document.getElementById('themeToggle').innerHTML='☀️'; } else { document.documentElement.setAttribute('data-theme','light'); document.getElementById('themeToggle').innerHTML='🌙'; } }
-        function toggleTheme() { const cur = document.documentElement.getAttribute('data-theme'); const neu = cur==='dark'?'light':'dark'; document.documentElement.setAttribute('data-theme',neu); localStorage.setItem('theme',neu); document.getElementById('themeToggle').innerHTML = neu==='dark'?'☀️':'🌙'; }
-        function applyLanguage() { document.querySelectorAll('[data-ar][data-en]').forEach(el=>{ const txt = currentLang==='en'?el.getAttribute('data-en'):el.getAttribute('data-ar'); const ic = el.querySelector('i'); if(ic && !el.classList.contains('interactive-option')) el.innerHTML = ic.outerHTML + ' ' + txt; else if(el.classList.contains('interactive-option')){ const ic2 = el.querySelector('i'); if(ic2) el.innerHTML = ic2.outerHTML + ' ' + txt; else el.innerText = txt; } else el.innerText = txt; }); document.documentElement.lang = currentLang; document.documentElement.dir = currentLang==='en'?'ltr':'rtl'; checkPasswordStrength(); }
-        function toggleLanguage() { currentLang = currentLang==='ar'?'en':'ar'; localStorage.setItem('preferredLanguage',currentLang); applyLanguage(); }
-        document.addEventListener('DOMContentLoaded',()=>{ initTheme(); document.getElementById('themeToggle').addEventListener('click',toggleTheme); document.getElementById('langToggle').addEventListener('click',toggleLanguage); applyLanguage(); });
+        // 2. فحص قوة كلمة المرور
+        function checkPasswordStrength() {
+            const password = document.getElementById('passwordInput').value;
+            const bar = document.getElementById('strengthBar');
+            const text = document.getElementById('passwordStrengthText');
+
+            if(!password) {
+                bar.style.width = '0%'; text.innerText = currentLang === 'ar' ? 'قوة الكلمة' : 'Password Strength'; text.style.color = 'inherit'; return;
+            }
+
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+            if (/\d/.test(password)) strength++;
+            if (/[^a-zA-Z0-9]/.test(password)) strength++;
+
+            bar.style.width = ((strength / 4) * 100) + '%';
+
+            if (strength <= 1) { bar.style.background = 'var(--danger)'; text.innerText = currentLang === 'ar' ? 'ضعيفة جداً 🔴' : 'Very Weak 🔴'; text.style.color = 'var(--danger)'; }
+            else if (strength === 2) { bar.style.background = 'var(--warning)'; text.innerText = currentLang === 'ar' ? 'متوسطة 🟠' : 'Medium 🟠'; text.style.color = 'var(--warning)'; }
+            else if (strength === 3) { bar.style.background = '#84cc16'; text.innerText = currentLang === 'ar' ? 'قوية 🟢' : 'Strong 🟢'; text.style.color = '#65a30d'; }
+            else { bar.style.background = 'var(--success)'; text.innerText = currentLang === 'ar' ? 'قوية جداً 🌟' : 'Very Strong 🌟'; text.style.color = 'var(--success)'; }
+        }
+
+        // 3. تدريب التصيد
+        function selectPhishingOption(isCorrect) {
+            lastPhishingSelection = isCorrect;
+            renderPhishingResult();
+        }
+
+        function renderPhishingResult() {
+            if (lastPhishingSelection === null) return;
+            const resultBox = document.getElementById('phishingResult');
+            resultBox.style.display = 'block';
+
+            if (lastPhishingSelection) {
+                resultBox.style.background = 'rgba(16, 185, 129, 0.1)'; resultBox.style.color = 'var(--success)'; resultBox.style.border = '1px solid var(--success)';
+                resultBox.innerHTML = currentLang === 'ar' ? '✅ إجابة صحيحة! التهديد العاجل لإغلاق الحساب هو أسلوب التلاعب النفسي الأبرز في التصيد.' : '✅ Correct! The urgent threat of account closure is the top psychological tactic in phishing.';
+            } else {
+                resultBox.style.background = 'rgba(239, 68, 68, 0.1)'; resultBox.style.color = 'var(--danger)'; resultBox.style.border = '1px solid var(--danger)';
+                resultBox.innerHTML = currentLang === 'ar' ? '❌ خاطئة. الإيميل الأول أخطر بكثير لأن هدفه خلق حالة ذعر لإجبارك على النقر فوراً.' : '❌ Wrong. The first email is much more dangerous as it creates panic to force immediate clicks.';
+            }
+        }
+
+        // --- الوضع الليلي (Dark Mode) ---
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.getElementById('themeToggle').innerHTML = '☀️';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                document.getElementById('themeToggle').innerHTML = '🌙';
+            }
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const newTheme = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            document.getElementById('themeToggle').innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // --- نظام الترجمة ---
+        function applyLanguage() {
+            const elements = document.querySelectorAll('[data-ar][data-en]');
+
+            elements.forEach(el => {
+                const text = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
+                // إذا كان العنصر يحتوي على أيقونة نحافظ عليها ونغير النص فقط
+                const icon = el.querySelector('i');
+                if (icon) {
+                    el.innerHTML = icon.outerHTML + ' ' + text;
+                } else {
+                    el.innerText = text;
+                }
+            });
+
+            if (currentLang === 'en') {
+                document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr';
+                document.getElementById('linkInput').setAttribute('placeholder', 'Paste link here (e.g., https://example.com)');
+                document.getElementById('passwordInput').setAttribute('placeholder', 'Enter password...');
+            } else {
+                document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl';
+                document.getElementById('linkInput').setAttribute('placeholder', 'الصق الرابط هنا (مثال: https://example.com)');
+                document.getElementById('passwordInput').setAttribute('placeholder', 'أدخل كلمة المرور...');
+            }
+
+            renderLinkAnalysis();
+            checkPasswordStrength();
+            renderPhishingResult();
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('preferredLanguage', currentLang);
+            applyLanguage();
+        }
+
+        // التهيئة عند بدء التحميل
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            applyLanguage();
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            document.getElementById('langToggle').addEventListener('click', toggleLanguage);
+        });
     </script>
 </body>
 </html>
