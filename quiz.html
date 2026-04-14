@@ -5,84 +5,179 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz | Cybersecurity - University Hospital</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 
     <style>
+        /* ========== المتغيرات والتصميم الأساسي ========== */
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --header-bg: #005a32;
+            --nca-green: #007a4d;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --card-radius: 12px;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --success: #10b981;
+        }
+        [data-theme="dark"] {
+            --bg-color: #111827;
+            --card-bg: #1f2937;
+            --text-dark: #f8fafc;
+            --text-muted: #9ca3af;
+            --border-color: #374151;
+        }
+        body {
+            margin: 0;
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            transition: 0.3s;
+        }
+
+        /* الهيدر */
+        .main-header {
+            background-color: var(--header-bg);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-bottom: 4px solid #004224;
+        }
+        .header-right, .header-left { display: flex; align-items: center; gap: 15px; }
+        .logo-placeholder { width: 48px; height: 48px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: var(--nca-green); }
+        .header-titles h1 { margin: 0; font-size: 1.3rem; font-weight: 700; }
+        .header-titles p { margin: 0; font-size: 0.9rem; color: #a7f3d0; }
+        .btn-theme, .btn-lang {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-theme:hover, .btn-lang:hover { background: rgba(255,255,255,0.2); }
+        .btn-login-nafath {
+            background: #10b981;
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        /* شريط التنقل */
+        .nav-menu {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 2rem;
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+        }
+        .nav-link {
+            padding: 1rem 0.5rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+        .nav-link.active, .nav-link:hover { color: var(--nca-green); border-bottom-color: var(--nca-green); }
+
         /* ==========================================
            التنسيقات الخاصة بصفحة الاختبار فقط
            ========================================== */
         .container { max-width: 900px; margin: 2rem auto; padding: 0 2rem; }
+        .section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-dark); }
 
-        .intro-card { background: linear-gradient(135deg, #e8f5e9, #bbf7d0); border: 1px solid #86efac; border-radius: var(--card-radius); padding: 1.5rem; margin-bottom: 2rem; color: #064e3b; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .intro-card p { margin: 0; font-weight: 600; font-size: 1.05rem; }
+        .intro-card { background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(52, 211, 153, 0.1)); border: 1px solid var(--success); border-radius: var(--card-radius); padding: 1.5rem; margin-bottom: 2rem; color: var(--text-dark); box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .intro-card p { margin: 0; font-weight: 600; font-size: 1.05rem; line-height: 1.6;}
 
-        .question-card { background: white; border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.03); transition: 0.3s; }
-        .question-card:hover { border-color: #cbd5e1; }
+        .question-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--card-radius); padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.03); transition: 0.3s; }
+        .question-card:hover { border-color: var(--nca-green); }
         .question-card h3 { margin: 0 0 1.2rem 0; font-size: 1.15rem; color: var(--nca-green); line-height: 1.6; }
 
         .options-grid { display: flex; flex-direction: column; gap: 0.8rem; }
-        .option-label { display: flex; align-items: center; gap: 12px; padding: 1rem 1.2rem; border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: 0.2s; background: #f8fafc; font-weight: 600; color: var(--text-dark); }
-        .option-label:hover { border-color: var(--nca-green); background: #f0fdf4; }
+        .option-label { display: flex; align-items: center; gap: 12px; padding: 1rem 1.2rem; border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: 0.2s; background: var(--bg-color); font-weight: 600; color: var(--text-dark); }
+        .option-label:hover { border-color: var(--nca-green); background: rgba(16, 185, 129, 0.05); }
         .option-label input[type="radio"] { display: none; }
 
-        .custom-radio { width: 20px; height: 20px; border: 2px solid #cbd5e1; border-radius: 50%; display: inline-block; position: relative; transition: 0.2s; flex-shrink: 0; }
+        .custom-radio { width: 20px; height: 20px; border: 2px solid var(--border-color); border-radius: 50%; display: inline-block; position: relative; transition: 0.2s; flex-shrink: 0; }
         .option-label input[type="radio"]:checked + .custom-radio { border-color: var(--nca-green); }
         .option-label input[type="radio"]:checked + .custom-radio::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; background: var(--nca-green); border-radius: 50%; }
 
-        .option-label.selected { border-color: var(--nca-green); background: #ecfdf5; }
-        .option-label.correct { border-color: #10b981; background: #d1fae5; color: #047857; }
-        .option-label.wrong { border-color: #ef4444; background: #fee2e2; color: #b91c1c; opacity: 0.8; }
+        .option-label.selected { border-color: var(--nca-green); background: rgba(16, 185, 129, 0.1); }
+        .option-label.correct { border-color: var(--success); background: rgba(16, 185, 129, 0.15); color: var(--success); }
+        .option-label.wrong { border-color: var(--danger); background: rgba(239, 68, 68, 0.1); color: var(--danger); opacity: 0.9; }
 
         .btn-submit { background: var(--nca-green); color: white; border: none; padding: 1.2rem; width: 100%; border-radius: 12px; font-size: 1.2rem; font-weight: 700; cursor: pointer; transition: 0.3s; font-family: inherit; margin-top: 1rem; box-shadow: 0 4px 6px rgba(0,122,77,0.2); }
-        .btn-submit:hover { background: #00603c; transform: translateY(-2px); }
+        .btn-submit:hover { opacity: 0.9; transform: translateY(-2px); }
 
-        .result-box { display: none; margin-top: 2rem; padding: 2rem; border-radius: 16px; font-weight: bold; text-align: center; font-size: 1.3rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .score-circle { display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; border-radius: 50%; font-size: 2rem; color: white; margin-bottom: 1rem; }
+        .result-box { display: none; margin-top: 2rem; padding: 2rem; border-radius: 16px; font-weight: bold; text-align: center; font-size: 1.3rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); background: var(--card-bg); border: 1px solid var(--border-color); }
+        .score-circle { display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; border-radius: 50%; font-size: 2rem; color: white; margin-bottom: 1rem; background: var(--text-muted); }
 
-        /* ==========================================
-           دعم الوضع المظلم لأسئلة الاختبار
-           ========================================== */
-        body.dark-mode .intro-card { background: #064e3b; border-color: #047857; color: #a7f3d0; }
-        body.dark-mode .question-card { background: #1e293b; border-color: var(--border-color); }
-        body.dark-mode .question-card h3 { color: #34d399; }
-        body.dark-mode .option-label { background: #0f172a; border-color: var(--border-color); color: #f8fafc; }
-        body.dark-mode .option-label:hover { background: #1e293b; border-color: var(--nca-green); }
-        body.dark-mode .option-label.selected { background: rgba(16, 185, 129, 0.2); border-color: var(--nca-green); }
-        body.dark-mode .option-label.correct { background: rgba(16, 185, 129, 0.3); border-color: #10b981; color: #6ee7b7; }
-        body.dark-mode .option-label.wrong { background: rgba(239, 68, 68, 0.3); border-color: #ef4444; color: #fca5a5; }
-        body.dark-mode .result-box { background: #1e293b !important; }
+        /* دعم الوضع المظلم الإضافي */
+        [data-theme="dark"] .intro-card { background: rgba(16, 185, 129, 0.05); border-color: var(--success); color: var(--text-dark); }
+        [data-theme="dark"] .custom-radio { border-color: var(--text-muted); }
+
+        /* الفوتر الحكومي */
+        .gov-footer { background-color: #004224; color: #f1f5f9; border-top: 5px solid var(--nca-green); margin-top: 4rem; padding: 2rem 0 1rem; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-col h3 { color: #a7f3d0; font-size: 1.2rem; margin-bottom: 1rem; position: relative; padding-bottom: 0.5rem; }
+        .footer-col h3::after { content: ''; position: absolute; inset-inline-start: 0; bottom: 0; width: 40px; height: 3px; background-color: #34d399; }
+        .footer-logos { display: flex; gap: 15px; margin-bottom: 1rem; flex-wrap: wrap; }
+        .hospital-logo, .vision-logo { font-weight: 700; background: rgba(255,255,255,0.08); padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); }
+        .footer-col.links ul { list-style: none; padding: 0; }
+        .footer-col.links li { margin-bottom: 0.8rem; }
+        .footer-col.links a { color: #cbd5e1; text-decoration: none; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; }
+        .footer-col.links a:hover { color: white; transform: translateX(-5px); }
+        html[dir="ltr"] .footer-col.links a:hover { transform: translateX(5px); }
+        .footer-bottom { background-color: #002917; text-align: center; padding: 1rem; margin-top: 2rem; font-size: 0.9rem; color: #94a3b8; }
+        @media (max-width: 768px) { .footer-container { text-align: center; } .footer-col h3::after { left: 50%; transform: translateX(-50%); } html[dir="ltr"] .footer-col h3::after { left: 50%; transform: translateX(-50%); } }
     </style>
 </head>
 <body>
     <header class="main-header">
         <div class="header-right">
-            <div class="logo-placeholder">🏥</div>
+           <div class="logo-placeholder"><i class="las la-hospital"></i></div>
             <div class="header-titles">
-                <h1 data-ar="المدينة الطبية | منصة التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">المدينة الطبية | منصة التوعية بالأمن السيبراني</h1>
+                  <h1 data-ar="المدينة الطبية " data-en="Medical City | Cybersecurity Portal">المدينة الطبية </h1>
+                <h1 data-ar=" التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal"> منصة التوعية بالأمن السيبراني</h1>
                 <p data-ar="تحدي الوعي الأمني للموظفين" data-en="Staff Security Awareness Challenge">تحدي الوعي الأمني للموظفين</p>
             </div>
         </div>
         <div class="header-left">
-            <button class="btn-dark-mode" onclick="toggleDarkMode()" title="تغيير المظهر">🌙</button>
-            <button class="btn-lang" onclick="toggleLanguage()">🌐 العربية / English</button>
-            <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login" style="background: #10b981; border: none; color: white; padding: 0.5rem 1.2rem; border-radius: 20px; font-weight: 700; text-decoration: none;">تسجيل الدخول</a>
+            <button class="btn-theme" id="themeToggle">🌙</button>
+            <button class="btn-lang" id="langToggle" data-ar="🌐 EN/AR" data-en="🌐 AR/EN">🌐 EN/AR</button>
+            <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</a>
         </div>
     </header>
 
     <nav class="nav-menu">
-        <a href="index.html" class="nav-link"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> 🏠</a>
-        <a href="employees.html" class="nav-link"><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> 👨‍⚕️</a>
-        <a href="oip.html" class="nav-link"><span data-ar="المكتبة التوعوية" data-en="Library">المكتبة التوعوية</span> 📚</a>
-        <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> 🧰</a>
-        <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> 🚨</a>
-        <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> 📊</a>
-        <a href="quiz.html" class="nav-link active"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> 🧠</a>
-        <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> 📈</a>
+        <a href="index.html" class="nav-link"><span data-ar="الرئيسية" data-en="Home">الرئيسية</span> <i class="las la-home"></i></a>
+        <a href="employees.html" class="nav-link "><span data-ar="الكادر الصحي" data-en="Staff">الكادر الصحي</span> <i class="las la-user-nurse"></i></a>
+        <a href="tools.html" class="nav-link"><span data-ar="الأدوات التفاعلية" data-en="Interactive Tools">الأدوات التفاعلية</span> <i class="las la-tools"></i></a>
+        <a href="report.html" class="nav-link"><span data-ar="الإبلاغ عن حادث" data-en="Report Incident">الإبلاغ عن حادث</span> <i class="las la-exclamation-circle"></i></a>
+        <a href="survey.html" class="nav-link"><span data-ar="الاستبيان" data-en="Survey">الاستبيان</span> <i class="las la-poll"></i></a>
+        <a href="quiz.html" class="nav-link active"><span data-ar="اختبار الوعي" data-en="Awareness Test">اختبار الوعي</span> <i class="las la-brain"></i></a>
+        <a href="dashboard.html" class="nav-link"><span data-ar="لوحة التقارير" data-en="Dashboard">لوحة التقارير</span> <i class="las la-chart-pie"></i></a>
     </nav>
 
     <div class="container">
-        <div class="section-title">🧠 <span data-ar="اختبار الوعي السيبراني المتقدم" data-en="Advanced Cybersecurity Awareness Quiz">اختبار الوعي السيبراني المتقدم</span></div>
+        <div class="section-title"><i class="las la-brain"></i> <span data-ar="اختبار الوعي السيبراني المتقدم" data-en="Advanced Cybersecurity Awareness Quiz">اختبار الوعي السيبراني المتقدم</span></div>
 
         <div class="intro-card">
             <p data-ar="مرحباً بك! يهدف هذا الاختبار إلى قياس مدى جاهزيتك للتعامل مع التهديدات السيبرانية اليومية في بيئة المستشفى. اختر الإجابة الأصح لكل سيناريو أدناه." data-en="Welcome! This quiz aims to measure your readiness to handle daily cyber threats in a hospital environment. Choose the best answer for each scenario.">مرحباً بك! يهدف هذا الاختبار إلى قياس مدى جاهزيتك للتعامل مع التهديدات السيبرانية اليومية في بيئة المستشفى. اختر الإجابة الأصح لكل سيناريو أدناه.</p>
@@ -179,7 +274,7 @@
                 </div>
             </div>
 
-            <button type="button" class="btn-submit" onclick="submitQuiz()"><span data-ar="إرسال الإجابات وإظهار النتيجة" data-en="Submit Answers & Show Result">إرسال الإجابات وإظهار النتيجة</span></button>
+            <button type="button" class="btn-submit" onclick="submitQuiz()"><i class="las la-paper-plane"></i> <span data-ar="إرسال الإجابات وإظهار النتيجة" data-en="Submit Answers & Show Result">إرسال الإجابات وإظهار النتيجة</span></button>
         </form>
 
         <div id="resultBox" class="result-box">
@@ -189,13 +284,69 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+  <footer class="gov-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="footer-logos">
+                    <div class="hospital-logo">🏥 <span data-ar="المدينة الطبية" data-en="Medical City">المدينة الطبية</span></div>
+                    <div class="vision-logo">🇸🇦 <span data-ar="رؤية 2030" data-en="Vision 2030">رؤية 2030</span></div>
+                </div>
+                <p data-ar="منصة التوعية بالأمن السيبراني، نهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى وتضمن استمرارية الأعمال." data-en="Cybersecurity Awareness Portal, aiming to build a secure digital environment that protects patient data and ensures business continuity.">منصة التوعية بالأمن السيبراني، نهدف لبناء بيئة رقمية آمنة وموثوقة تحمي بيانات المرضى وتضمن استمرارية الأعمال.</p>
+            </div>
+            <div class="footer-col links">
+                <h3 data-ar="روابط وطنية هامة" data-en="Important National Links">روابط وطنية هامة</h3>
+                <ul>
+                    <li><a href="https://nca.gov.sa" target="_blank" data-ar="الهيئة الوطنية للأمن السيبراني" data-en="National Cybersecurity Authority (NCA)">الهيئة الوطنية للأمن السيبراني</a></li>
+                    <li><a href="https://sdaia.gov.sa" target="_blank" data-ar="الهيئة السعودية للبيانات (سدايا)" data-en="Saudi Data Authority (SDAIA)">الهيئة السعودية للبيانات (سدايا)</a></li>
+                    <li><a href="https://moh.gov.sa" target="_blank" data-ar="وزارة الصحة" data-en="Ministry of Health (MOH)">وزارة الصحة</a></li>
+                </ul>
+            </div>
+            <div class="footer-col links">
+                <h3 data-ar="السياسات والدعم" data-en="Policies & Support">السياسات والدعم</h3>
+                <ul>
+                    <li><a href="#" data-ar="سياسة الخصوصية (PDPL)" data-en="Privacy Policy (PDPL)">سياسة الخصوصية (PDPL)</a></li>
+                    <li><a href="faq.html" data-ar="الأسئلة الشائعة (FAQ)" data-en="Frequently Asked Questions (FAQ)">الأسئلة الشائعة (FAQ)</a></li>
+                    <li><a href="oip.html" data-ar="المكتبة التوعوية" data-en="Awareness Library">المكتبة التوعوية</a></li>
+                    <li><a href="report.html" data-ar="رفع تذكرة أمنية (SOC)" data-en="Raise Security Ticket (SOC)">رفع تذكرة أمنية (SOC)</a></li>
+                </ul>
+            </div>
+            <div class="footer-col contact">
+                <h3 data-ar="تواصل مع فريق الأمن" data-en="Contact Security Team">تواصل مع فريق الأمن</h3>
+                <p>📧 SOC@hospital.edu.sa</p>
+                <p>📞 <span data-ar="تحويلة طوارئ:" data-en="Emergency Ext:">تحويلة طوارئ:</span> 9111</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-ar="جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً" data-en="All Rights Reserved © 2026 University Hospital | Developed Internally">جميع الحقوق محفوظة © 2026 المستشفى الجامعي | تم التطوير داخلياً</p>
+        </div>
+    </footer>
 
     <script>
         let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
         const answers = { q1: 'c', q2: 'b', q3: 'a', q4: 'c', q5: 'c' };
         let selectedAnswers = {};
 
+        // ========== الوضع المظلم ==========
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.getElementById('themeToggle').innerHTML = '☀️';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                document.getElementById('themeToggle').innerHTML = '🌙';
+            }
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const newTheme = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            document.getElementById('themeToggle').innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // ========== منطق الاختبار ==========
         function selectOption(qName, labelElement) {
             const siblings = document.getElementsByName(qName);
             siblings.forEach(radio => {
@@ -239,21 +390,28 @@
             const box = document.getElementById('resultBox');
             const circle = document.getElementById('scoreCircle');
             const text = document.getElementById('resultText');
+            const theme = document.documentElement.getAttribute('data-theme');
 
             box.style.display = 'block';
             circle.innerText = `${correct}/5`;
 
             if(correct === 5) {
-                box.style.backgroundColor = '#ecfdf5'; box.style.border = '2px solid #34d399';
-                circle.style.backgroundColor = '#10b981'; text.style.color = '#047857';
+                box.style.backgroundColor = theme === 'dark' ? 'rgba(16, 185, 129, 0.1)' : '#ecfdf5';
+                box.style.borderColor = 'var(--success)';
+                circle.style.backgroundColor = 'var(--success)';
+                text.style.color = theme === 'dark' ? '#6ee7b7' : '#047857';
                 text.innerText = currentLang === 'ar' ? '🎉 ممتاز! مستوى وعيك السيبراني مثالي ولا تشوبه شائبة.' : '🎉 Excellent! Your cyber awareness level is flawless.';
             } else if (correct >= 3) {
-                box.style.backgroundColor = '#fffbeb'; box.style.border = '2px solid #fbbf24';
-                circle.style.backgroundColor = '#f59e0b'; text.style.color = '#b45309';
+                box.style.backgroundColor = theme === 'dark' ? 'rgba(245, 158, 11, 0.1)' : '#fffbeb';
+                box.style.borderColor = 'var(--warning)';
+                circle.style.backgroundColor = 'var(--warning)';
+                text.style.color = theme === 'dark' ? '#fcd34d' : '#b45309';
                 text.innerText = currentLang === 'ar' ? '👍 جيد جداً! أداء طيب، لكن تأكد من مراجعة الإجابات الخاطئة لتعزيز أمان المستشفى.' : '👍 Very Good! Solid performance, but review your wrong answers to enhance hospital security.';
             } else {
-                box.style.backgroundColor = '#fef2f2'; box.style.border = '2px solid #f87171';
-                circle.style.backgroundColor = '#ef4444'; text.style.color = '#b91c1c';
+                box.style.backgroundColor = theme === 'dark' ? 'rgba(239, 68, 68, 0.1)' : '#fef2f2';
+                box.style.borderColor = 'var(--danger)';
+                circle.style.backgroundColor = 'var(--danger)';
+                text.style.color = theme === 'dark' ? '#fca5a5' : '#b91c1c';
                 text.innerText = currentLang === 'ar' ? '⚠️ تحذير: مستوى وعيك يحتاج إلى تحسين عاجل. نوصيك بشدة بزيارة المكتبة التوعوية.' : '⚠️ Warning: Your awareness level needs urgent improvement. We highly recommend visiting the library.';
             }
 
@@ -264,22 +422,38 @@
             box.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
+        // ========== الترجمة الشاملة ==========
         function applyLanguage() {
             const elements = document.querySelectorAll('[data-ar][data-en]');
+
+            elements.forEach(el => {
+                const text = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
+
+                // الحفاظ على عناصر الـ Input والأيقونات إن وجدت
+                if (el.tagName === 'INPUT' && el.type === 'text') {
+                    el.placeholder = text;
+                } else if (el.tagName === 'SPAN' && el.querySelector('.custom-radio')) {
+                    // تجاهل هذا لأن الـ custom-radio بجانب الـ span وليس داخله
+                    el.innerText = text;
+                } else {
+                    const icon = el.querySelector('i');
+                    if (icon) {
+                        el.innerHTML = icon.outerHTML + ' ' + text;
+                    } else {
+                        el.innerText = text;
+                    }
+                }
+            });
+
             if (currentLang === 'en') {
-                elements.forEach(el => {
-                    if (el.tagName === 'INPUT' && el.type === 'text') el.placeholder = el.getAttribute('data-en');
-                    else el.innerText = el.getAttribute('data-en');
-                });
-                document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr';
+                document.documentElement.lang = 'en';
+                document.documentElement.dir = 'ltr';
             } else {
-                elements.forEach(el => {
-                    if (el.tagName === 'INPUT' && el.type === 'text') el.placeholder = el.getAttribute('data-ar');
-                    else el.innerText = el.getAttribute('data-ar');
-                });
-                document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl';
+                document.documentElement.lang = 'ar';
+                document.documentElement.dir = 'rtl';
             }
 
+            // تحديث نص النتيجة إذا كان ظاهراً
             if(document.getElementById('resultBox').style.display === 'block') {
                 let correctCount = parseInt(document.getElementById('scoreCircle').innerText.split('/')[0]);
                 const text = document.getElementById('resultText');
@@ -295,7 +469,13 @@
             applyLanguage();
         }
 
-        window.addEventListener('DOMContentLoaded', applyLanguage);
+        // تهيئة الصفحة
+        window.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            applyLanguage();
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            document.getElementById('langToggle').addEventListener('click', toggleLanguage);
+        });
     </script>
 </body>
 </html>
