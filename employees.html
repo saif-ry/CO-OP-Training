@@ -8,24 +8,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <header class="main-header">
-        <div class="header-right">
+        <div style="display: flex; align-items: center;">
             <div class="logo-placeholder">
-                 <img src="jazan-logo.png" alt="جامعة جازان" onerror="this.outerHTML='<i class=\'las la-university\'></i>'" style="width: 100%; height: 100%; object-fit: contain;">
+                <img src="Jazan University-01.svg" alt="جامعة جازان" style="width: 100%; height: 100%; object-fit: contain;">
             </div>
             <div class="header-titles">
-                <h1 data-ar="المدينة الطبية " data-en="Medical City | Cybersecurity Portal">المدينة الطبية </h1>
-                <h1 data-ar=" التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal"> منصة التوعية بالأمن السيبراني</h1>
-
+                <h1 data-ar="المدينة الطبية" data-en="Medical City | Cybersecurity Portal">المدينة الطبية</h1>
+                <h1 data-ar="التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">منصة التوعية بالأمن السيبراني</h1>
+                <p data-ar="حملات تفاعلية، نصائح، واختبارات لرفع الوعي" data-en="Awareness Campaigns">حملات تفاعلية، نصائح، واختبارات لرفع الوعي</p>
             </div>
         </div>
-
         <div class="header-left">
-            <button class="btn-theme" id="themeToggle" onclick="toggleTheme()"><i class="las la-moon"></i></button>
-            <button class="btn-lang" onclick="toggleLanguage()"><i class="las la-globe"></i> <span data-ar="EN" data-en="AR">EN</span></button>
+            <button class="btn-theme">🌙</button>
+            <button class="btn-lang" data-ar="🌐 EN/AR" data-en="🌐 AR/EN">🌐 EN/AR</button>
             <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</a>
         </div>
     </header>
@@ -118,35 +118,11 @@
     </footer>
 
     <script>
-        // --- دوال الثيم (الوضع الداكن والفاتح) ---
-        function toggleTheme() {
-            const body = document.documentElement;
-            const themeBtn = document.getElementById('themeToggle');
-            const currentTheme = body.getAttribute('data-theme') || 'light';
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-            body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-
-            // تحديث الأيقونة
-            themeBtn.innerHTML = newTheme === 'dark' ? '<i class="las la-sun"></i>' : '<i class="las la-moon"></i>';
-        }
-
-        function applyThemeOnLoad() {
-            const savedTheme = localStorage.getItem('theme');
-            const themeBtn = document.getElementById('themeToggle');
-
-            if (savedTheme) {
-                document.documentElement.setAttribute('data-theme', savedTheme);
-                if(themeBtn) themeBtn.innerHTML = savedTheme === 'dark' ? '<i class="las la-sun"></i>' : '<i class="las la-moon"></i>';
-            }
-        }
-
-        // --- دوال اللغة ---
+        // Theme and language toggles (same as index.html)
         let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+
         function applyLanguage() {
-            const elements = document.querySelectorAll('[data-ar][data-en]');
-            elements.forEach(el => {
+            document.querySelectorAll('[data-ar][data-en]').forEach(el => {
                 const text = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
                 const icon = el.querySelector('i');
                 if (icon) {
@@ -165,9 +141,30 @@
             applyLanguage();
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            applyThemeOnLoad();
+        function initTheme() {
+            const saved = localStorage.getItem('theme');
+            if (saved === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.querySelector('.btn-theme').innerHTML = '☀️';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                document.querySelector('.btn-theme').innerHTML = '🌙';
+            }
+        }
+
+        function toggleTheme() {
+            const cur = document.documentElement.getAttribute('data-theme');
+            const neu = cur === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', neu);
+            localStorage.setItem('theme', neu);
+            document.querySelector('.btn-theme').innerHTML = neu === 'dark' ? '☀️' : '🌙';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
             applyLanguage();
+            document.querySelector('.btn-theme').addEventListener('click', toggleTheme);
+            document.querySelector('.btn-lang').addEventListener('click', toggleLanguage);
         });
     </script>
 </body>

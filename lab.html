@@ -7,22 +7,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <header class="main-header">
-        <div class="header-right">
-            <div class="logo-placeholder"><i class="las la-shield-alt"></i></div>
+        <div style="display: flex; align-items: center;">
+            <div class="logo-placeholder">
+                <img src="Jazan University-01.svg" alt="جامعة جازان" style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
             <div class="header-titles">
-                  <h1 data-ar="المدينة الطبية " data-en="Medical City | Cybersecurity Portal">المدينة الطبية </h1>
-                <h1 data-ar=" التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal"> منصة التوعية بالأمن السيبراني</h1>
+                <h1 data-ar="المدينة الطبية" data-en="Medical City | Cybersecurity Portal">المدينة الطبية</h1>
+                <h1 data-ar="التوعية بالأمن السيبراني" data-en="Medical City | Cybersecurity Portal">منصة التوعية بالأمن السيبراني</h1>
                 <p data-ar="إرشادات المختبر والأشعة" data-en="Lab & Radiology Guidelines">إرشادات المختبر والأشعة</p>
             </div>
         </div>
         <div class="header-left">
-            <button class="btn-theme" id="themeToggle"><i class="las la-moon"></i></button>
-            <button class="btn-lang" id="langToggle" data-ar="🌐 EN/AR" data-en="🌐 AR/EN">🌐 EN/AR</button>
+            <button class="btn-theme">🌙</button>
+            <button class="btn-lang" data-ar="🌐 EN/AR" data-en="🌐 AR/EN">🌐 EN/AR</button>
             <a href="login.html" class="btn-login-nafath" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</a>
         </div>
     </header>
@@ -38,17 +40,18 @@
     </nav>
 
     <div class="container">
-        <a href="employees.html" class="btn btn-outline" style="margin-bottom: 1.5rem;"><i class="las la-arrow-right"></i> <span data-ar="العودة للكادر الصحي" data-en="Back to Staff List">العودة للكادر الصحي</span></a>
+        <a href="employees.html" class="btn btn-outline" style="margin-bottom: 1rem; display: inline-flex; align-items: center; gap: 5px;">
+            <i class="las la-arrow-right"></i> <span data-ar="العودة للكادر الصحي" data-en="Back to Staff">العودة للكادر الصحي</span>
+        </a>
 
         <div class="section-title">
-            <i class="las la-microscope" style="color: var(--nca-green);"></i>
+            <i class="las la-microscope"></i>
             <span data-ar="مسؤولياتك الأمنية في المختبر والأشعة" data-en="Your Security Responsibilities in Lab & Radiology">مسؤولياتك الأمنية في المختبر والأشعة</span>
         </div>
 
-        <div class="card-container">
-            <div class="section-header-inline">
-                <span data-ar="أنت تتعامل مع أجهزة تشخيصية دقيقة وبيانات حساسة. اضغط لعرض تفاصيل الحماية:" data-en="You handle critical diagnostic devices and sensitive data. Click for protection details:">أنت تتعامل مع أجهزة تشخيصية دقيقة وبيانات حساسة. اضغط لعرض تفاصيل الحماية:</span>
-            </div>
+        <!-- Same card structure as doctor.html -->
+        <div class="card">
+            <p data-ar="أنت تتعامل مع أجهزة تشخيصية دقيقة وبيانات حساسة. اضغط على أي بطاقة لعرض الإرشادات:" data-en="You handle critical diagnostic devices and sensitive data. Click any card to view guidelines:">أنت تتعامل مع أجهزة تشخيصية دقيقة وبيانات حساسة. اضغط على أي بطاقة لعرض الإرشادات:</p>
 
             <div class="interactive-grid">
                 <div class="info-card" data-topic="devices">
@@ -74,18 +77,19 @@
             </div>
         </div>
 
-        <div class="card-box" style="border-right: 5px solid var(--nca-green);">
+        <!-- Scenario and Checklist (same as before) -->
+        <div class="card" style="border-right: 5px solid var(--nca-green);">
             <h3><i class="las la-exclamation-circle" style="color: var(--nca-green);"></i> <span data-ar="سيناريو تفاعلي" data-en="Interactive Scenario">سيناريو تفاعلي</span></h3>
             <p><strong data-ar="الموقف:" data-en="Situation:">الموقف:</strong> <span data-ar="ظهرت نافذة على جهاز الرنين (MRI) تطلب تحديث البرنامج (Firmware) فوراً عبر رابط يظهر على الشاشة. ماذا تفعل؟" data-en="A prompt on the MRI machine asks to update firmware immediately via a link. What do you do?">ظهرت نافذة على جهاز الرنين (MRI) تطلب تحديث البرنامج (Firmware) فوراً عبر رابط يظهر على الشاشة. ماذا تفعل؟</span></p>
-            <div style="display: flex; gap: 10px; margin-top: 1rem;">
+            <div style="display: flex; gap: 10px;">
                 <button class="btn btn-outline" id="scenarioWrong"><span data-ar="أضغط الرابط وأحدثه" data-en="Click link & update">أضغط الرابط وأحدثه</span></button>
-                <button class="btn" id="scenarioCorrect"><i class="las la-phone"></i> <span data-ar="أبلغ تقنية المعلومات" data-en="Report to IT">أبلغ تقنية المعلومات</span></button>
+                <button class="btn" id="scenarioCorrect"><span data-ar="أبلغ تقنية المعلومات" data-en="Report to IT">أبلغ تقنية المعلومات</span></button>
             </div>
             <div id="scenarioResult" class="interaction-result" style="display: none;"></div>
         </div>
 
-        <div class="card-box">
-            <h3><i class="las la-tasks" style="color: var(--nca-green);"></i> <span data-ar="قائمة المهام اليومية" data-en="Daily Checklist">قائمة المهام اليومية</span></h3>
+        <div class="card">
+            <h3><i class="las la-tasks"></i> <span data-ar="قائمة المهام اليومية" data-en="Daily Checklist">قائمة المهام اليومية</span></h3>
             <div id="checklist">
                 <label class="checklist-item"><input type="checkbox"> <span data-ar="عدم توصيل أجهزة USB شخصية بأجهزة المختبر." data-en="No personal USBs connected to lab devices.">عدم توصيل أجهزة USB شخصية بأجهزة المختبر.</span></label>
                 <label class="checklist-item"><input type="checkbox"> <span data-ar="إرسال النتائج للجهات المصرح لها فقط." data-en="Send results to authorized parties only.">إرسال النتائج للجهات المصرح لها فقط.</span></label>
@@ -93,9 +97,7 @@
                 <label class="checklist-item"><input type="checkbox"> <span data-ar="قفل الشاشة عند مغادرة محطة العمل." data-en="Lock screen when leaving workstation.">قفل الشاشة عند مغادرة محطة العمل.</span></label>
             </div>
             <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-            <p style="margin-top: 10px; font-size:0.9rem; font-weight: 600; color: var(--text-muted);">
-                <span data-ar="التقدم:" data-en="Progress:">التقدم:</span> <span id="progressText">0</span>/4
-            </p>
+            <p><span data-ar="التقدم:" data-en="Progress:">التقدم:</span> <span id="progressText">0</span>/4</p>
         </div>
     </div>
 
@@ -103,11 +105,11 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <div class="modal-header" id="modalHeader"></div>
-            <div class="modal-body" id="modalBody" style="color: var(--text-main);"></div>
+            <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
 
-  <footer class="gov-footer">
+    <footer class="gov-footer">
         <div class="footer-container">
             <div class="footer-col">
                 <div class="footer-logos">
@@ -159,23 +161,21 @@
         function showInfoModal(topic) {
             const data = infoData[topic][currentLang];
             document.getElementById('modalHeader').innerHTML = data.title;
-            document.getElementById('modalBody').innerHTML = `<p style="margin:0;">${data.body}</p>`;
+            document.getElementById('modalBody').innerHTML = `<p>${data.body}</p>`;
             document.getElementById('infoModal').classList.add('show');
         }
 
-        function closeModal() {
-            document.getElementById('infoModal').classList.remove('show');
-        }
+        function closeModal() { document.getElementById('infoModal').classList.remove('show'); }
 
         function handleScenario(isCorrect) {
             const res = document.getElementById('scenarioResult');
-            res.style.display = 'flex';
+            res.style.display = 'block';
             if (isCorrect) {
-                res.style.background = 'rgba(16, 185, 129, 0.1)'; res.style.color = 'var(--success)'; res.style.border = '1px solid var(--success)';
-                res.innerHTML = currentLang === 'ar' ? '<i class="las la-check-circle" style="font-size: 1.5rem;"></i> تصرف سليم! تحديث أجهزة التشخيص يجب أن يتم تحت إشراف تقنية المعلومات والشركة المصنعة.' : '<i class="las la-check-circle" style="font-size: 1.5rem;"></i> Correct! Device updates must be supervised by IT and the manufacturer.';
+                res.className = 'interaction-result success';
+                res.innerHTML = currentLang === 'ar' ? '✅ تصرف سليم! تحديث أجهزة التشخيص يجب أن يتم تحت إشراف تقنية المعلومات والشركة المصنعة.' : '✅ Correct! Device updates must be supervised by IT and the manufacturer.';
             } else {
-                res.style.background = 'rgba(239, 68, 68, 0.1)'; res.style.color = 'var(--danger)'; res.style.border = '1px solid var(--danger)';
-                res.innerHTML = currentLang === 'ar' ? '<i class="las la-times-circle" style="font-size: 1.5rem;"></i> خطأ! الروابط العشوائية قد تكون برمجيات خبيثة للسيطرة على الجهاز وإيقاف العمل.' : '<i class="las la-times-circle" style="font-size: 1.5rem;"></i> Wrong! Random links can be malware designed to take over the device.';
+                res.className = 'interaction-result error';
+                res.innerHTML = currentLang === 'ar' ? '❌ خطأ! الروابط العشوائية قد تكون برمجيات خبيثة للسيطرة على الجهاز وإيقاف العمل.' : '❌ Wrong! Random links can be malware designed to take over the device.';
             }
             let key = `${role}_scenario`;
             let existing = JSON.parse(localStorage.getItem(key)) || { total: 0, correct: 0 };
@@ -185,77 +185,69 @@
 
         function updateChecklist() {
             const items = document.querySelectorAll('.checklist-item');
-            let checked = 0;
-            items.forEach(item => {
-                const cb = item.querySelector('input');
-                if (cb.checked) { checked++; item.classList.add('completed'); }
-                else { item.classList.remove('completed'); }
+            let c = 0;
+            items.forEach(i => {
+                const cb = i.querySelector('input');
+                if (cb.checked) { c++; i.classList.add('completed'); }
+                else i.classList.remove('completed');
             });
-            document.getElementById('progressFill').style.width = ((checked / items.length) * 100) + '%';
-            document.getElementById('progressText').innerText = checked;
+            document.getElementById('progressFill').style.width = ((c / items.length) * 100) + '%';
+            document.getElementById('progressText').innerText = c;
             localStorage.setItem(`${role}_checklist`, JSON.stringify(Array.from(items).map(i => ({ completed: i.querySelector('input').checked }))));
         }
 
         function loadSavedData() {
-            const savedCheck = JSON.parse(localStorage.getItem(`${role}_checklist`));
-            if (savedCheck) {
-                const checks = document.querySelectorAll('.checklist-item input');
-                savedCheck.forEach((s, i) => { if(checks[i]) checks[i].checked = s.completed; });
+            const saved = JSON.parse(localStorage.getItem(`${role}_checklist`));
+            if (saved) {
+                const items = document.querySelectorAll('.checklist-item');
+                items.forEach((item, i) => {
+                    if (saved[i]?.completed) {
+                        item.querySelector('input').checked = true;
+                        item.classList.add('completed');
+                    }
+                });
                 updateChecklist();
             }
         }
 
         function initTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
+            const saved = localStorage.getItem('theme');
+            if (saved === 'dark') {
                 document.documentElement.setAttribute('data-theme', 'dark');
-                document.getElementById('themeToggle').innerHTML = '<i class="las la-sun"></i>';
+                document.querySelector('.btn-theme').innerHTML = '☀️';
             } else {
                 document.documentElement.setAttribute('data-theme', 'light');
-                document.getElementById('themeToggle').innerHTML = '<i class="las la-moon"></i>';
+                document.querySelector('.btn-theme').innerHTML = '🌙';
             }
         }
 
         function toggleTheme() {
-            const body = document.documentElement;
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            body.setAttribute('data-theme', newTheme);
-            document.getElementById('themeToggle').innerHTML = newTheme === 'dark' ? '<i class="las la-sun"></i>' : '<i class="las la-moon"></i>';
-            localStorage.setItem('theme', newTheme);
+            const cur = document.documentElement.getAttribute('data-theme');
+            const neu = cur === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', neu);
+            localStorage.setItem('theme', neu);
+            document.querySelector('.btn-theme').innerHTML = neu === 'dark' ? '☀️' : '🌙';
         }
 
         function applyLanguage() {
-            const elements = document.querySelectorAll('[data-ar][data-en]');
-            elements.forEach(el => {
-                const text = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
+            document.querySelectorAll('[data-ar][data-en]').forEach(el => {
+                const txt = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
                 const icon = el.querySelector('i');
                 if (icon) {
-                    el.innerHTML = icon.outerHTML + ' ' + text;
+                    el.innerHTML = icon.outerHTML + ' ' + txt;
                 } else {
-                    el.innerText = text;
+                    el.innerText = txt;
                 }
             });
-
             document.querySelectorAll('#scenarioCorrect span, #scenarioWrong span').forEach(span => {
-                const key = span.parentElement.id === 'scenarioCorrect' ? 'correct' : 'wrong';
-                if (currentLang === 'en') {
-                    span.innerText = key === 'correct' ? 'Report to IT' : 'Click link & update';
-                } else {
-                    span.innerText = key === 'correct' ? 'أبلغ تقنية المعلومات' : 'أضغط الرابط وأحدثه';
-                }
+                const isCor = span.parentElement.id === 'scenarioCorrect';
+                span.innerText = currentLang === 'en' ? (isCor ? 'Report to IT' : 'Click link & update') : (isCor ? 'أبلغ تقنية المعلومات' : 'أضغط الرابط وأحدثه');
             });
-
-            const res = document.getElementById('scenarioResult');
-            if (res.style.display === 'flex') {
-                const isCorrect = res.style.color === 'var(--success)';
-                if (isCorrect) {
-                    res.innerHTML = currentLang === 'ar' ? '<i class="las la-check-circle" style="font-size: 1.5rem;"></i> تصرف سليم! تحديث أجهزة التشخيص يجب أن يتم تحت إشراف تقنية المعلومات والشركة المصنعة.' : '<i class="las la-check-circle" style="font-size: 1.5rem;"></i> Correct! Device updates must be supervised by IT and the manufacturer.';
-                } else {
-                    res.innerHTML = currentLang === 'ar' ? '<i class="las la-times-circle" style="font-size: 1.5rem;"></i> خطأ! الروابط العشوائية قد تكون برمجيات خبيثة للسيطرة على الجهاز وإيقاف العمل.' : '<i class="las la-times-circle" style="font-size: 1.5rem;"></i> Wrong! Random links can be malware designed to take over the device.';
-                }
+            const sr = document.getElementById('scenarioResult');
+            if (sr.style.display === 'block') {
+                const isSucc = sr.classList.contains('success');
+                sr.innerHTML = currentLang === 'ar' ? (isSucc ? '✅ تصرف سليم! تحديث أجهزة التشخيص يجب أن يتم تحت إشراف تقنية المعلومات والشركة المصنعة.' : '❌ خطأ! الروابط العشوائية قد تكون برمجيات خبيثة للسيطرة على الجهاز وإيقاف العمل.') : (isSucc ? '✅ Correct! Device updates must be supervised by IT and the manufacturer.' : '❌ Wrong! Random links can be malware designed to take over the device.');
             }
-
             document.documentElement.lang = currentLang;
             document.documentElement.dir = currentLang === 'en' ? 'ltr' : 'rtl';
         }
@@ -266,23 +258,19 @@
             applyLanguage();
         }
 
-        window.onload = () => {
+        document.addEventListener('DOMContentLoaded', () => {
             initTheme();
             loadSavedData();
-            document.querySelectorAll('.info-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    const topic = card.getAttribute('data-topic');
-                    if (topic) showInfoModal(topic);
-                });
-            });
-            const modal = document.getElementById('infoModal');
-            document.querySelector('.close').addEventListener('click', closeModal);
-            window.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-            document.querySelectorAll('.checklist-item input').forEach(i => i.addEventListener('change', updateChecklist));
-            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-            document.getElementById('langToggle').addEventListener('click', toggleLanguage);
             applyLanguage();
-        };
+            document.querySelectorAll('.info-card').forEach(c => c.addEventListener('click', () => showInfoModal(c.getAttribute('data-topic'))));
+            document.querySelector('.close').addEventListener('click', closeModal);
+            window.addEventListener('click', e => { if (e.target === document.getElementById('infoModal')) closeModal(); });
+            document.getElementById('scenarioCorrect').addEventListener('click', () => handleScenario(true));
+            document.getElementById('scenarioWrong').addEventListener('click', () => handleScenario(false));
+            document.querySelectorAll('.checklist-item input').forEach(cb => cb.addEventListener('change', updateChecklist));
+            document.querySelector('.btn-theme').addEventListener('click', toggleTheme);
+            document.querySelector('.btn-lang').addEventListener('click', toggleLanguage);
+        });
     </script>
 </body>
 </html>
